@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" role="img" aria-labelledby="title description">
+  <title id="title">Multiples of five from 5 to 100 paired from the outside</title>
+  <desc id="description">Ten exact pairs, each with sum 105.</desc>
+  <style>
+    .bg{fill:#fffdf8}.ink{fill:#183153;font-family:Nunito,Arial,sans-serif;font-weight:800}.title{font-size:18px;text-anchor:middle}.pair{font-size:17px;text-anchor:middle}.chip{stroke:#183153;stroke-width:2}.summary{fill:#eafaf4;stroke:#5ac8a8;stroke-width:2}.formula{font-size:15px;text-anchor:middle}
+  </style>
+  <rect class="bg" width="800" height="360" rx="22"/>
+  <text class="ink title" x="400" y="30">5 + 10 + 15 + … + 100</text>
+  <g class="ink pair">
+    <rect class="chip" x="55" y="53" width="320" height="43" rx="13" fill="#fff0ec"/><text x="215" y="81">5 + 100 = 105</text>
+    <rect class="chip" x="425" y="53" width="320" height="43" rx="13" fill="#e9f1ff"/><text x="585" y="81">30 + 75 = 105</text>
+    <rect class="chip" x="55" y="105" width="320" height="43" rx="13" fill="#eafaf4"/><text x="215" y="133">10 + 95 = 105</text>
+    <rect class="chip" x="425" y="105" width="320" height="43" rx="13" fill="#fff4cf"/><text x="585" y="133">35 + 70 = 105</text>
+    <rect class="chip" x="55" y="157" width="320" height="43" rx="13" fill="#f4efff"/><text x="215" y="185">15 + 90 = 105</text>
+    <rect class="chip" x="425" y="157" width="320" height="43" rx="13" fill="#e7f7ff"/><text x="585" y="185">40 + 65 = 105</text>
+    <rect class="chip" x="55" y="209" width="320" height="43" rx="13" fill="#fff0ec"/><text x="215" y="237">20 + 85 = 105</text>
+    <rect class="chip" x="425" y="209" width="320" height="43" rx="13" fill="#eafaf4"/><text x="585" y="237">45 + 60 = 105</text>
+    <rect class="chip" x="55" y="261" width="320" height="43" rx="13" fill="#fff4cf"/><text x="215" y="289">25 + 80 = 105</text>
+    <rect class="chip" x="425" y="261" width="320" height="43" rx="13" fill="#f4efff"/><text x="585" y="289">50 + 55 = 105</text>
+  </g>
+  <rect class="summary" x="235" y="316" width="330" height="32" rx="12"/><text class="ink formula" x="400" y="338">10 cặp × 105 = 1050 · 10 pairs × 105</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" role="img" aria-labelledby="title description">
+  <title id="title">A staircase with 25 rows containing 3, 5, 7 through 51 blocks</title>
+  <desc id="description">The first four rows are drawn exactly, followed by the twenty-fifth row with 51 small blocks.</desc>
+  <style>
+    .bg{fill:#fffdf8}.ink{fill:#183153;font-family:Nunito,Arial,sans-serif;font-weight:800}.title{font-size:18px;text-anchor:middle}.label{font-size:14px;text-anchor:end}.count{fill:#326fd4;font-size:13px}.block{fill:#ffc857;stroke:#183153;stroke-width:1.7}.last{fill:#78adff;stroke:#183153;stroke-width:1.2}.dots{font-size:25px;text-anchor:middle}.formula{font-size:15px;text-anchor:middle}
+  </style>
+  <rect class="bg" width="800" height="340" rx="22"/>
+  <text class="ink title" x="400" y="30">25 hàng · 25 rows</text>
+  <text class="ink label" x="130" y="74">Hàng / Row 1</text><text class="ink count" x="620" y="74">3 khối / blocks</text>
+  <g transform="translate(355 53)"><rect class="block" x="0" y="0" width="28" height="24" rx="5"/><rect class="block" x="32" y="0" width="28" height="24" rx="5"/><rect class="block" x="64" y="0" width="28" height="24" rx="5"/></g>
+  <text class="ink label" x="130" y="112">Hàng / Row 2</text><text class="ink count" x="620" y="112">5 khối / blocks</text>
+  <g transform="translate(323 91)"><rect class="block" x="0" y="0" width="28" height="24" rx="5"/><rect class="block" x="32" y="0" width="28" height="24" rx="5"/><rect class="block" x="64" y="0" width="28" height="24" rx="5"/><rect class="block" x="96" y="0" width="28" height="24" rx="5"/><rect class="block" x="128" y="0" width="28" height="24" rx="5"/></g>
+  <text class="ink label" x="130" y="150">Hàng / Row 3</text><text class="ink count" x="620" y="150">7 khối / blocks</text>
+  <g transform="translate(291 129)"><rect class="block" x="0" y="0" width="28" height="24" rx="5"/><rect class="block" x="32" y="0" width="28" height="24" rx="5"/><rect class="block" x="64" y="0" width="28" height="24" rx="5"/><rect class="block" x="96" y="0" width="28" height="24" rx="5"/><rect class="block" x="128" y="0" width="28" height="24" rx="5"/><rect class="block" x="160" y="0" width="28" height="24" rx="5"/><rect class="block" x="192" y="0" width="28" height="24" rx="5"/></g>
+  <text class="ink label" x="130" y="188">Hàng / Row 4</text><text class="ink count" x="620" y="188">9 khối / blocks</text>
+  <g transform="translate(259 167)"><rect class="block" x="0" y="0" width="28" height="24" rx="5"/><rect class="block" x="32" y="0" width="28" height="24" rx="5"/><rect class="block" x="64" y="0" width="28" height="24" rx="5"/><rect class="block" x="96" y="0" width="28" height="24" rx="5"/><rect class="block" x="128" y="0" width="28" height="24" rx="5"/><rect class="block" x="160" y="0" width="28" height="24" rx="5"/><rect class="block" x="192" y="0" width="28" height="24" rx="5"/><rect class="block" x="224" y="0" width="28" height="24" rx="5"/><rect class="block" x="256" y="0" width="28" height="24" rx="5"/></g>
+  <text class="ink dots" x="400" y="225">⋮</text>
+  <text class="ink label" x="130" y="267">Hàng / Row 25</text><text class="ink count" x="700" y="267">51 khối / blocks</text>
+  <g transform="translate(145 247)">
+    <path class="last" d="M0 0h9v18H0z M10 0h9v18h-9z M20 0h9v18h-9z M30 0h9v18h-9z M40 0h9v18h-9z M50 0h9v18h-9z M60 0h9v18h-9z M70 0h9v18h-9z M80 0h9v18h-9z M90 0h9v18h-9z M100 0h9v18h-9z M110 0h9v18h-9z M120 0h9v18h-9z M130 0h9v18h-9z M140 0h9v18h-9z M150 0h9v18h-9z M160 0h9v18h-9z M170 0h9v18h-9z M180 0h9v18h-9z M190 0h9v18h-9z M200 0h9v18h-9z M210 0h9v18h-9z M220 0h9v18h-9z M230 0h9v18h-9z M240 0h9v18h-9z M250 0h9v18h-9z M260 0h9v18h-9z M270 0h9v18h-9z M280 0h9v18h-9z M290 0h9v18h-9z M300 0h9v18h-9z M310 0h9v18h-9z M320 0h9v18h-9z M330 0h9v18h-9z M340 0h9v18h-9z M350 0h9v18h-9z M360 0h9v18h-9z M370 0h9v18h-9z M380 0h9v18h-9z M390 0h9v18h-9z M400 0h9v18h-9z M410 0h9v18h-9z M420 0h9v18h-9z M430 0h9v18h-9z M440 0h9v18h-9z M450 0h9v18h-9z M460 0h9v18h-9z M470 0h9v18h-9z M480 0h9v18h-9z M490 0h9v18h-9z M500 0h9v18h-9z"/>
+  </g>
+  <rect x="220" y="293" width="360" height="34" rx="13" fill="#eafaf4" stroke="#5ac8a8" stroke-width="2"/><text class="ink formula" x="400" y="315">3, 5, 7, …, 51 · số hạng thứ 25 / 25th term</text>
+</svg>
