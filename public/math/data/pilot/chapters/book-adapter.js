@@ -3,7 +3,7 @@
 
   const source = window.BOOK_DATA || {};
 
-  for (let chapter = 4; chapter <= 22; chapter += 1) {
+  for (let chapter = 1; chapter <= 22; chapter += 1) {
     const bookChapter = source[chapter];
     if (!bookChapter) continue;
 

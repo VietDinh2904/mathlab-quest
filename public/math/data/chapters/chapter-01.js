@@ -177,7 +177,7 @@
         "5",
         "6"
       ],
-      "visual": "pascal"
+      "visual": "pattern-1-pascal"
     },
     {
       "n": "3(a)",
@@ -197,7 +197,7 @@
         "A",
         "B"
       ],
-      "visual": "squareA"
+      "visual": "pattern-1-square-a"
     },
     {
       "n": "3(b)",
@@ -217,7 +217,7 @@
         "A",
         "B"
       ],
-      "visual": "squareB"
+      "visual": "pattern-1-square-b"
     },
     {
       "n": "4(a)",
@@ -229,7 +229,8 @@
       ],
       "hint": "Use the same relationship as the two completed rows.",
       "guide": "Add the first three numbers: 7+8+9=24.",
-      "id": "1-4(a)"
+      "id": "1-4(a)",
+      "visual": "pattern-1-box-a"
     },
     {
       "n": "4(b)",
@@ -241,7 +242,8 @@
       ],
       "hint": "Use subtraction first, then multiplication.",
       "guide": "(9−5)×8=32.",
-      "id": "1-4(b)"
+      "id": "1-4(b)",
+      "visual": "pattern-1-box-b"
     },
     {
       "n": "5(a)",
@@ -254,7 +256,7 @@
       "hint": "Compare the completed circles.",
       "guide": "(4+6)×3=30.",
       "id": "1-5(a)",
-      "visual": "circleA"
+      "visual": "pattern-1-circle-a"
     },
     {
       "n": "5(b)",
@@ -267,7 +269,7 @@
       "hint": "The top-right number is made from the other three.",
       "guide": "(4+6)×5=50.",
       "id": "1-5(b)",
-      "visual": "circleB"
+      "visual": "pattern-1-circle-b"
     },
     {
       "n": "6(a)",
@@ -391,7 +393,7 @@
         "blank 7",
         "blank 8"
       ],
-      "visual": "numtri"
+      "visual": "pattern-1-number-triangle"
     },
     {
       "n": "8",
@@ -410,7 +412,8 @@
       "labels": [
         "(a)",
         "(b)"
-      ]
+      ],
+      "visual": "pattern-1-row-triangle"
     },
     {
       "n": "9(a)",
@@ -510,7 +513,8 @@
       "labels": [
         "54321 × 9",
         "654321 × 9"
-      ]
+      ],
+      "visual": "pattern-1-nine-times"
     },
     {
       "n": "12",
@@ -523,7 +527,7 @@
       "hint": "Use the same relationship among top, bottom-left, bottom-right and centre.",
       "guide": "top × bottom-left − bottom-right = centre, so 6×7−24=18.",
       "id": "1-12",
-      "visual": "triangle"
+      "visual": "pattern-1-triangles"
     },
     {
       "n": "13",
@@ -555,7 +559,7 @@
         "(a)",
         "(b)"
       ],
-      "visual": "table"
+      "visual": "pattern-1-table"
     }
   ],
   "check": [

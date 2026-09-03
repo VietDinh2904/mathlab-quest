@@ -70,11 +70,12 @@
       ],
       "hint": "Replace ○ by 3 triangles.",
       "guide": "△+3△=12 ⇒4△=12 ⇒△=3, ○=9.",
-      "id": "5-1"
+      "id": "5-1",
+      "visual": "compare-5-1"
     },
     {
       "n": "2",
-      "q": "Balance picture: 1 mango = 6 apples; 2 apples = 3 oranges; 2 oranges = 60 g. Find the mass of the mango.",
+      "q": {"en":"Study the three balanced scales. Find the mass of the mango.","vi":"Quan sát ba chiếc cân thăng bằng. Tìm khối lượng của quả xoài."},
       "ans": [
         [
           "270"
@@ -82,31 +83,34 @@
       ],
       "hint": "Work from oranges → apples → mango.",
       "guide": "Orange=30 g. 3 oranges=90 g=2 apples, so apple=45 g. Mango=6×45=270 g.",
-      "id": "5-2"
+      "id": "5-2",
+      "visual": "compare-5-2"
     },
     {
       "n": "3",
-      "q": "Balance picture: 1 watermelon = 10 lemons; 2 lemons = 4 apples; 2 apples = 50 g. Find the mass of the watermelon.",
+      "q": {"en":"Study the three balanced scales. What is the mass of the watermelon?","vi":"Quan sát ba chiếc cân thăng bằng. Quả dưa hấu nặng bao nhiêu?"},
       "ans": [
         [
-          "500"
+          "625"
         ]
       ],
       "hint": "Find apple mass first, then lemon mass.",
-      "guide": "Apple=25 g. 2 lemons=100 g ⇒ lemon=50 g. Watermelon=10×50=500 g.",
-      "id": "5-3"
+      "guide": "Apple=25 g. 2 lemons=5 apples=125 g, so one lemon=62.5 g. Watermelon=10×62.5=625 g.",
+      "id": "5-3",
+      "visual": "compare-5-3"
     },
     {
       "n": "4",
-      "q": "Balance picture: 1 pineapple = 2 pears; 3 pears = 4 apples. How many apples are equivalent to 3 pineapples?",
+      "q": {"en":"Study the balanced scales. Three pineapples have the same mass as how many apples?","vi":"Quan sát các cân thăng bằng. Ba quả dứa nặng bằng bao nhiêu quả táo?"},
       "ans": [
         [
-          "8"
+          "10"
         ]
       ],
       "hint": "3 pineapples =6 pears.",
-      "guide": "6 pears is twice 3 pears, so it equals 8 apples.",
-      "id": "5-4"
+      "guide": "6 pears is twice 3 pears, so it equals 10 apples.",
+      "id": "5-4",
+      "visual": "compare-5-4"
     },
     {
       "n": "5",
@@ -125,11 +129,12 @@
       ],
       "hint": "Replace ▣ with 6 circles.",
       "guide": "6○×○=54 ⇒ ○²=9 ⇒ ○=3; ▣=18.",
-      "id": "5-5"
+      "id": "5-5",
+      "visual": "compare-5-5"
     },
     {
       "n": "6",
-      "q": "Balance picture: 1 chicken = 3 rabbits; 1 rabbit = 3 chicks. How many chicks equal one chicken?",
+      "q": {"en":"Study the balanced scales. One chicken has the same mass as how many chicks?","vi":"Quan sát các cân thăng bằng. Một con gà nặng bằng bao nhiêu gà con?"},
       "ans": [
         [
           "9"
@@ -137,7 +142,8 @@
       ],
       "hint": "Replace each rabbit with chicks.",
       "guide": "Chicken=3 rabbits=3×3=9 chicks.",
-      "id": "5-6"
+      "id": "5-6",
+      "visual": "compare-5-6"
     },
     {
       "n": "7",
@@ -156,11 +162,12 @@
       ],
       "hint": "Replace ❖ by 5 circles.",
       "guide": "5○²=45 ⇒○=3; ❖=15.",
-      "id": "5-7"
+      "id": "5-7",
+      "visual": "compare-5-7"
     },
     {
       "n": "8",
-      "q": "Balance picture: 1 pineapple =2 pears; 3 pears =5 apples; 2 apples =6 bananas. How many bananas equal one pineapple?",
+      "q": {"en":"Study the four balanced scales. One pineapple has the same mass as how many bananas?","vi":"Quan sát bốn chiếc cân thăng bằng. Một quả dứa nặng bằng bao nhiêu quả chuối?"},
       "ans": [
         [
           "10"
@@ -168,7 +175,8 @@
       ],
       "hint": "Convert pineapple → pears → apples → bananas.",
       "guide": "2 pears=(2/3)×5 apples=10/3 apples. Each apple=3 bananas, so pineapple=10 bananas.",
-      "id": "5-8"
+      "id": "5-8",
+      "visual": "compare-5-8"
     },
     {
       "n": "9",
@@ -187,7 +195,8 @@
       ],
       "hint": "Replace ○ with 3 squares.",
       "guide": "□×3□=27 ⇒3□²=27 ⇒□=3, ○=9.",
-      "id": "5-9"
+      "id": "5-9",
+      "visual": "compare-5-9"
     },
     {
       "n": "10",
@@ -199,7 +208,8 @@
       ],
       "hint": "Compare the two statements directly.",
       "guide": "The difference is 2 oranges=72 g, so one orange=36 g.",
-      "id": "5-10"
+      "id": "5-10",
+      "visual": "compare-5-10"
     },
     {
       "n": "11",
@@ -218,7 +228,8 @@
       ],
       "hint": "Two copies of □+○ account for 18.",
       "guide": "3□+2○ −2(□+○)=23−18 ⇒□=5; ○=4.",
-      "id": "5-11"
+      "id": "5-11",
+      "visual": "compare-5-11"
     },
     {
       "n": "12",
@@ -237,7 +248,8 @@
       ],
       "hint": "Subtract the first equation from the second.",
       "guide": "○−□=1 and ○+□=9, so ○=5, □=4.",
-      "id": "5-12"
+      "id": "5-12",
+      "visual": "compare-5-12"
     },
     {
       "n": "13",
@@ -260,7 +272,8 @@
       ],
       "hint": "Add the first two equations, then subtract the third.",
       "guide": "2❖=46+52−54=44 ⇒❖=22. Then ○=24 and ▣=30.",
-      "id": "5-13"
+      "id": "5-13",
+      "visual": "compare-5-13"
     },
     {
       "n": "14",
@@ -283,7 +296,8 @@
       ],
       "hint": "Add two equations and subtract the third to isolate one symbol.",
       "guide": "2○=65+70−75=60 ⇒○=30. △=35; □=40.",
-      "id": "5-14"
+      "id": "5-14",
+      "visual": "compare-5-14"
     },
     {
       "n": "15",
@@ -295,7 +309,8 @@
       ],
       "hint": "Replace each table with 3 chairs.",
       "guide": "2 tables=6 chairs; total equivalent=11 chairs=$550 ⇒ chair=$50 ⇒ table=$150.",
-      "id": "5-15"
+      "id": "5-15",
+      "visual": "compare-5-15"
     }
   ],
   "check": [

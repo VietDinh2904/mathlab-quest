@@ -212,6 +212,34 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
 .drawing-canvas { width: 100%; height: min(62vh, 600px); min-height: 440px; touch-action: none; border: 2px solid var(--line); border-radius: 14px; background: linear-gradient(#e7edf4 1px, transparent 1px), linear-gradient(90deg, #e7edf4 1px, transparent 1px), white; background-size: 24px 24px; }
 .legacy-illustration .visual { margin: 0; }
 .legacy-illustration svg { max-height: 360px; }
+
+.chapter-source-visual svg { max-height: 340px; }
+.comparison-visual { padding: 16px; }
+.balance-grid { display: grid; grid-template-columns: repeat(2, minmax(270px, 1fr)); gap: 18px; align-items: stretch; }
+.picture-balance { position: relative; min-height: 145px; padding: 8px 12px 30px; border: 1px solid #dce6f2; border-radius: 16px; background: linear-gradient(180deg, #fffef9, #f7fbff); }
+.balance-pans { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: end; min-height: 82px; }
+.balance-pan { display: flex; flex-wrap: wrap-reverse; justify-content: center; align-content: flex-start; align-items: end; gap: 1px; min-height: 72px; padding: 2px 5px 7px; border-bottom: 4px solid #17345c; border-radius: 0 0 42% 42%; }
+.balance-beam { position: absolute; left: 12%; right: 12%; bottom: 28px; height: 4px; border-radius: 4px; background: #17345c; }
+.balance-fulcrum { position: absolute; left: 50%; bottom: 5px; width: 0; height: 0; transform: translateX(-50%); border-left: 19px solid transparent; border-right: 19px solid transparent; border-bottom: 23px solid #17345c; }
+.object-token { display: inline-grid; place-items: center; min-width: 28px; min-height: 31px; font-size: 1.75rem; line-height: 1; }
+.object-token.mango, .object-token.watermelon, .object-token.pineapple, .object-token.chicken { min-width: 48px; font-size: 2.8rem; }
+.object-token.rabbit { font-size: 2.15rem; }
+.object-token.furniture { color: #93602f; font-size: 2rem; }
+.mass-token, .unknown-token { display: inline-grid; place-items: center; min-height: 44px; padding: 7px 12px; border: 2px solid #17345c; border-radius: 12px; background: #fff2b8; color: #17345c; font-weight: 900; }
+.unknown-token { color: #c44141; background: #fff0ed; font-size: 1.2rem; }
+.unknown-token small { margin-left: 5px; font-size: .75rem; color: #61748f; }
+.symbol-equations { display: grid; justify-content: center; gap: 12px; padding: 8px; color: #17345c; font-size: clamp(1.1rem, 3vw, 1.65rem); font-weight: 900; text-align: left; }
+.shape-token { display: inline-block; min-width: 1.25em; text-align: center; color: #17345c; }
+.shape-token.circle { color: #2879d0; }
+.shape-token.triangle { color: #dc704b; }
+.shape-token.square, .shape-token.inset { color: #8056c9; }
+.shape-token.diamond { color: #238b75; }
+
+@media (max-width: 760px) {
+  .balance-grid { grid-template-columns: 1fr; }
+  .picture-balance { min-height: 132px; }
+  .object-token { min-width: 24px; font-size: 1.5rem; }
+}
 .counting-illustration { color: var(--ink); }
 .counting-illustration figcaption { margin-top: 8px; color: var(--muted); font-size: 12px; text-align: center; }
 .diagram-line { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
