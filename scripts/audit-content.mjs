@@ -33,6 +33,24 @@ let visualCount = 0;
 let questionCount = 0;
 let chapterCount = 0;
 let availableChapterCount = 0;
+const reviewMetaPrompt = /(?:Ý tưởng.+dùng để làm gì|Tên chuyên đề này là gì|Viết ngắn gọn mục tiêu|What is .+ used for|What is this topic called|State the main goal)/i;
+
+const auditQuestion = (bookKey, chapter, question, collection) => {
+  questionCount += 1;
+  const prompt = questionText(question);
+  if (!prompt || String(prompt).trim().length < 4) {
+    findings.push(`${bookKey} chapter ${chapter} ${question.id}: empty or incomplete prompt`);
+  }
+  if (collection === "review" && reviewMetaPrompt.test(String(prompt))) {
+    findings.push(`${bookKey} chapter ${chapter} ${question.id}: review asks for theory recall instead of solving a problem`);
+  }
+  if (question.visual) {
+    visualCount += 1;
+    if (typeof visualRegistry[question.visual] !== "function") {
+      findings.push(`${bookKey} chapter ${chapter} ${question.id}: missing visual ${question.visual}`);
+    }
+  }
+};
 
 for (const [bookKey, book] of Object.entries(books)) {
   for (const [chapter, meta] of Object.entries(book.chapters || {})) {
@@ -46,19 +64,9 @@ for (const [bookKey, book] of Object.entries(books)) {
     const reviewCount = (book.review?.[chapter] || []).length;
     if (meta.available !== false && reviewCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 review exercises, found ${reviewCount}`);
   }
-  for (const [chapter, questions] of Object.entries(book.exercises || {})) {
-    for (const question of questions) {
-      questionCount += 1;
-      const prompt = questionText(question);
-      if (!prompt || String(prompt).trim().length < 4) {
-        findings.push(`${bookKey} chapter ${chapter} ${question.id}: empty or incomplete prompt`);
-      }
-      if (question.visual) {
-        visualCount += 1;
-        if (typeof visualRegistry[question.visual] !== "function") {
-          findings.push(`${bookKey} chapter ${chapter} ${question.id}: missing visual ${question.visual}`);
-        }
-      }
+  for (const collection of ["exercises", "extra", "review"]) {
+    for (const [chapter, questions] of Object.entries(book[collection] || {})) {
+      for (const question of questions) auditQuestion(bookKey, chapter, question, collection);
     }
   }
 }
@@ -88,6 +96,11 @@ for (const [key, render] of Object.entries(visualRegistry)) {
   const visibleText = [...output.matchAll(/>([^<>]+)</g)].map((match) => match[1]).join(" ");
   if (visibleEnglish.test(visibleText)) findings.push(`visual ${key}: English text remains in Vietnamese mode: ${visibleText.match(visibleEnglish)?.[0]}`);
   if (placeholderVisual.test(visibleText)) findings.push(`visual ${key}: generic placeholder remains: ${visibleText.match(placeholderVisual)?.[0]}`);
+}
+
+const sixSquareTiling = visualRegistry["advanced-c6-ai-3-visual"]?.();
+if (!sixSquareTiling || !/data-tiling-count="13"/.test(sixSquareTiling)) {
+  findings.push("advanced chapter 6 tiling visual: expected all 13 layouts for a 6-square strip");
 }
 
 console.log(JSON.stringify({ chapterCount, availableChapterCount, questionCount, visualCount, findings }, null, 2));

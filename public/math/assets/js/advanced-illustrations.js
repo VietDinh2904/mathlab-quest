@@ -128,6 +128,46 @@
     return svg(local("Dãy số tạo từ tổng hai số liền trước", "Sequence built from the two previous terms"), `${seq.slice(0,6).map((n,i)=>`${card(35+i*118,80,92,72,String(n),i%2?"#e3f7f1":"#fff0d7")}${i>1?text(22+i*118,125,"=",18):""}`).join("")}${text(380,215,local("Mỗi số = tổng hai số đứng trước","Each term = the sum of the previous two"),18,"#397ee8")}`);
   }
 
+  function tiling(question) {
+    const raw = prompt(question);
+    const lengthMatch = raw.match(/(?:gồm|dài|has|length)\s*(\d+)\s*(?:ô|unit|consecutive|square)/i);
+    const length = Math.max(1, Math.min(7, Number(lengthMatch?.[1] || 6)));
+    const layouts = [];
+    const build = (remaining, pieces = []) => {
+      if (remaining === 0) { layouts.push(pieces); return; }
+      build(remaining - 1, [...pieces, 1]);
+      if (remaining >= 2) build(remaining - 2, [...pieces, 2]);
+    };
+    build(length);
+
+    const columns = layouts.length > 14 ? 3 : 2;
+    const rows = Math.ceil(layouts.length / columns);
+    const columnWidth = 248;
+    const unit = columns === 3 ? 25 : 29;
+    const startX = columns === 3 ? 12 : 95;
+    const startY = 50;
+    const rowHeight = 43;
+    const cells = layouts.map((pieces, index) => {
+      const column = Math.floor(index / rows);
+      const row = index % rows;
+      let x = startX + column * columnWidth + 34;
+      const y = startY + row * rowHeight;
+      const tiles = pieces.map((piece, pieceIndex) => {
+        const width = piece * unit;
+        const result = `<rect x="${x}" y="${y}" width="${width - 3}" height="25" rx="5" fill="${piece === 1 ? "#ffd56a" : "#78d9c5"}" stroke="#17365d" stroke-width="2"/>${text(x + (width - 3) / 2, y + 18, String(piece), 12)}`;
+        x += width;
+        return result;
+      }).join("");
+      return `${text(startX + column * columnWidth + 16, y + 18, String(index + 1), 12, "#61738c")}${tiles}`;
+    }).join("");
+    const height = startY + rows * rowHeight + 62;
+    return svg(
+      local(`Đủ ${layouts.length} cách lát dải ${length} ô`, `All ${layouts.length} tilings of a ${length}-square strip`),
+      `${text(380,27,local(`Liệt kê đủ ${layouts.length} cách (1 = viên 1 ô, 2 = viên 2 ô)`, `All ${layouts.length} tilings (1 = one-square tile, 2 = two-square tile)`),17)}<g data-tiling-count="${layouts.length}">${cells}</g>${text(380,height-18,local("Nhóm theo viên cuối: 8 cách kết thúc bằng 1 + 5 cách kết thúc bằng 2", "Group by last tile: 8 ending in 1 + 5 ending in 2"),16,"#397ee8")}`,
+      `0 0 760 ${height}`
+    );
+  }
+
   window.MQ_ADVANCED_VISUAL_FACTORY = (key, type, question) => {
     const body = type === "algebra-pair" ? algebra(question, true)
       : type === "algebra" ? algebra(question, false)
@@ -137,6 +177,7 @@
       : type === "fraction" ? fraction(question)
       : type === "combination" ? choices(question, true)
       : type === "permutation" ? choices(question, false)
+      : type === "tiling" ? tiling(question)
       : fibonacci(question);
     art[key] = () => `<div class="method-visual exact-question-visual">${title(question)}${body}</div>`;
   };
