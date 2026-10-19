@@ -7,16 +7,21 @@
   function normalizeProblem(raw, prefix, index, source) {
     const [vi, en, answer, methodVi, methodEn, stepsVi, stepsEn, visual, aliases] = raw;
     const id = `${prefix}-${source}-${index + 1}`;
+    const visualType = visual?.id || visual;
+    const visualKey = visualType ? `${id}-visual` : null;
+    if (visualKey && typeof window.MQ_METHOD_VISUAL_FACTORY === "function") {
+      window.MQ_METHOD_VISUAL_FACTORY(visualKey, visualType, pair(vi, en));
+    }
     if (source === "pdf") {
       return {
-        question: { n: String(index + 1), id, source, q: pair(vi, en), ...(visual ? { visual: visual.id || visual } : {}), ...(visual?.solution ? { visualPlacement: "solution" } : {}) },
+        question: { n: String(index + 1), id, source, q: pair(vi, en), ...(visualKey ? { visual: visualKey } : {}), ...(visual?.solution ? { visualPlacement: "solution" } : {}) },
         solution: { answers: answerSet(answer, aliases), hint: pair(methodVi, methodEn), guide: pair(stepsVi, stepsEn) },
       };
     }
     return {
       id, source: "ai", level: index < 2 ? "warmup" : index < 4 ? "core" : "challenge",
       q: pair(vi, en), answers: answerSet(answer, aliases), hint: pair(methodVi, methodEn),
-      steps: pair(stepsVi, stepsEn), ...(visual ? { visual: visual.id || visual } : {}), ...(visual?.solution ? { visualPlacement: "solution" } : {}),
+      steps: pair(stepsVi, stepsEn), ...(visualKey ? { visual: visualKey } : {}), ...(visual?.solution ? { visualPlacement: "solution" } : {}),
     };
   }
 
@@ -25,6 +30,7 @@
     const exercises = {};
     const solutions = {};
     const extra = {};
+    const review = {};
 
     chapterSpecs.forEach((spec, chapterIndex) => {
       const chapterId = chapterIndex + 1;
@@ -45,9 +51,15 @@
       exercises[chapterId] = sourceItems.map(({ question }) => question);
       solutions[chapterId] = Object.fromEntries(sourceItems.map(({ question, solution }) => [question.id, solution]));
       extra[chapterId] = spec.extra.map((item, index) => normalizeProblem(item, prefix, index, "ai"));
+      review[chapterId] = extra[chapterId].map((item, index) => ({
+        ...item,
+        id: `${prefix}-review-${index + 1}`,
+        q: pair(`Ôn tập tổng hợp: ${item.q.vi}`, `Review challenge: ${item.q.en}`),
+        level: index < 2 ? "core" : "challenge",
+      }));
     });
 
     window.MQ_BOOK_DATA = window.MQ_BOOK_DATA || {};
-    window.MQ_BOOK_DATA[bookKey] = { chapters, exercises, solutions, extra };
+    window.MQ_BOOK_DATA[bookKey] = { chapters, exercises, solutions, extra, review };
   };
 })();

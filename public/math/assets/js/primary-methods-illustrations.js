@@ -39,4 +39,56 @@
   art["method-letter-digits"] = () => wrap("Giá trị hàng · Place value", `<div class="equation-board method-equations"><div>AB = 10A + B</div><div>BA = 10B + A</div><hr/><div><strong>AB + BA = 11(A + B)</strong></div></div>`);
   art["method-letter-addition"] = () => wrap("Cộng theo cột · Column addition", `<div class="digit-column"><span>A 7</span><span>+ 2 B</span><hr/><strong>6 4</strong></div>`);
   art["method-letter-multiply"] = () => wrap("Thử chữ số · Test digits", `<div class="method-flow"><span>3 × A</span><b>=</b><span>2B</span><b>→</b><span>A = 7, 8, 9?</span></div>`);
+
+  const numberWords = { "một":1, "hai":2, "ba":3, "bốn":4, "năm":5, "sáu":6, "bảy":7, "tám":8, "chín":9 };
+  const numbersIn = (value) => [...String(value).matchAll(/\d+(?:[ .]\d+)*/g)].map((match) => match[0].trim());
+  const firstCount = (value, fallback = 5) => {
+    const digit = String(value).match(/\b([3-9])\b/);
+    if (digit) return Number(digit[1]);
+    const lower = String(value).toLowerCase();
+    return Object.entries(numberWords).find(([word]) => lower.includes(word))?.[1] || fallback;
+  };
+  const exactTitle = (question) => `<div class="method-visual-title visual-question">${question.vi}</div>`;
+  const iconStrip = (icons, labels = []) => `<div class="exact-icon-strip">${icons.map((icon,index)=>`<span><b>${icon}</b>${labels[index] ? `<small>${labels[index]}</small>` : ""}</span>`).join("")}</div>`;
+  const exactGraph = (count) => {
+    const points = Array.from({length:count},(_,i)=>{const a=-Math.PI/2+i*2*Math.PI/count;return{x:380+125*Math.cos(a),y:130+95*Math.sin(a)}});
+    return svg(`graph with ${count} vertices`, `${points.map((p,i)=>points.slice(i+1).map(q=>`<line x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" stroke="#a9bfdc" stroke-width="2.5"/>`).join("")).join("")}${points.map((p,i)=>`<circle cx="${p.x}" cy="${p.y}" r="22" fill="#ffd56a" stroke="#17365d" stroke-width="3"/>${txt(p.x,p.y+6,String(i+1))}`).join("")}`);
+  };
+  const exactArea = (type, question) => {
+    const ns = numbersIn(question.vi).slice(0,4);
+    if (type.includes("triangle")) return svg("triangle with the dimensions stated in the question", `<path d="M170 215L380 35L620 215Z" fill="#a9d4ff" stroke="#17365d" stroke-width="4"/><path d="M380 35V215" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/>${txt(400,250,`Số đo: ${ns.join(" · ")}`)}`);
+    if (type.includes("square")) return svg("square matching the question", `<rect x="270" y="25" width="220" height="220" rx="8" fill="#ffe59a" stroke="#17365d" stroke-width="4"/>${txt(380,140,ns.length ? `Dữ kiện: ${ns.join(" · ")}` : "S = a × a")}`);
+    return svg("area diagram matching the stated dimensions", `<path d="M150 35H610V215H150Z" fill="#9de2ce" stroke="#17365d" stroke-width="4"/><rect x="470" y="35" width="140" height="75" fill="#fff" stroke="#ff786c" stroke-width="4" stroke-dasharray="8 6"/>${txt(380,250,ns.length ? `Các số đo: ${ns.join(" · ")}` : "Tách hình thành các phần quen thuộc")}`);
+  };
+  const exactPigeonhole = (type, question) => {
+    const ns = numbersIn(question.vi);
+    if (type.includes("socks")) return iconStrip(["🧦","🧦","🧦","🧦"],["màu 1","màu 2","màu 3","chiếc buộc trùng màu"]);
+    if (type.includes("parity")) return iconStrip(["2, 4, 6, …","1, 3, 5, …"],["ngăn số chẵn","ngăn số lẻ"]);
+    if (type.includes("calendar")) return iconStrip(["T2","T3","T4","T5","T6","T7","CN"],["7 ngăn là 7 thứ"]);
+    const boxes = Math.min(Number(ns[1] || ns[0] || 6),12);
+    return `${iconStrip(Array.from({length:boxes},(_,i)=>`□ ${i+1}`))}<p class="exact-visual-note">${ns[0] || "Các"} vật được phân đều vào ${ns[1] || boxes} ngăn.</p>`;
+  };
+  const exactTypeBody = (type, question) => {
+    const vi = question.vi;
+    if (type.startsWith("method-pigeonhole")) return exactPigeonhole(type, question);
+    if (type === "method-graph") {
+      if (/tổng bậc|degree/i.test(`${vi} ${question.en}`)) return iconStrip(["●──●","mỗi cạnh có 2 đầu"],["1 cạnh","tổng bậc tăng 2"]);
+      return exactGraph(Math.min(firstCount(vi),8));
+    }
+    if (type.startsWith("method-area")) return exactArea(type, question);
+    if (type.includes("logic")) return `<div class="logic-mini"><table><tbody><tr><th>Đối tượng</th><td>?</td><td>?</td><td>?</td></tr><tr><th>Dữ kiện</th><td>×</td><td class="yes">✓</td><td>×</td></tr></tbody></table></div>`;
+    if (type.startsWith("method-false")) return iconStrip(["① Giả sử tất cả cùng loại","② So với dữ kiện thật","③ Chia phần chênh lệch"]);
+    if (type === "method-working-backwards") return `<div class="method-flow backwards"><span>Kết quả</span><b>←</b><span>Đảo phép cuối</span><b>←</b><span>Đảo từng bước</span><b>←</b><span>Số ban đầu</span></div>`;
+    if (type === "method-selection-table") return `<div class="logic-mini choice-table"><table><thead><tr><th>Ứng viên</th><th>1</th><th>2</th><th>3</th><th>…</th></tr></thead><tbody><tr><th>Kiểm tra dữ kiện</th><td>×</td><td>×</td><td class="yes">✓</td><td>×</td></tr></tbody></table></div>`;
+    if (type.startsWith("method-letter")) return iconStrip(["Hàng trăm","Hàng chục","Hàng đơn vị"],["xét từ phải sang trái"]);
+    if (type === "method-elimination") return iconStrip(["Quan hệ 1","−  Quan hệ 2","Đại lượng còn lại"],["làm bằng nhau","khử","tìm giá trị"]);
+    if (type.includes("ratio") || type.includes("bar")) return svg("bar model for the question", `${bar(80,65,220,"phần 1","#ffd56a")}${bar(300,65,380,"phần 2","#86dcca")}`);
+    if (type.includes("unitary")) return iconStrip(["Nhiều đơn vị","÷","1 đơn vị","×","Số đơn vị mới"]);
+    if (type === "method-substitution") return iconStrip(["Đại lượng A","=","Đại lượng B","→","Cùng một loại"]);
+    return iconStrip(["Dữ kiện 1","Dữ kiện 2","?"],["đọc đề","lập quan hệ","tìm đáp án"]);
+  };
+
+  window.MQ_METHOD_VISUAL_FACTORY = (key, type, question) => {
+    art[key] = () => `<div class="method-visual exact-question-visual">${exactTitle(question)}${exactTypeBody(type, question)}</div>`;
+  };
 })();

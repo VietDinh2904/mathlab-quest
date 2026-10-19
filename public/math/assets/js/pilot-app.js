@@ -303,9 +303,12 @@
 
   function renderReview() {
     const chapter = window.PILOT_CHAPTERS[state.chapter];
-    const questions = chapter.check
-      .map((id) => window.PILOT_PDF_EXERCISES[state.chapter].find((question) => question.id === id))
-      .filter(Boolean);
+    const dedicatedReview = window.PILOT_REVIEW_EXERCISES?.[state.chapter] || [];
+    const questions = dedicatedReview.length
+      ? dedicatedReview
+      : chapter.check
+          .map((id) => window.PILOT_PDF_EXERCISES[state.chapter].find((question) => question.id === id))
+          .filter(Boolean);
     return `<div class="review-banner"><span>🏆</span><div><h2>${t("reviewTitle")}</h2><p>${t("reviewIntro")}</p></div></div><div class="question-stack">${expandQuestions(questions).slice(0, 5).map(questionCard).join("")}</div>`;
   }
 
