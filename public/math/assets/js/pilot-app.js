@@ -96,13 +96,20 @@
       ? question.partIndex
       : null;
     if (question.source === "ai") {
+      const rawSteps = localValue(question.steps);
+      const steps = Array.isArray(rawSteps)
+        ? rawSteps
+        : String(rawSteps || "")
+            .split(/(?<=[.!?])\s+|\s*;\s*/)
+            .map((step) => step.trim())
+            .filter(Boolean);
       return {
         answers:
           partIndex === null
             ? question.answers
             : [question.answers[partIndex]],
         method: localValue(question.hint),
-        steps: localValue(question.steps),
+        steps,
       };
     }
     const sourceId = question.parentId || question.id;
@@ -288,13 +295,14 @@
       ? [state.answers[question.parentId]?.[question.partIndex] || ""]
       : [];
     const values = state.answers[question.id] || legacyValues;
-    const sourceLabel = question.source === "ai" ? t("sourceAi") : t("sourcePdf");
+    const sourceLabel = question.review ? t("review") : question.source === "ai" ? t("sourceAi") : t("sourcePdf");
     const level = question.level ? `<span class="badge ${question.level}">${t(question.level)}</span>` : "";
     const illustration =
       question.visual && window.PILOT_ILLUSTRATIONS[question.visual]
         ? window.PILOT_ILLUSTRATIONS[question.visual]()
         : "";
-    const illustrationIsGuidance = question.visualPlacement === "solution" || question.source === "ai";
+    const illustrationIsGuidance = question.visualPlacement === "solution" ||
+      (question.source === "ai" && question.visualPlacement !== "question");
     const questionIllustration = illustrationIsGuidance ? "" : illustration;
     const solutionIllustration = illustrationIsGuidance ? illustration : "";
     const fields = solution.answers

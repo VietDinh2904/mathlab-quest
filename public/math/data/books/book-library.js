@@ -1,29 +1,146 @@
 (function startBookLibrary() {
   "use strict";
+  const valueFor = (value, language) => {
+    if (value && !Array.isArray(value) && typeof value === "object") return value[language] ?? value.vi ?? value.en ?? "";
+    return value ?? "";
+  };
+  const promptFor = (question, language) => valueFor(question.q, language);
+  const normalizedPrompt = (question) => String(promptFor(question, "vi"))
+    .normalize("NFKC")
+    .toLocaleLowerCase("vi")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+  const answerText = (answers) => (answers || [[""]])
+    .map((group) => (Array.isArray(group) ? group[0] : group))
+    .join(" · ");
+  const wrongClaim = (answer) => {
+    const text = String(answer || "").trim();
+    const numeric = text.match(/-?\d+(?:[.,]\d+)?/);
+    if (numeric) {
+      const raw = numeric[0];
+      const value = Number(raw.replace(",", "."));
+      const replacement = Number.isFinite(value) ? String(value + 1).replace(".", raw.includes(",") ? "," : ".") : "0";
+      return text.replace(raw, replacement);
+    }
+    return text.toLocaleLowerCase("vi") === "a" ? "B" : "một đáp án khác";
+  };
+  const stepList = (value, language) => {
+    const localized = valueFor(value, language);
+    if (Array.isArray(localized)) return localized;
+    return String(localized || "")
+      .split(/(?<=[.!?])\s+|\s*;\s*/)
+      .map((step) => step.trim())
+      .filter(Boolean);
+  };
+  const partPrompt = (prompt, label, partIndex, partCount, language) => {
+    const text = String(prompt || "");
+    const markers = [...text.matchAll(/\(([a-z])\)/gi)];
+    if (markers.length >= partCount) {
+      const prefix = text.slice(0, markers[0].index).trim().replace(/:\s*$/, "");
+      const start = markers[partIndex].index;
+      const end = markers[partIndex + 1]?.index ?? text.length;
+      const part = text.slice(start, end).trim();
+      return prefix ? `${prefix}: ${part}` : part;
+    }
+    let labelText = String(label || "")
+      .replace(/^\([a-z]\)\s*/i, "")
+      .replace(/^[a-z][.)]\s*/i, "")
+      .trim();
+    if (language === "vi") {
+      labelText = labelText
+        .replace(/^first blank$/i, "chỗ trống thứ nhất")
+        .replace(/^second blank$/i, "chỗ trống thứ hai")
+        .replace(/^third blank$/i, "chỗ trống thứ ba")
+        .replace(/^row$/i, "hàng")
+        .replace(/^column$/i, "cột");
+    }
+    const generic = /^(compute|calculate|find|tính)(\s+the\s+following|\s+các\s+(?:phép|biểu thức)\s+sau)?[.:]?$/i.test(text.trim());
+    if (generic) return `${language === "vi" ? "Tính" : "Compute"}: (${String.fromCharCode(97 + partIndex)}) ${labelText}`;
+    return `${text} (${String.fromCharCode(97 + partIndex)}) ${labelText}`.trim();
+  };
+  const reviewCandidates = (questions, solutions) => questions.flatMap((question) => {
+    const solution = solutions[question.id] || {};
+    const answers = solution.answers || question.answers || [[""]];
+    const viLabels = valueFor(question.labels, "vi");
+    const enLabels = valueFor(question.labels, "en");
+    if (!Array.isArray(viLabels) || viLabels.length <= 1 || viLabels.length !== answers.length) {
+      return [{ question, solution }];
+    }
+    return viLabels.map((viLabel, partIndex) => {
+      const enLabel = Array.isArray(enLabels) ? enLabels[partIndex] : viLabel;
+      const letter = String.fromCharCode(97 + partIndex);
+      const partVisual = `${question.visual || ""}-${letter}`;
+      return {
+        question: {
+          ...question,
+          id: `${question.id}--${letter}`,
+          q: {
+            vi: partPrompt(promptFor(question, "vi"), viLabel, partIndex, viLabels.length, "vi"),
+            en: partPrompt(promptFor(question, "en"), enLabel, partIndex, viLabels.length, "en"),
+          },
+          labels: undefined,
+          visual: window.PILOT_ILLUSTRATIONS?.[partVisual] ? partVisual : question.visual,
+        },
+        solution: { ...solution, answers: [answers[partIndex]] },
+      };
+    });
+  });
+
+  function makeReviewQuestion(bookKey, chapterId, question, solution, index) {
+    const answers = solution.answers || question.answers || [[""]];
+    const actual = answerText(answers);
+    const isCorrectClaim = index % 2 === 0;
+    const claim = isCorrectClaim ? actual : wrongClaim(actual);
+    const viPrompt = promptFor(question, "vi");
+    const enPrompt = promptFor(question, "en");
+    const viSteps = stepList(solution.guide || solution.steps || question.steps, "vi");
+    const enSteps = stepList(solution.guide || solution.steps || question.steps, "en");
+    return {
+      id: `${bookKey}-c${chapterId}-review-${index + 1}`,
+      n: String(index + 1),
+      source: "ai",
+      review: true,
+      level: index < 2 ? "warmup" : index < 4 ? "core" : "challenge",
+      q: {
+        vi: `Một bạn giải bài sau và kết luận “${claim}”. Kết luận này đúng hay sai? ${viPrompt}`,
+        en: `A pupil solved the problem below and concluded “${claim}”. Is the conclusion correct or incorrect? ${enPrompt}`,
+      },
+      answers: isCorrectClaim
+        ? [["đúng", "dung", "correct", "true"]]
+        : [["sai", "incorrect", "false"]],
+      hint: {
+        vi: "Tự giải bài toán trước, sau đó so sánh kết quả với kết luận đã cho.",
+        en: "Solve the problem first, then compare your result with the stated conclusion.",
+      },
+      steps: {
+        vi: [...viSteps, `Kết quả đúng là ${actual}; vì vậy kết luận đã cho ${isCorrectClaim ? "đúng" : "sai"}.`],
+        en: [...enSteps, `The correct result is ${actual}, so the stated conclusion is ${isCorrectClaim ? "correct" : "incorrect"}.`],
+      },
+      ...(question.visual ? { visual: question.visual, visualPlacement: question.visualPlacement || "question" } : {}),
+    };
+  }
+
   function ensureReview(book, bookKey) {
     book.review = book.review || {};
     Object.entries(book.chapters || {}).forEach(([chapterId, chapter]) => {
-      if (chapter.available === false || (book.review[chapterId] || []).length === 5) return;
+      if (chapter.available === false) return;
       const sourceQuestions = book.exercises?.[chapterId] || [];
       const sourceSolutions = book.solutions?.[chapterId] || {};
-      const chosen = sourceQuestions.length <= 5
-        ? sourceQuestions.slice(0, 5)
-        : [0, .25, .5, .75, 1].map((ratio) => sourceQuestions[Math.round((sourceQuestions.length - 1) * ratio)]);
-      book.review[chapterId] = chosen.map((question, index) => {
-        const solution = sourceSolutions[question.id] || {};
-        return {
-          id: `${bookKey}-c${chapterId}-review-${index + 1}`,
-          source: "ai",
-          level: index < 2 ? "warmup" : index < 4 ? "core" : "challenge",
-          q: question.q,
-          answers: solution.answers || [[""]],
-          hint: solution.hint || { vi: "Đọc kỹ dữ kiện rồi chọn phép tính phù hợp.", en: "Read the givens carefully and choose a suitable operation." },
-          steps: solution.guide || solution.steps || { vi: ["Giải từng bước, kiểm tra rồi ghi đáp án."], en: ["Solve step by step, check, then state the answer."] },
-          ...(question.visual ? { visual: question.visual } : {}),
-          ...(question.visualPlacement ? { visualPlacement: question.visualPlacement } : {}),
-          ...(question.labels ? { labels: question.labels } : {}),
-        };
-      });
+      const existing = book.review[chapterId] || [];
+      const forbidden = new Set([
+        ...sourceQuestions.map(normalizedPrompt),
+        ...(book.extra?.[chapterId] || []).map(normalizedPrompt),
+      ]);
+      if (existing.length === 5 && existing.every((question) => !forbidden.has(normalizedPrompt(question)))) {
+        book.review[chapterId] = existing.map((question) => ({ ...question, review: true }));
+        return;
+      }
+      const candidates = reviewCandidates(sourceQuestions, sourceSolutions);
+      const chosen = candidates.length <= 5
+        ? candidates.slice(0, 5)
+        : [0, .25, .5, .75, 1].map((ratio) => candidates[Math.round((candidates.length - 1) * ratio)]);
+      book.review[chapterId] = chosen.map(({ question, solution }, index) =>
+        makeReviewQuestion(bookKey, chapterId, question, solution, index));
     });
   }
   const books = window.MQ_BOOK_DATA = window.MQ_BOOK_DATA || {};

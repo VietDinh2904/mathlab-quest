@@ -70,9 +70,13 @@ for (const [bookKey, book] of Object.entries(books)) {
     const reviewCount = (book.review?.[chapter] || []).length;
     if (meta.available !== false && reviewCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 review exercises, found ${reviewCount}`);
     const extraPrompts = new Set((book.extra?.[chapter] || []).map(normalizedPrompt));
+    const bookPrompts = new Set((book.exercises?.[chapter] || []).map(normalizedPrompt));
     for (const question of book.review?.[chapter] || []) {
       if (extraPrompts.has(normalizedPrompt(question))) {
         findings.push(`${bookKey} chapter ${chapter} ${question.id}: duplicates an extra-practice problem`);
+      }
+      if (bookPrompts.has(normalizedPrompt(question))) {
+        findings.push(`${bookKey} chapter ${chapter} ${question.id}: duplicates a book-practice problem`);
       }
     }
   }
