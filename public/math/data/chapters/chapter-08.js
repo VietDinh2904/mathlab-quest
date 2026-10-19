@@ -46,20 +46,20 @@
       "a": "2000; 3000; 100000; 100000"
     },
     {
-      "q": "12×4+8×4 and similar expressions",
+      "q": "Compute 12 × 4 + 8 × 4.",
       "steps": [
         "Factor the common multiplier.",
         "Add inside the bracket first."
       ],
-      "a": "80 and related results"
+      "a": "80"
     },
     {
-      "q": "55×99; 65×999; ×11; ×101",
+      "q": "Compute 55 × 99 and 65 × 999.",
       "steps": [
         "Use 100−1 or 1000−1 for 99/999.",
         "Use the repeated-digit patterns demonstrated for 11 and 101."
       ],
-      "a": "5445; 64935; pattern-based products"
+      "a": "5445; 64935"
     }
   ],
   "practice": [

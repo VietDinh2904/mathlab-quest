@@ -27,6 +27,21 @@
   art["two-clocks-j1-5"] = () => wrap("Từ đồng hồ đầu đến đồng hồ sau", `<div class="clock-pair">${clock(2,30,"2:30").replace(/^<div[^>]*>|<\/div>$/g,"")}<span class="time-arrow">→ ? →</span>${clock(5,45,"5:45").replace(/^<div[^>]*>|<\/div>$/g,"")}</div>`);
   art["clock-pattern-j1-7"] = () => wrap("Mỗi bước ngắn hơn 10 phút", `<div class="pattern-strip"><span>7:20</span><b>+50</b><span>8:10</span><b>+40</b><span>8:50</span><b>+30</b><span>?</span><b>+20</b><span>?</span></div>`);
   art["number-pattern"] = () => wrap("Theo dõi quy luật từng bước", `<div class="pattern-hint"><span>①</span><i>→</i><span>②</span><i>→</i><span>③</span><i>→</i><span class="mystery">?</span></div>`);
+  const beginnerPatterns = {
+    "b1-1a": ["1","1","2","3","5","?","?"],
+    "b1-1b": ["1","1","1","1","4","7","13","?"],
+    "b1-1c": ["3","5","9","15","23","33","45","?"],
+    "b1-1d": ["1","3","6","10","?","21","28","36"],
+    "b1-1e": ["0","3","8","15","24","?","48","63"],
+    "b1-1f": ["1","2","6","24","120","?","5040"],
+    "b1-1g": ["0","1","3","8","21","55","?","?"],
+    "b1-1h": ["1","3","7","15","31","?","127"],
+    "b1-1i": ["1","1","3","7","13","?","31"],
+    "b1-1j": ["1","2","5","13","34","89","?","?"]
+  };
+  Object.entries(beginnerPatterns).forEach(([id, sequence]) => {
+    art[`number-pattern-${id}`] = () => wrap("Dãy số đúng theo đề bài", `<div class="pattern-hint">${sequence.map((value, index) => `<span class="${value === "?" ? "mystery" : ""}">${value}</span>${index < sequence.length - 1 ? "<i>→</i>" : ""}`).join("")}</div>`);
+  });
   art["magic-nine"] = () => wrap("Phép màu của số 9", `<div class="equation-board"><div>21 × 9 = <b>189</b></div><div>321 × 9 = <b>2 889</b></div><div>4 321 × 9 = <b>38 889</b></div><div class="question-row">54 321 × 9 = <b>?</b></div></div>`);
   art["multiply-101"] = () => wrap("Quy luật nhân với 101", `<div class="equation-board"><div>101 × 11 = 1111</div><div>101 × 22 = 2222</div><div>101 × 33 = 3333</div><div class="question-row">101 × 44 = ?</div></div>`);
   art["pascal-beginner"] = () => wrap("Mỗi ô bằng tổng hai ô ngay phía trên", `<div class="pascal-triangle"><div>1</div><div>1　1</div><div>1　2　1</div><div>1　3　3　1</div><div>1　4　6　4　1</div><div>1　?　?　?　?　1</div></div>`);

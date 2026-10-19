@@ -25,6 +25,38 @@
     );
   }
 
+  function interleavedPattern(values, oddRule, evenRule) {
+    const gap = 82;
+    const start = 72;
+    return wrap(
+      `${values.map((value, index) => `<circle class="diagram-value ${index % 2 ? "blue" : "gold"}" cx="${start + index * gap}" cy="125" r="27"/><text class="diagram-number${index % 2 ? " light" : ""}" x="${start + index * gap}" y="132">${value}</text>`).join("")}` +
+      `<path class="diagram-shape soft" d="M${start} 88 Q${start+gap} 32 ${start+2*gap} 88 M${start+2*gap} 88 Q${start+3*gap} 32 ${start+4*gap} 88 M${start+4*gap} 88 Q${start+5*gap} 32 ${start+6*gap} 88"/>` +
+      `<path class="diagram-shape" d="M${start+gap} 165 Q${start+2*gap} 220 ${start+3*gap} 165 M${start+3*gap} 165 Q${start+4*gap} 220 ${start+5*gap} 165"/>` +
+      `<text class="visual-note" x="320" y="38">${oddRule}</text><text class="visual-note" x="320" y="235">${evenRule}</text>`,
+      "Two interleaved number sequences shown in their exact positions",
+      "0 0 640 250",
+    );
+  }
+
+  function threeSectorCircle(cx, topLeft, topRight, bottom, label) {
+    return `<g><text class="diagram-title" x="${cx}" y="24">${label}</text><circle class="diagram-shape" cx="${cx}" cy="120" r="74"/><path class="diagram-shape soft" d="M${cx} 120V46M${cx} 120L${cx-64} 157M${cx} 120L${cx+64} 157"/><text class="diagram-number" x="${cx-30}" y="102">${topLeft}</text><text class="diagram-number" x="${cx+30}" y="102">${topRight}</text><text class="diagram-number" x="${cx}" y="168">${bottom}</text></g>`;
+  }
+
+  illustrations["example-pattern-2a"] = () => interleavedPattern([24,3,21,6,18,"?","?"], "−3", "+3");
+  illustrations["example-pattern-2b"] = () => interleavedPattern([8,1,10,2,12,"?","?"], "+2", "+1");
+  illustrations["example-pattern-2c"] = () => interleavedPattern([28,2,24,4,20,"?","?"], "−4", "+2");
+  illustrations["example-pattern-2d"] = () => interleavedPattern([1,8,3,10,5,12,"?","?"], "+2", "+2");
+  illustrations["example-circle-3a"] = () => wrap(
+    threeSectorCircle(110,5,12,10,"1") + threeSectorCircle(320,8,18,16,"2") + threeSectorCircle(530,"A","B",40,"3"),
+    "Three exact number circles for Example 3(a)",
+    "0 0 640 220",
+  );
+  illustrations["example-circle-3b"] = () => wrap(
+    threeSectorCircle(110,18,12,15,"1") + threeSectorCircle(320,24,16,20,"2") + threeSectorCircle(530,"A","B",10,"3"),
+    "Three exact number circles for Example 3(b)",
+    "0 0 640 220",
+  );
+
   illustrations.pascal = () => {
     const rows = [
       [1],

@@ -3,6 +3,8 @@
 
   const out = (window.PILOT_ILLUSTRATIONS = window.PILOT_ILLUSTRATIONS || {});
   const ink = "#17345c";
+  const isVi = () => document.documentElement.lang !== "en";
+  const local = (vi, en) => isVi() ? vi : en;
   const wrap = (body, label, viewBox = "0 0 760 300") =>
     `<figure class="math-visual chapter-source-visual"><svg viewBox="${viewBox}" role="img" aria-label="${label}" style="font-family:Nunito,Arial,sans-serif">${body}</svg></figure>`;
   const text = (x, y, value, size = 22, weight = 900, fill = ink) =>
@@ -39,7 +41,7 @@
         const x = 385 + (c - (row.length - 1) / 2) * 48;
         return `<circle cx="${x}" cy="${y}" r="14" fill="${active ? "#ffd36c" : "#eef6ff"}" stroke="${ink}" stroke-width="2"/>${text(x, y + 1, value, 14, 900)}`;
       }).join("");
-      return `${text(88, y, `Row ${r + 1}`, 15, 800, active ? "#c25c00" : "#61748f")}${nodes}`;
+      return `${text(88, y, `${local("Hàng", "Row")} ${r + 1}`, 15, 800, active ? "#c25c00" : "#61748f")}${nodes}`;
     }).join(""), `Consecutive numbers arranged in triangular rows, with row ${highlightRow} marked`, "0 0 760 305");
   }
 
@@ -60,7 +62,7 @@
       const y = 50 + r * 38;
       return `<rect x="${x}" y="${y}" width="72" height="34" fill="${value ? "#fff5cf" : "#fff"}" stroke="#9eb2ce" stroke-width="2"/>${value ? text(x + 36, y + 18, value, 17, 900) : ""}`;
     }).join("")).join("");
-    return wrap(`${header}${cells}${text(92, 68, "Row 1", 14, 800, "#61748f")}${text(92, 258, "⋮", 28, 900, "#61748f")}`, "Number table with columns A to E and the first six rows exactly as printed", "0 0 760 285");
+    return wrap(`${header}${cells}${text(92, 68, `${local("Hàng", "Row")} 1`, 14, 800, "#61748f")}${text(92, 258, "⋮", 28, 900, "#61748f")}`, "Number table with columns A to E and the first six rows exactly as printed", "0 0 760 285");
   }
 
   out["pattern-1-pascal"] = () => {

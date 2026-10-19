@@ -130,7 +130,7 @@
     return (
       Array.isArray(labels) &&
       labels.length > 1 &&
-      labels.every((label) => /^\(?[a-z]\)?$/.test(String(label)))
+      labels.every((label) => /^\(?[a-z]\)?(?:\s|$)/i.test(String(label)))
     );
   }
 
@@ -145,15 +145,28 @@
     return prefix ? `${prefix}: ${part}` : part;
   }
 
+  function completePartPrompt(prompt, label, partIndex, partCount, language) {
+    const split = splitPartPrompt(prompt, partIndex, partCount);
+    if (split !== String(prompt || "")) return split;
+    const labelText = String(label || "").replace(/^\(?[a-z]\)?\s*/i, "").trim();
+    if (!labelText) return split;
+    const generic = /^(compute|calculate|find|tính)(\s+the\s+following|\s+các\s+(?:phép|biểu thức)\s+sau)?[.:]?$/i.test(String(prompt || "").trim());
+    if (!generic) return `${split} (${String.fromCharCode(97 + partIndex)}) ${labelText}`;
+    return `${language === "vi" ? "Tính" : "Compute"}: (${String.fromCharCode(97 + partIndex)}) ${labelText}`;
+  }
+
   function expandQuestion(question) {
     if (!isLetteredQuestion(question)) return [question];
     const labels = localValue(question.labels);
     const english =
       typeof question.q === "object" ? question.q.en : question.q;
-    const vietnamese =
+    let vietnamese =
       typeof question.q === "object"
         ? question.q.vi
         : window.PILOT_I18N.questionsVi[question.id] || question.q;
+    if (vietnamese === english && /^Compute the following\.?$/i.test(String(english).trim())) {
+      vietnamese = "Tính các biểu thức sau.";
+    }
     return labels.map((label, partIndex) => {
       const letter = String(label).replace(/[^a-z]/gi, "").toLowerCase();
       const partVisual = `${question.visual || ""}-${letter}`;
@@ -164,8 +177,8 @@
         partIndex,
         n: `${question.n}(${letter})`,
         q: {
-          en: splitPartPrompt(english, partIndex, labels.length),
-          vi: splitPartPrompt(vietnamese, partIndex, labels.length),
+          en: completePartPrompt(english, label, partIndex, labels.length, "en"),
+          vi: completePartPrompt(vietnamese, label, partIndex, labels.length, "vi"),
         },
         visual: window.PILOT_ILLUSTRATIONS[partVisual] ? partVisual : question.visual,
         labels: undefined,

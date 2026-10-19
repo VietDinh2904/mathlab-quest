@@ -5,7 +5,10 @@
   const numbers = (value) => [...String(value).matchAll(/\d+(?:[.,]\d+)?/g)].map((m) => m[0]);
   const svg = (label, body, view = "0 0 760 270") => `<svg viewBox="${view}" role="img" aria-label="${esc(label)}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
   const text = (x, y, value, size = 20, color = "#17365d") => `<text x="${x}" y="${y}" text-anchor="middle" font-family="Nunito,Arial,sans-serif" font-size="${size}" font-weight="800" fill="${color}">${esc(value)}</text>`;
-  const title = (question) => `<div class="method-visual-title visual-question">${esc(question.vi)}</div>`;
+  const isVi = () => document.documentElement.lang !== "en";
+  const local = (vi, en) => isVi() ? vi : en;
+  const prompt = (question) => isVi() ? question.vi : question.en;
+  const title = (question) => `<div class="method-visual-title visual-question">${esc(prompt(question))}</div>`;
   const card = (x, y, w, h, label, fill = "#eef5ff") => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="14" fill="${fill}" stroke="#17365d" stroke-width="3"/>${text(x+w/2,y+h/2+7,label,18)}`;
 
   function algebra(question, pair) {
@@ -15,11 +18,56 @@
   }
 
   function venn(question, three) {
-    const ns = numbers(question.vi);
-    const circles = three
-      ? `<circle cx="320" cy="115" r="78" fill="#ffcf6677"/><circle cx="440" cy="115" r="78" fill="#72c7ff77"/><circle cx="380" cy="185" r="78" fill="#80ddb777"/>`
-      : `<circle cx="325" cy="135" r="95" fill="#ffcf6677"/><circle cx="435" cy="135" r="95" fill="#72c7ff77"/>`;
-    return svg("Venn diagram matching the question", `${circles}<g fill="none" stroke="#17365d" stroke-width="4">${three?`<circle cx="320" cy="115" r="78"/><circle cx="440" cy="115" r="78"/><circle cx="380" cy="185" r="78"/>`:`<circle cx="325" cy="135" r="95"/><circle cx="435" cy="135" r="95"/>`}</g>${text(250,45,"A")}${text(510,45,"B")}${ns.slice(0,4).map((n,i)=>text(290+i*60,145+(i%2)*45,n,18)).join("")}`);
+    const raw = prompt(question);
+    const ns = numbers(raw).map(Number);
+    if (three) {
+      if (/tổng kích thước|total size/i.test(raw)) {
+        const [sumSets, sumPairs, triple] = ns;
+        return svg(local("Công thức hợp của ba tập", "Three-set union formula"),
+          `${card(90,72,170,72,local(`Tổng 3 tập = ${sumSets}`, `Sum of sets = ${sumSets}`),"#fff0d8")}${text(300,116,"−",28)}${card(330,72,180,72,local(`Tổng giao đôi = ${sumPairs}`, `Pair overlaps = ${sumPairs}`),"#eef5ff")}${text(550,116,"+",28)}${card(580,72,110,72,local(`Giao ba = ${triple}`, `Triple = ${triple}`),"#e5f8f2")}${text(380,210,`${sumSets} − ${sumPairs} + ${triple} = ?`,25)}`);
+      }
+      const [a, b, c, ab, ac, bc, abc] = ns;
+      return svg(local("Biểu đồ Venn ba tập theo đúng số liệu đề bài", "Three-set Venn diagram matching the question"),
+        `<circle cx="315" cy="105" r="78" fill="#ffcf6677"/><circle cx="445" cy="105" r="78" fill="#72c7ff77"/><circle cx="380" cy="180" r="78" fill="#80ddb777"/>` +
+        `<g fill="none" stroke="#17365d" stroke-width="4"><circle cx="315" cy="105" r="78"/><circle cx="445" cy="105" r="78"/><circle cx="380" cy="180" r="78"/></g>` +
+        text(250,34,`A = ${a ?? "?"}`,18) + text(510,34,`B = ${b ?? "?"}`,18) + text(380,268,`C = ${c ?? "?"}`,18) +
+        text(380,78,`A∩B = ${ab ?? "?"}`,15) + text(335,176,`A∩C = ${ac ?? "?"}`,15) + text(425,176,`B∩C = ${bc ?? "?"}`,15) + text(380,132,abc ?? "?",18));
+    }
+
+    let total = null;
+    let a;
+    let b;
+    let both;
+    let outside = null;
+    const asksNeither = /không (?:học|thích|biết)|neither/i.test(raw);
+    if (ns.length >= 4) {
+      total = ns[0]; a = ns[1]; b = ns[2];
+      if (asksNeither) {
+        if (/không thích|neither/i.test(raw) && !/(cả hai|both)/i.test(raw)) {
+          outside = ns[3];
+          both = a + b - (total - outside);
+        } else {
+          both = ns[3];
+          outside = total - (a + b - both);
+        }
+      } else {
+        both = ns[3];
+        outside = total - (a + b - both);
+      }
+    } else if (ns.length >= 3) {
+      [a, b, both] = ns;
+    } else {
+      a = ns[0]; both = ns[1]; b = null;
+    }
+    const onlyA = Number.isFinite(a) && Number.isFinite(both) ? a - both : "?";
+    const onlyB = Number.isFinite(b) && Number.isFinite(both) ? b - both : "?";
+    const frame = total !== null ? `<rect x="95" y="22" width="570" height="225" rx="18" fill="none" stroke="#9bb4d2" stroke-width="3"/>${text(132,52,`N = ${total}`,16)}` : "";
+    return svg(local("Biểu đồ Venn hai tập theo đúng số liệu đề bài", "Two-set Venn diagram matching the question"),
+      `${frame}<circle cx="325" cy="138" r="95" fill="#ffcf6677"/><circle cx="435" cy="138" r="95" fill="#72c7ff77"/>` +
+      `<g fill="none" stroke="#17365d" stroke-width="4"><circle cx="325" cy="138" r="95"/><circle cx="435" cy="138" r="95"/></g>` +
+      text(250,43,`A = ${a ?? "?"}`,18) + text(510,43,`B = ${b ?? "?"}`,18) +
+      text(285,145,onlyA,23) + text(380,145,both ?? "?",23) + text(475,145,onlyB,23) +
+      (outside !== null ? text(610,225,local(`Ngoài = ${outside}`, `Outside = ${outside}`),17) : ""));
   }
 
   function pattern(question) {
@@ -28,23 +76,56 @@
   }
 
   function fraction(question) {
-    const ns = numbers(question.vi);
-    const parts = Math.max(2, Math.min(10, Number(ns[1] || 6)));
-    const filled = Math.max(1, Math.min(parts, Number(ns[0] || 1)));
-    return svg("fraction bar matching the question", `${Array.from({length:parts},(_,i)=>`<rect x="${80+i*600/parts}" y="85" width="${600/parts}" height="82" fill="${i<filled?"#ffd56a":"#edf4ff"}" stroke="#17365d" stroke-width="2"/>`).join("")}${text(380,220,`${filled} / ${parts}`,25)}`);
+    const raw = prompt(question);
+    const fractions = [...raw.matchAll(/(\d+)\s*\/\s*(\d+)/g)].map((m) => [Number(m[1]), Number(m[2])]).slice(0, 4);
+    if (!fractions.length) return pattern(question);
+    const rowWidth = Math.min(620, 180 * fractions.length);
+    const startX = (760 - rowWidth) / 2;
+    const cellWidth = rowWidth / fractions.length;
+    const bars = fractions.map(([num, den], index) => {
+      const parts = Math.max(2, Math.min(16, den));
+      const x = startX + index * cellWidth;
+      const width = cellWidth - 26;
+      return Array.from({length:parts}, (_, i) => `<rect x="${x+i*width/parts}" y="92" width="${width/parts}" height="68" fill="${i<num?"#ffd56a":"#edf4ff"}" stroke="#17365d" stroke-width="1.5"/>`).join("") + text(x+width/2,196,`${num}/${den}`,20);
+    }).join("");
+    return svg(local("Các thanh phân số theo đúng biểu thức", "Fraction bars matching the expression"), `${bars}${text(380,242,local("Mỗi thanh biểu diễn một phân số trong đề", "Each bar represents one fraction in the question"),16,"#397ee8")}`);
   }
 
   function choices(question, combination) {
-    const ns = numbers(question.vi);
-    const count = Math.max(3, Math.min(7, Number(ns[0] || 5)));
+    const raw = prompt(question);
+    const ns = numbers(raw).map(Number);
+    let count = ns[0] || 5;
+    let choose = combination ? 2 : count;
+    const chooseMatch = raw.match(/(?:chọn|choose)\s+(\d+)[^\d]+(?:từ|of|from)\s+(\d+)/i);
+    if (chooseMatch) { choose = Number(chooseMatch[1]); count = Number(chooseMatch[2]); }
+    else if (/tam giác|triangle/i.test(raw)) choose = 3;
+    else if (/đoạn thẳng|dây cung|segment|chord/i.test(raw)) choose = 2;
+    else if (/lớp trưởng|lớp phó|monitor|deputy/i.test(raw)) choose = 2;
+    else if (/số có\s*(\d+)|(?:\d+)-digit/i.test(raw)) {
+      choose = Number((raw.match(/số có\s*(\d+)|((?:\d+))-digit/i) || [])[1] || (raw.match(/((?:\d+))-digit/i) || [])[1] || count);
+      const digitList = raw.match(/(?:từ|from)\s+((?:\d\s*[,،]\s*)+\d)/i);
+      if (digitList) count = new Set(digitList[1].match(/\d/g)).size;
+    }
+    count = Math.max(3, Math.min(10, count));
     const pts = Array.from({length:count},(_,i)=>({x:110+i*540/(count-1),y:75+(i%2)*55}));
     const edges = combination ? pts.map((p,i)=>pts.slice(i+1).map((q)=>`<line x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" stroke="#a9bfdc" stroke-width="2"/>`).join("")).join("") : pts.slice(0,-1).map((p,i)=>`<path d="M${p.x} ${p.y+25} Q${(p.x+pts[i+1].x)/2} 220 ${pts[i+1].x} ${pts[i+1].y+25}" fill="none" stroke="#79b89f" stroke-width="3"/>`).join("");
-    return svg("selection diagram matching the question", `${edges}${pts.map((p,i)=>`<circle cx="${p.x}" cy="${p.y}" r="25" fill="${i%2?"#78d9c5":"#ffd56a"}" stroke="#17365d" stroke-width="3"/>${text(p.x,p.y+7,String(i+1),17)}`).join("")}${text(380,245,combination?"Chọn nhóm: không xét thứ tự":"Sắp xếp: có xét thứ tự",18)}`);
+    const notation = combination ? `${count}C${choose}` : (choose === count ? `${count}!` : `${count}P${choose}`);
+    return svg(local("Sơ đồ chọn theo đúng số lượng trong đề", "Selection diagram matching the question"), `${edges}${pts.map((p,i)=>`<circle cx="${p.x}" cy="${p.y}" r="25" fill="${i%2?"#78d9c5":"#ffd56a"}" stroke="#17365d" stroke-width="3"/>${text(p.x,p.y+7,String(i+1),17)}`).join("")}${text(380,224,notation,23)}${text(380,252,combination?local("Chọn nhóm: không xét thứ tự","Choose a group: order does not matter"):local("Sắp xếp: có xét thứ tự","Arrange: order matters"),16)}`);
   }
 
-  function fibonacci(_question) {
-    const seq = [1,1,2,3,5,8];
-    return svg("Fibonacci sequence built from two previous terms", `${seq.map((n,i)=>`${card(35+i*118,80,92,72,String(n),i%2?"#e3f7f1":"#fff0d7")}${i>1?text(22+i*118,125,"=",18):""}`).join("")}${text(380,215,"Mỗi số = tổng hai số đứng trước",18,"#397ee8")}`);
+  function fibonacci(question) {
+    const raw = prompt(question);
+    let seq;
+    const starts = raw.match(/(?:bắt đầu|starts?)\s*(?:với|with)?\s*(\d+)\s*[,;]\s*(\d+)/i);
+    const explicit = raw.match(/(?:[:：]|dãy|sequence)\s*((?:\d+\s*[,;]\s*){1,}\d+)/i);
+    const consecutive = raw.match(/(?:liên tiếp là|consecutive terms are)\s*(\d+)\s*(?:và|and|,)\s*(\d+)/i);
+    if (starts) seq = [Number(starts[1]), Number(starts[2])];
+    else if (consecutive) seq = [Number(consecutive[1]), Number(consecutive[2])];
+    else if (explicit) seq = explicit[1].match(/\d+/g).map(Number).slice(0,6);
+    else if (/cầu thang|staircase|lát dải|strip|thỏ|rabbit/i.test(raw)) seq = /thỏ|rabbit/i.test(raw) ? [1,1] : [1,2];
+    else seq = [1,1];
+    while (seq.length < 6) seq.push(seq[seq.length-1] + seq[seq.length-2]);
+    return svg(local("Dãy số tạo từ tổng hai số liền trước", "Sequence built from the two previous terms"), `${seq.slice(0,6).map((n,i)=>`${card(35+i*118,80,92,72,String(n),i%2?"#e3f7f1":"#fff0d7")}${i>1?text(22+i*118,125,"=",18):""}`).join("")}${text(380,215,local("Mỗi số = tổng hai số đứng trước","Each term = the sum of the previous two"),18,"#397ee8")}`);
   }
 
   window.MQ_ADVANCED_VISUAL_FACTORY = (key, type, question) => {

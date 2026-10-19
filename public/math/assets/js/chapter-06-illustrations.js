@@ -3,9 +3,13 @@
 
   const illustrations = (window.BOOK_ILLUSTRATIONS =
     window.BOOK_ILLUSTRATIONS || {});
+  const isVi = () => document.documentElement.lang !== "en";
 
   function figure(svgBody, label, caption, viewBox = "0 0 680 300") {
-    return `<figure class="visual counting-illustration"><svg viewBox="${viewBox}" role="img" aria-label="${label}">${svgBody}</svg><figcaption>${caption}</figcaption></figure>`;
+    const visibleCaption = isVi()
+      ? "Hình được dựng theo đúng vị trí và dữ kiện của đề; hãy đếm theo từng kích thước."
+      : caption;
+    return `<figure class="visual counting-illustration"><svg viewBox="${viewBox}" role="img" aria-label="${label}">${svgBody}</svg><figcaption>${visibleCaption}</figcaption></figure>`;
   }
 
   function pointLine(count, x, y, width, panelLabel = "") {

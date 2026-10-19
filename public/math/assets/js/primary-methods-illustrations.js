@@ -1,9 +1,15 @@
 (function registerPrimaryMethodIllustrations() {
   "use strict";
   const art = window.PILOT_ILLUSTRATIONS = window.PILOT_ILLUSTRATIONS || {};
-  const wrap = (title, body) => `<div class="method-visual"><div class="method-visual-title">${title}</div>${body}</div>`;
+  const isVi = () => document.documentElement.lang !== "en";
+  const local = (vi, en) => isVi() ? vi : en;
+  const bilingual = (value) => {
+    const parts = String(value).split(" · ");
+    return parts.length === 2 ? local(parts[0], parts[1]) : value;
+  };
+  const wrap = (title, body) => `<div class="method-visual"><div class="method-visual-title">${bilingual(title)}</div>${body}</div>`;
   const svg = (label, body, view = "0 0 760 260") => `<svg viewBox="${view}" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
-  const txt = (x,y,s,extra="") => `<text x="${x}" y="${y}" text-anchor="middle" font-family="Nunito,Arial,sans-serif" font-size="18" font-weight="800" fill="#17365d" ${extra}>${s}</text>`;
+  const txt = (x,y,s,extra="") => `<text x="${x}" y="${y}" text-anchor="middle" font-family="Nunito,Arial,sans-serif" font-size="18" font-weight="800" fill="#17365d" ${extra}>${bilingual(s)}</text>`;
   const bar = (x,y,w,label,fill="#75b8ff") => `<rect x="${x}" y="${y}" width="${w}" height="44" rx="10" fill="${fill}" stroke="#17365d" stroke-width="3"/>${txt(x+w/2,y+29,label)}`;
   const box = (x,y,w,h,label,fill="#fff7de") => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${fill}" stroke="#17365d" stroke-width="3"/>${txt(x+w/2,y+h/2+6,label)}`;
 
@@ -43,12 +49,12 @@
   const numberWords = { "một":1, "hai":2, "ba":3, "bốn":4, "năm":5, "sáu":6, "bảy":7, "tám":8, "chín":9 };
   const numbersIn = (value) => [...String(value).matchAll(/\d+(?:[ .]\d+)*/g)].map((match) => match[0].trim());
   const firstCount = (value, fallback = 5) => {
-    const digit = String(value).match(/\b([3-9])\b/);
+    const digit = String(value).match(/\b(1[0-2]|[3-9])\b/);
     if (digit) return Number(digit[1]);
     const lower = String(value).toLowerCase();
     return Object.entries(numberWords).find(([word]) => lower.includes(word))?.[1] || fallback;
   };
-  const exactTitle = (question) => `<div class="method-visual-title visual-question">${question.vi}</div>`;
+  const exactTitle = (question) => `<div class="method-visual-title visual-question">${isVi() ? question.vi : question.en}</div>`;
   const iconStrip = (icons, labels = []) => `<div class="exact-icon-strip">${icons.map((icon,index)=>`<span><b>${icon}</b>${labels[index] ? `<small>${labels[index]}</small>` : ""}</span>`).join("")}</div>`;
   const exactGraph = (count) => {
     const points = Array.from({length:count},(_,i)=>{const a=-Math.PI/2+i*2*Math.PI/count;return{x:380+125*Math.cos(a),y:130+95*Math.sin(a)}});
@@ -87,7 +93,14 @@
     if (type === "method-selection-table") return `<div class="logic-mini choice-table"><table><thead><tr><th>Ứng viên</th><th>1</th><th>2</th><th>3</th><th>…</th></tr></thead><tbody><tr><th>Kiểm tra dữ kiện</th><td>×</td><td>×</td><td class="yes">✓</td><td>×</td></tr></tbody></table></div>`;
     if (type.startsWith("method-letter")) return iconStrip(["Hàng trăm","Hàng chục","Hàng đơn vị"],["xét từ phải sang trái"]);
     if (type === "method-elimination") return iconStrip(["Quan hệ 1","−  Quan hệ 2","Đại lượng còn lại"],["làm bằng nhau","khử","tìm giá trị"]);
-    if (type.includes("ratio") || type.includes("bar")) return svg("bar model for the question", `${bar(80,65,220,"phần 1","#ffd56a")}${bar(300,65,380,"phần 2","#86dcca")}`);
+    if (type.includes("ratio") || type.includes("bar")) {
+      const ratio = vi.match(/(\d+)\s*:\s*(\d+)/) || question.en.match(/(\d+)\s*:\s*(\d+)/);
+      const times = vi.match(/gấp\s+(\d+)/i) || question.en.match(/(\d+)\s+times/i);
+      const left = ratio ? Number(ratio[1]) : 1;
+      const right = ratio ? Number(ratio[2]) : (times ? Number(times[1]) : 2);
+      const scale = Math.min(75, 520 / Math.max(left + right, 1));
+      return svg(local("Sơ đồ đoạn thẳng theo đúng tỉ lệ trong đề", "Bar model matching the ratio in the question"), `${bar(70,55,Math.max(70,left*scale),local(`${left} phần`,`${left} part${left===1?"":"s"}`),"#ffd56a")}${bar(70,135,Math.max(70,right*scale),local(`${right} phần`,`${right} part${right===1?"":"s"}`),"#86dcca")}${txt(650,92,`${left} : ${right}`)}`);
+    }
     if (type.includes("unitary")) return iconStrip(["Nhiều đơn vị","÷","1 đơn vị","×","Số đơn vị mới"]);
     if (type === "method-substitution") return iconStrip(["Đại lượng A","=","Đại lượng B","→","Cùng một loại"]);
     return iconStrip(["Dữ kiện 1","Dữ kiện 2","?"],["đọc đề","lập quan hệ","tìm đáp án"]);

@@ -25,39 +25,13 @@
     ]
   ],
   "examples": [
-    {
-      "q": "Work backwards through operation chains to find A and B.",
-      "steps": [
-        "Start at the final box.",
-        "Reverse the last operation, then the one before it, until you reach the unknown."
-      ],
-      "a": "Use inverse operations in reverse order."
-    },
-    {
-      "q": "20 sparrows move between two lamp posts and finish with equal numbers.",
-      "steps": [
-        "Begin with the equal final numbers.",
-        "Reverse the second movement, then the first movement."
-      ],
-      "a": "12 and 8 at first"
-    },
-    {
-      "q": "Heather spends $4, then half the remaining money, then $4 and finishes with $2.",
-      "steps": [
-        "Start with $2 and add back the final $4.",
-        "Undo “half remaining” by doubling.",
-        "Add back the first $4."
-      ],
-      "a": "$16"
-    },
-    {
-      "q": "Tara moves between floors and ends on the 9th floor.",
-      "steps": [
-        "Start at floor 9.",
-        "Reverse each up/down move in the opposite direction."
-      ],
-      "a": "8th floor"
-    }
+    {"q":{"en":"1(a) A is multiplied by 2, then 2 is subtracted, then 4 is added; the result is 16. Find A.","vi":"1(a) Lấy A nhân 2, trừ 2 rồi cộng 4 thì được 16. Tìm A."},"steps":[{"en":"Work backwards: 16−4=12, 12+2=14, 14÷2=7.","vi":"Đi ngược: 16−4=12, 12+2=14, 14÷2=7."}],"a":{"en":"A = 7","vi":"A = 7"}},
+    {"q":{"en":"1(b) B is divided by 3, then 5 is added, then 5 is subtracted; the result is 15. Find B.","vi":"1(b) Lấy B chia 3, cộng 5 rồi trừ 5 thì được 15. Tìm B."},"steps":[{"en":"Work backwards: 15+5=20, 20−5=15, 15×3=45.","vi":"Đi ngược: 15+5=20, 20−5=15, 15×3=45."}],"a":{"en":"B = 45","vi":"B = 45"}},
+    {"q":{"en":"2(a) Add 6 to A, multiply by 3, then subtract 5; the result is 22. Find A.","vi":"2(a) Cộng A với 6, nhân 3 rồi trừ 5 thì được 22. Tìm A."},"steps":[{"en":"Work backwards: 22+5=27, 27÷3=9, 9−6=3.","vi":"Đi ngược: 22+5=27, 27÷3=9, 9−6=3."}],"a":{"en":"A = 3","vi":"A = 3"}},
+    {"q":{"en":"2(b) Add 3 to B, multiply by 3, divide by 3, then subtract 3; the result is 3. Find B.","vi":"2(b) Cộng B với 3, nhân 3, chia 3 rồi trừ 3 thì được 3. Tìm B."},"steps":[{"en":"Work backwards: 3+3=6, 6×3=18, 18÷3=6, 6−3=3.","vi":"Đi ngược: 3+3=6, 6×3=18, 18÷3=6, 6−3=3."}],"a":{"en":"B = 3","vi":"B = 3"}},
+    {"q":{"en":"3 Twenty sparrows were resting on two lamp posts. Four flew from the first post to the second, then two flew back from the second to the first. The two posts then had equal numbers. How many were on each post at first?","vi":"3 Có 20 con chim sẻ đậu trên hai cột đèn. 4 con bay từ cột thứ nhất sang cột thứ hai, rồi 2 con bay từ cột thứ hai về cột thứ nhất. Khi đó hai cột có số chim bằng nhau. Ban đầu mỗi cột có bao nhiêu con?"},"steps":[{"en":"The final numbers are 10 and 10. Reverse the last move, then the first move.","vi":"Cuối cùng mỗi cột có 10 con. Đi ngược lần chuyển cuối rồi lần chuyển đầu."}],"a":{"en":"12 on the first post and 8 on the second","vi":"Cột thứ nhất 12 con, cột thứ hai 8 con"}},
+    {"q":{"en":"4 Heather spent $4 on a storybook, then half of the remaining money on six apples, then $2 on a hair clip. She had $4 left. How much money did she have at first?","vi":"4 Heather mua truyện hết 4 đô, dùng một nửa số tiền còn lại mua 6 quả táo, rồi mua kẹp tóc hết 2 đô. Cô còn 4 đô. Ban đầu cô có bao nhiêu tiền?"},"steps":[{"en":"Work backwards: 4+2=6, 6×2=12, 12+4=16.","vi":"Đi ngược: 4+2=6, 6×2=12, 12+4=16."}],"a":{"en":"$16","vi":"16 đô"}},
+    {"q":{"en":"5 Tara went up 4 floors, down 6 floors, then up 3 floors and arrived at her friend's home on the 9th floor. On which floor was Tara staying?","vi":"5 Tara đi lên 4 tầng, xuống 6 tầng rồi lên 3 tầng và đến nhà bạn ở tầng 9. Tara đang ở tầng nào lúc đầu?"},"steps":[{"en":"Work backwards: 9−3=6, 6+6=12, 12−4=8.","vi":"Đi ngược: 9−3=6, 6+6=12, 12−4=8."}],"a":{"en":"8th floor","vi":"Tầng 8"}}
   ],
   "practice": [
     {

@@ -34,12 +34,12 @@
       "a": "164; 218; 158; 214"
     },
     {
-      "q": "64+27+29 and similar three-number sums",
+      "q": "Compute 64 + 27 + 29.",
       "steps": [
         "Break one number into tens and ones.",
         "Regroup to complete tens."
       ],
-      "a": "120 and related results"
+      "a": "120"
     },
     {
       "q": "166+575; 788+546; 999+802; 1234+768",
@@ -50,12 +50,12 @@
       "a": "741; 1334; 1801; 2002"
     },
     {
-      "q": "900−384−116 and bracket examples",
+      "q": "Compute 900 − 384 − 116.",
       "steps": [
         "Combine multiple subtrahends when useful.",
         "When removing brackets, change signs as shown in the chapter."
       ],
-      "a": "400; 350; 320; 205"
+      "a": "400"
     }
   ],
   "practice": [
