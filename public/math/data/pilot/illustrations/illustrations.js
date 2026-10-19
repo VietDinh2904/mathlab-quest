@@ -21,7 +21,7 @@
       ),
     "two-lane-pattern": () =>
       wrap(
-        `<text class="lane-label" x="25" y="62">ODD</text><text class="lane-label" x="25" y="140">EVEN</text>${[2, 4, 6, 8, 10].map((n, i) => `<circle class="number-node blue" cx="${135 + i * 90}" cy="55" r="24"/><text class="number-text" x="${135 + i * 90}" y="62">${n}</text>`).join("")}${[5, 10, 15, 20].map((n, i) => `<circle class="number-node" cx="${135 + i * 90}" cy="135" r="24"/><text class="number-text" x="${135 + i * 90}" y="142">${n}</text>`).join("")}`,
+        `<text class="lane-label" x="38" y="62">${document.documentElement.lang === "vi" ? "VỊ TRÍ LẺ" : "ODD"}</text><text class="lane-label" x="38" y="140">${document.documentElement.lang === "vi" ? "VỊ TRÍ CHẴN" : "EVEN"}</text>${[2, 4, 6, 8, 10].map((n, i) => `<circle class="number-node blue" cx="${150 + i * 82}" cy="55" r="24"/><text class="number-text" x="${150 + i * 82}" y="62">${n}</text>`).join("")}${[5, 10, 15, 20].map((n, i) => `<circle class="number-node" cx="${150 + i * 82}" cy="135" r="24"/><text class="number-text" x="${150 + i * 82}" y="142">${n}</text>`).join("")}`,
         "Odd and even positions separated into two lanes",
       ),
     "pattern-machine": () =>

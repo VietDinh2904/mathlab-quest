@@ -34,36 +34,36 @@
   ],
   "examples": [
     {
-      "q": "1, 2, 4, 8, 16, …; 1, 4, 9, 16, 25, …; 2, 6, 12, 20, 30, …",
+      "q": {"en":"Find the missing numbers in the number patterns.\n(a) 1, 2, 4, 8, 16, ( ), ( ), …\n(b) 1, 4, 9, 16, ( ), ( ), …\n(c) 2, 6, 12, 20, 30, ( ), ( ), …\n(d) 1, 4, 7, 10, 13, ( ), ( ), …","vi":"Tìm các số còn thiếu trong các quy luật số.\n(a) 1, 2, 4, 8, 16, ( ), ( ), …\n(b) 1, 4, 9, 16, ( ), ( ), …\n(c) 2, 6, 12, 20, 30, ( ), ( ), …\n(d) 1, 4, 7, 10, 13, ( ), ( ), …"},
       "steps": [
-        "Test a repeated operation first.",
-        "If that fails, inspect the differences or familiar number families."
+        {"en":"(a) Multiply by 2; (b) use square numbers.","vi":"(a) Nhân 2; (b) dùng các số chính phương."},
+        {"en":"(c) add consecutive even numbers; (d) add 3.","vi":"(c) Cộng các số chẵn liên tiếp; (d) cộng 3."}
       ],
-      "a": "32, 64; 36; 42, 56"
+      "a": {"en":"(a) 32, 64; (b) 25, 36; (c) 42, 56; (d) 16, 19","vi":"(a) 32, 64; (b) 25, 36; (c) 42, 56; (d) 16, 19"}
     },
     {
-      "q": "24, 3, 21, 6, 18, … and similar interleaved sequences.",
+      "q": {"en":"Find the missing numbers in the number patterns.\n(a) 24, 3, 21, 6, 18, ( ), ( ), …\n(b) 8, 1, 10, 2, 12, ( ), ( ), …\n(c) 28, 2, 24, 4, 20, ( ), ( ), …\n(d) 1, 8, 3, 10, 5, 12, ( ), ( ), …","vi":"Tìm các số còn thiếu trong các quy luật số.\n(a) 24, 3, 21, 6, 18, ( ), ( ), …\n(b) 8, 1, 10, 2, 12, ( ), ( ), …\n(c) 28, 2, 24, 4, 20, ( ), ( ), …\n(d) 1, 8, 3, 10, 5, 12, ( ), ( ), …"},
       "steps": [
-        "Read positions 1,3,5,… as one sequence.",
-        "Read positions 2,4,6,… as another sequence."
+        {"en":"Separate positions 1,3,5,… from positions 2,4,6,…. ","vi":"Tách các vị trí 1, 3, 5, … khỏi các vị trí 2, 4, 6, …."},
+        {"en":"Continue each of the two interleaved rules.","vi":"Tiếp tục từng quy luật trong hai dãy xen kẽ."}
       ],
-      "a": "Use two interleaved rules."
+      "a": {"en":"(a) 9, 15; (b) 3, 14; (c) 6, 16; (d) 7, 14","vi":"(a) 9, 15; (b) 3, 14; (c) 6, 16; (d) 7, 14"}
     },
     {
-      "q": "Number diagrams with A and B.",
+      "q": {"en":"Find A and B in each set of three-part number circles.\n(a) 5, 12, 10; 8, 18, 16; A, B, 40.\n(b) 18, 12, 15; 24, 16, 20; A, B, 10.","vi":"Tìm A và B trong mỗi bộ hình tròn chia ba phần.\n(a) 5, 12, 10; 8, 18, 16; A, B, 40.\n(b) 18, 12, 15; 24, 16, 20; A, B, 10."},
       "steps": [
-        "Compare the same positions across the completed diagrams.",
-        "Apply the same relationship to the diagram with missing values."
+        {"en":"(a) bottom = left × 2, then right = bottom + 2.","vi":"(a) Số dưới = số trái × 2, rồi số phải = số dưới + 2."},
+        {"en":"(b) move from left to bottom to right by subtracting the same amount.","vi":"(b) Từ trái xuống dưới rồi sang phải, mỗi lần trừ cùng một số."}
       ],
-      "a": "Use one consistent positional relationship."
+      "a": {"en":"(a) A = 20, B = 42; (b) A = 15, B = 5","vi":"(a) A = 20, B = 42; (b) A = 15, B = 5"}
     },
     {
-      "q": "Which pattern is not the same as the rest?",
+      "q": {"en":"Which pattern is not the same as the rest?\n(a) 2, 2, 4, 6, 10, 16, 26, …\n(b) 1, 1, 2, 3, 5, 8, 13, …\n(c) 1, 4, 7, 10, 13, 16, 19, …","vi":"Quy luật nào không giống các quy luật còn lại?\n(a) 2, 2, 4, 6, 10, 16, 26, …\n(b) 1, 1, 2, 3, 5, 8, 13, …\n(c) 1, 4, 7, 10, 13, 16, 19, …"},
       "steps": [
-        "Check whether each term comes from the two preceding terms.",
-        "Compare with a simple constant-difference sequence."
+        {"en":"In (a) and (b), each term is the sum of the previous two.","vi":"Ở (a) và (b), mỗi số bằng tổng hai số đứng trước."},
+        {"en":"Pattern (c) adds 3 each time.","vi":"Quy luật (c) cộng 3 ở mỗi bước."}
       ],
-      "a": "The +3 sequence is different."
+      "a": {"en":"(c)","vi":"(c)"}
     }
   ],
   "practice": [

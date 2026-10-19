@@ -13,6 +13,7 @@
     beginner: { label: "Beginner", grades: { vi: "Lớp 3–4", en: "Grades 3–4" }, icon: "🏆", accent: "purple" },
     methods1: { label: "Phương pháp giải toán · Tập 1", grades: { vi: "Đỗ Trung Hiệu · Vũ Dương Thụy", en: "Primary problem-solving methods" }, icon: "🧭", accent: "orange" },
     methods2: { label: "Phương pháp giải toán · Tập 2", grades: { vi: "Đỗ Trung Hiệu · Vũ Dương Thụy", en: "Primary problem-solving methods" }, icon: "🧩", accent: "teal" },
+    advanced: { label: "Maths Olympiad · Advanced", grades: { vi: "6 chuyên đề từ bản PDF", en: "6 topics from the supplied PDF" }, icon: "🎓", accent: "red" },
   };
   const requested = new URLSearchParams(location.search).get("book");
   const saved = localStorage.getItem("math-quest-active-book");

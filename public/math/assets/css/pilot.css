@@ -167,6 +167,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
 .example-stack, .question-stack { display: grid; gap: 16px; }
 .example-card { padding: 20px; }
 .example-card h3 { margin: 0 0 12px; font: 800 19px "Baloo 2"; }
+.example-question, .question-copy p { overflow-wrap: anywhere; white-space: pre-line; }
 .step-list { display: grid; gap: 9px; margin: 13px 0; }
 .step-row { display: flex; gap: 10px; align-items: start; padding: 10px 12px; border-radius: 13px; background: var(--mint-soft); }
 .step-dot { display: grid; flex: 0 0 auto; place-items: center; width: 25px; height: 25px; border-radius: 50%; color: white; background: var(--mint); font-size: 12px; font-weight: 900; }
@@ -260,6 +261,17 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
 .drawing-toolbar button { padding: 8px 11px; border: 2px solid var(--line); border-radius: 10px; background: white; cursor: pointer; font-weight: 800; }
 .drawing-toolbar button.active { color: white; border-color: var(--blue); background: var(--blue); }
 .drawing-canvas { width: 100%; height: min(62vh, 600px); min-height: 440px; touch-action: none; border: 2px solid var(--line); border-radius: 14px; background: linear-gradient(#e7edf4 1px, transparent 1px), linear-gradient(90deg, #e7edf4 1px, transparent 1px), white; background-size: 24px 24px; }
+.screen-drawing { position: fixed; inset: 0; z-index: 120; display: none; touch-action: none; }
+.screen-drawing.open { display: block; }
+.screen-drawing-canvas { position: absolute; inset: 0; cursor: crosshair; touch-action: none; background: rgb(255 255 255 / 2%); }
+.screen-drawing-canvas.eraser { cursor: cell; }
+.screen-drawing-toolbar { position: absolute; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; max-width: calc(100vw - 24px); padding: 10px; overflow-x: auto; transform: translateX(-50%); border: 2px solid var(--navy); border-radius: 18px; background: rgb(255 255 255 / 96%); box-shadow: 0 7px 0 var(--navy), 0 18px 45px rgb(20 45 80 / 24%); }
+.screen-drawing-toolbar button, .screen-color { flex: 0 0 auto; min-height: 42px; padding: 8px 12px; border: 2px solid var(--line); border-radius: 11px; background: white; color: var(--navy); font-weight: 900; }
+.screen-drawing-toolbar button { cursor: pointer; }
+.screen-drawing-toolbar button.active { color: white; border-color: var(--blue); background: var(--blue); }
+.screen-color { display: flex; align-items: center; gap: 5px; }
+.screen-color input { width: 32px; height: 26px; padding: 0; border: 0; background: transparent; }
+.screen-drawing-toolbar .screen-drawing-done { color: white; border-color: var(--mint); background: #319c7c; }
 .legacy-illustration .visual { margin: 0; }
 .legacy-illustration svg { max-height: 360px; }
 
@@ -333,6 +345,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
   .tool-dock { right: 12px; bottom: 12px; }
   .tool-dock button { min-width: 62px; }
   .drawing-canvas { height: 55vh; min-height: 340px; }
+}
+
+@media (max-width: 760px) {
+  .answer-grid { grid-template-columns: 1fr; }
 }
 /* Reconstructed teaching diagrams for the two Primary Methods books. */
 .method-visual{margin:18px 0;padding:18px;border:2px dashed #c8d9ed;border-radius:22px;background:#fffdf8;overflow:hidden}.method-visual-title{text-align:center;font-weight:900;color:#17365d;margin-bottom:10px}.method-visual svg{display:block;width:100%;max-height:280px;margin:auto}.method-flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:22px 8px}.method-flow span,.method-flow b{padding:10px 14px;border-radius:12px;background:#e9f3ff;color:#17365d;font-weight:900}.method-flow b{background:transparent}.method-flow.backwards span{background:#e8fbf4}.logic-mini{overflow-x:auto}.logic-mini table{border-collapse:separate;border-spacing:6px;margin:0 auto}.logic-mini th,.logic-mini td{min-width:58px;padding:10px;text-align:center;border-radius:9px;background:#edf4fc;color:#17365d;font-weight:900}.logic-mini td.yes{background:#c9f3df;color:#08744d}.equation-board.method-equations{max-width:520px;margin:0 auto;font-size:clamp(18px,3vw,27px);line-height:1.8;text-align:right}.method-equations mark{background:#ffe29a;border-radius:6px;padding:0 5px}.method-equations hr{border:0;border-top:3px solid #17365d}.digit-column{width:150px;margin:0 auto;padding:18px 28px;background:#f4f8ff;border:2px solid #b8cee8;border-radius:18px;text-align:right;font:900 27px/1.45 ui-monospace,monospace}.digit-column span,.digit-column strong{display:block}.digit-column hr{border:0;border-top:3px solid #17365d}

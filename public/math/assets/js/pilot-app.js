@@ -126,10 +126,11 @@
   }
 
   function isLetteredQuestion(question) {
+    const labels = localValue(question.labels);
     return (
-      Array.isArray(question.labels) &&
-      question.labels.length > 1 &&
-      question.labels.every((label) => /^\(?[a-z]\)?$/.test(String(label)))
+      Array.isArray(labels) &&
+      labels.length > 1 &&
+      labels.every((label) => /^\(?[a-z]\)?$/.test(String(label)))
     );
   }
 
@@ -146,13 +147,14 @@
 
   function expandQuestion(question) {
     if (!isLetteredQuestion(question)) return [question];
+    const labels = localValue(question.labels);
     const english =
       typeof question.q === "object" ? question.q.en : question.q;
     const vietnamese =
       typeof question.q === "object"
         ? question.q.vi
         : window.PILOT_I18N.questionsVi[question.id] || question.q;
-    return question.labels.map((label, partIndex) => {
+    return labels.map((label, partIndex) => {
       const letter = String(label).replace(/[^a-z]/gi, "").toLowerCase();
       const partVisual = `${question.visual || ""}-${letter}`;
       return {
@@ -162,8 +164,8 @@
         partIndex,
         n: `${question.n}(${letter})`,
         q: {
-          en: splitPartPrompt(english, partIndex, question.labels.length),
-          vi: splitPartPrompt(vietnamese, partIndex, question.labels.length),
+          en: splitPartPrompt(english, partIndex, labels.length),
+          vi: splitPartPrompt(vietnamese, partIndex, labels.length),
         },
         visual: window.PILOT_ILLUSTRATIONS[partVisual] ? partVisual : question.visual,
         labels: undefined,
@@ -210,7 +212,7 @@
         );
         const done = chapterQuestions.filter((question) => state.completed[question.id]).length;
         const unavailable = chapter.available === false;
-        return `<button class="chapter-button ${number === state.chapter ? "active" : ""} ${unavailable ? "coming-soon" : ""}" type="button" data-chapter="${number}" ${unavailable ? "disabled" : ""}><span class="chapter-emoji">${chapter.emoji}</span><span class="chapter-copy"><strong>Chapter ${number}</strong><small>${escapeHTML(chapter.title)}</small>${unavailable ? `<em>${state.lang === "vi" ? "Đang dựng hình" : "Illustrating"}</em>` : ""}</span>${chapterQuestions.length > 0 && done === chapterQuestions.length ? '<span class="chapter-check">●</span>' : ""}</button>`;
+        return `<button class="chapter-button ${number === state.chapter ? "active" : ""} ${unavailable ? "coming-soon" : ""}" type="button" data-chapter="${number}" ${unavailable ? "disabled" : ""}><span class="chapter-emoji">${chapter.emoji}</span><span class="chapter-copy"><strong>${state.lang === "vi" ? "Chương" : "Chapter"} ${number}</strong><small>${escapeHTML(chapter.title)}</small>${unavailable ? `<em>${state.lang === "vi" ? "Đang dựng hình" : "Illustrating"}</em>` : ""}</span>${chapterQuestions.length > 0 && done === chapterQuestions.length ? '<span class="chapter-check">●</span>' : ""}</button>`;
       })
       .join("");
   }
@@ -228,7 +230,7 @@
     const total = window.PILOT_PDF_EXERCISES[state.chapter].length + window.PILOT_EXTRA_EXERCISES[state.chapter].length;
     const hero = byId("chapterHero");
     hero.style.background = HERO_COLORS[state.chapter] || "linear-gradient(125deg, #278b86, #65c8bd)";
-    hero.innerHTML = `<div class="hero-content"><span class="eyebrow">${chapter.emoji} Chapter ${state.chapter} · ${chapter.pages}</span><h1>${escapeHTML(chapter.title)}</h1><p>${escapeHTML(chapter.tagline)} · ${total} ${t("questions")}</p></div><div class="hero-mascot" aria-hidden="true">${HERO_MASCOTS[state.chapter] || chapter.emoji}</div>`;
+    hero.innerHTML = `<div class="hero-content"><span class="eyebrow">${chapter.emoji} ${state.lang === "vi" ? "Chương" : "Chapter"} ${state.chapter} · ${chapter.pages}</span><h1>${escapeHTML(chapter.title)}</h1><p>${escapeHTML(chapter.tagline)} · ${total} ${t("questions")}</p></div><div class="hero-mascot" aria-hidden="true">${HERO_MASCOTS[state.chapter] || chapter.emoji}</div>`;
   }
 
   function renderTabs() {
@@ -252,7 +254,7 @@
           const illustration = example.visual && window.PILOT_ILLUSTRATIONS[example.visual]
             ? window.PILOT_ILLUSTRATIONS[example.visual]()
             : "";
-          return `<article class="example-card" data-example="${index}"><h3>🔎 Example ${index + 1}</h3><p>${escapeHTML(localValue(example.q))}</p>${illustration}<div class="step-list" id="exampleSteps-${index}"></div><button class="soft-button" type="button" data-next-example="${index}">${t("revealStep")}</button><div class="step-answer" id="exampleAnswer-${index}" hidden>⭐ ${escapeHTML(localValue(example.a))}</div></article>`;
+          return `<article class="example-card" data-example="${index}"><h3>🔎 ${state.lang === "vi" ? "Ví dụ" : "Example"} ${index + 1}</h3><p class="example-question">${escapeHTML(localValue(example.q))}</p>${illustration}<div class="step-list" id="exampleSteps-${index}"></div><button class="soft-button" type="button" data-next-example="${index}">${t("revealStep")}</button><div class="step-answer" id="exampleAnswer-${index}" hidden>⭐ ${escapeHTML(localValue(example.a))}</div></article>`;
         },
       )
       .join("");
@@ -279,8 +281,9 @@
       question.visual && window.PILOT_ILLUSTRATIONS[question.visual]
         ? window.PILOT_ILLUSTRATIONS[question.visual]()
         : "";
-    const questionIllustration = question.visualPlacement === "solution" ? "" : illustration;
-    const solutionIllustration = question.visualPlacement === "solution" ? illustration : "";
+    const illustrationIsGuidance = question.visualPlacement === "solution" || question.source === "ai";
+    const questionIllustration = illustrationIsGuidance ? "" : illustration;
+    const solutionIllustration = illustrationIsGuidance ? illustration : "";
     const fields = solution.answers
       .map(
         (_, answerIndex) =>
@@ -414,30 +417,32 @@
     });
   }
 
-  function drawingHTML() {
-    return `<div class="drawing-toolbar"><button type="button" class="active" data-draw-mode="pencil">✏️ ${t("pencil")}</button><button type="button" data-draw-mode="eraser">🧽 ${t("eraser")}</button><button type="button" data-draw-undo>↩ ${t("undo")}</button><button type="button" data-draw-clear>🗑 ${t("clear")}</button><input type="color" id="drawColor" value="#183153" aria-label="Drawing color"/></div><canvas class="drawing-canvas" id="drawingCanvas"></canvas>`;
-  }
+  let screenDrawing;
 
-  function bindDrawing() {
-    const canvas = byId("drawingCanvas");
-    const width = Math.max(300, Math.floor(canvas.clientWidth));
-    const height = Math.max(360, Math.floor(canvas.clientHeight));
-    const ratio = window.devicePixelRatio || 1;
-    canvas.width = width * ratio;
-    canvas.height = height * ratio;
-    const context = canvas.getContext("2d");
-    context.scale(ratio, ratio);
-    context.lineCap = "round";
-    context.lineJoin = "round";
+  function ensureScreenDrawing() {
+    if (screenDrawing) return screenDrawing;
+    const layer = document.createElement("div");
+    layer.className = "screen-drawing";
+    layer.id = "screenDrawing";
+    layer.setAttribute("aria-hidden", "true");
+    layer.innerHTML = `<canvas class="screen-drawing-canvas" aria-label="${state.lang === "vi" ? "Vùng viết trực tiếp trên màn hình" : "Draw directly on screen"}"></canvas><div class="screen-drawing-toolbar" role="toolbar" aria-label="${state.lang === "vi" ? "Công cụ viết" : "Drawing tools"}"><button type="button" class="active" data-screen-mode="pencil">✏️ ${t("pencil")}</button><button type="button" data-screen-mode="eraser">🧽 ${t("eraser")}</button><button type="button" data-screen-undo>↩ ${t("undo")}</button><button type="button" data-screen-clear>🗑 ${t("clear")}</button><label class="screen-color"><span>🎨</span><input type="color" value="#183153" aria-label="${state.lang === "vi" ? "Màu bút" : "Pen colour"}"/></label><button type="button" class="screen-drawing-done" data-screen-close>✓ ${state.lang === "vi" ? "Xong" : "Done"}</button></div>`;
+    document.body.appendChild(layer);
+    const canvas = layer.querySelector("canvas");
+    const color = layer.querySelector('input[type="color"]');
     const strokes = [];
     let current = null;
     let mode = "pencil";
+    let context;
+    let width = 0;
+    let height = 0;
 
     function drawStroke(stroke) {
-      if (stroke.points.length < 2) return;
+      if (!context || stroke.points.length < 2) return;
       context.globalCompositeOperation = stroke.mode === "eraser" ? "destination-out" : "source-over";
       context.strokeStyle = stroke.color;
-      context.lineWidth = stroke.mode === "eraser" ? 20 : 3;
+      context.lineWidth = stroke.mode === "eraser" ? 30 : 4;
+      context.lineCap = "round";
+      context.lineJoin = "round";
       context.beginPath();
       stroke.points.forEach(([x, y], index) => index ? context.lineTo(x, y) : context.moveTo(x, y));
       context.stroke();
@@ -445,22 +450,34 @@
     }
 
     function redraw() {
+      if (!context) return;
       context.clearRect(0, 0, width, height);
       strokes.forEach(drawStroke);
       if (current) drawStroke(current);
     }
 
-    function point(event) {
-      const rect = canvas.getBoundingClientRect();
-      return [(event.clientX - rect.left) * width / rect.width, (event.clientY - rect.top) * height / rect.height];
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context = canvas.getContext("2d");
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      redraw();
     }
 
+    const point = (event) => [event.clientX, event.clientY];
     canvas.onpointerdown = (event) => {
-      current = { mode, color: byId("drawColor").value, points: [point(event)] };
+      event.preventDefault();
+      current = { mode, color: color.value, points: [point(event)] };
       canvas.setPointerCapture(event.pointerId);
     };
     canvas.onpointermove = (event) => {
       if (!current) return;
+      event.preventDefault();
       current.points.push(point(event));
       redraw();
     };
@@ -470,24 +487,41 @@
       current = null;
       redraw();
     };
-    document.querySelectorAll("[data-draw-mode]").forEach((button) => {
+    layer.querySelectorAll("[data-screen-mode]").forEach((button) => {
       button.onclick = () => {
-        mode = button.dataset.drawMode;
-        document.querySelectorAll("[data-draw-mode]").forEach((item) => item.classList.remove("active"));
+        mode = button.dataset.screenMode;
+        layer.querySelectorAll("[data-screen-mode]").forEach((item) => item.classList.remove("active"));
         button.classList.add("active");
+        canvas.classList.toggle("eraser", mode === "eraser");
       };
     });
-    document.querySelector("[data-draw-undo]").onclick = () => { strokes.pop(); redraw(); };
-    document.querySelector("[data-draw-clear]").onclick = () => { strokes.length = 0; redraw(); };
+    layer.querySelector("[data-screen-undo]").onclick = () => { strokes.pop(); redraw(); };
+    layer.querySelector("[data-screen-clear]").onclick = () => { strokes.length = 0; current = null; redraw(); };
+    layer.querySelector("[data-screen-close]").onclick = () => toggleScreenDrawing(false);
+    window.addEventListener("resize", resize);
+    screenDrawing = { layer, resize };
+    return screenDrawing;
+  }
+
+  function toggleScreenDrawing(force) {
+    const drawing = ensureScreenDrawing();
+    const open = typeof force === "boolean" ? force : !drawing.layer.classList.contains("open");
+    drawing.layer.classList.toggle("open", open);
+    drawing.layer.setAttribute("aria-hidden", String(!open));
+    if (open) drawing.resize();
   }
 
   function openTool(tool) {
-    document.querySelector(".tool-dialog").classList.toggle("drawing-dialog", tool === "drawing");
+    if (tool === "drawing") {
+      toggleScreenDrawing();
+      return;
+    }
+    document.querySelector(".tool-dialog").classList.remove("drawing-dialog");
     byId("toolModal").classList.add("open");
     byId("toolModal").setAttribute("aria-hidden", "false");
-    byId("toolTitle").textContent = tool === "calculator" ? `🧮 ${t("calculator")}` : `✏️ ${t("drawing")}`;
-    byId("toolBody").innerHTML = tool === "calculator" ? calculatorHTML() : drawingHTML();
-    if (tool === "calculator") bindCalculator(); else bindDrawing();
+    byId("toolTitle").textContent = `🧮 ${t("calculator")}`;
+    byId("toolBody").innerHTML = calculatorHTML();
+    bindCalculator();
   }
 
   function closeTool() {
@@ -525,7 +559,11 @@
 
   byId("closeTool").onclick = closeTool;
   byId("toolModal").onclick = (event) => { if (event.target === byId("toolModal")) closeTool(); };
-  document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeTool(); });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    closeTool();
+    if (screenDrawing?.layer.classList.contains("open")) toggleScreenDrawing(false);
+  });
 
   render();
 })();

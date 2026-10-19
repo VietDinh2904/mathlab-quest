@@ -56,6 +56,11 @@
   };
   const exactArea = (type, question) => {
     const ns = numbersIn(question.vi).slice(0,4);
+    if (type.includes("triangle") && /cùng chiều cao|same height/i.test(`${question.vi} ${question.en}`)) {
+      const baseSmall = ns[0] || "6";
+      const baseLarge = ns[1] || "10";
+      return svg("two triangles with equal heights and bases in the ratio stated in the question", `<path d="M65 205L155 45L245 205Z" fill="#ffd98a" stroke="#17365d" stroke-width="4"/><path d="M155 45V205" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/><path d="M365 205L515 45L665 205Z" fill="#9dccff" stroke="#17365d" stroke-width="4"/><path d="M515 45V205" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/>${txt(155,238,`đáy ${baseSmall} cm`,17)}${txt(515,238,`đáy ${baseLarge} cm`,17)}${txt(335,80,"cùng chiều cao",16)}`);
+    }
     if (type.includes("triangle")) return svg("triangle with the dimensions stated in the question", `<path d="M170 215L380 35L620 215Z" fill="#a9d4ff" stroke="#17365d" stroke-width="4"/><path d="M380 35V215" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/>${txt(400,250,`Số đo: ${ns.join(" · ")}`)}`);
     if (type.includes("square")) return svg("square matching the question", `<rect x="270" y="25" width="220" height="220" rx="8" fill="#ffe59a" stroke="#17365d" stroke-width="4"/>${txt(380,140,ns.length ? `Dữ kiện: ${ns.join(" · ")}` : "S = a × a")}`);
     return svg("area diagram matching the stated dimensions", `<path d="M150 35H610V215H150Z" fill="#9de2ce" stroke="#17365d" stroke-width="4"/><rect x="470" y="35" width="140" height="75" fill="#fff" stroke="#ff786c" stroke-width="4" stroke-dasharray="8 6"/>${txt(380,250,ns.length ? `Các số đo: ${ns.join(" · ")}` : "Tách hình thành các phần quen thuộc")}`);
