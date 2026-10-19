@@ -75,6 +75,18 @@
       .join("");
   }
 
+  illustrations["counting-example-five-points"] = () =>
+    figure(unevenPointLine([90, 205, 395, 535, 615], 120), "Five marked points A to E on one straight line", "Example 1 from page 51.", "0 0 680 220");
+
+  illustrations["counting-example-square-grids"] = () =>
+    figure(`<text class="diagram-panel-label" x="150" y="34">(a)</text><g transform="translate(90 55)">${Array.from({length:4},(_,i)=>`<rect class="diagram-cell" x="${(i%2)*72}" y="${Math.floor(i/2)*72}" width="72" height="72"/>`).join("")}</g><text class="diagram-panel-label" x="480" y="34">(b)</text><g transform="translate(372 45)">${Array.from({length:9},(_,i)=>`<rect class="diagram-cell" x="${(i%3)*58}" y="${Math.floor(i/3)*58}" width="58" height="58"/>`).join("")}</g>`, "A 2 by 2 square grid and a 3 by 3 square grid", "Example 2 from page 51.");
+
+  illustrations["counting-example-triangles"] = () =>
+    figure(`<text class="diagram-panel-label" x="175" y="28">(a)</text><g transform="translate(45 42)"><path class="diagram-line" d="M130 0L15 210H245Z M130 0L72 210 M130 0V210 M130 0L188 210"/></g><text class="diagram-panel-label" x="500" y="28">(b)</text>${triangleGrid(3, 500, 40, 70)}`, "A triangle fan and a triangular grid", "Example 3 from page 52.");
+
+  illustrations["counting-example-rectangles"] = () =>
+    figure(`<g transform="translate(205 28)">${Array.from({length:9},(_,i)=>`<rect class="diagram-cell" x="${(i%3)*90}" y="${Math.floor(i/3)*72}" width="90" height="72"/>`).join("")}</g>`, "A rectangle divided into three rows and three columns", "Example 4 from page 52.");
+
   illustrations["counting-nested-squares"] = () =>
     figure(
       `<path class="diagram-line" d="M90 35H590V255H90Z M340 35V255 M160 35V175H520V35 M235 35V110H445V35"/>`,

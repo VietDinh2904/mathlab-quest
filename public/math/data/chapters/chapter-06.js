@@ -31,7 +31,8 @@
         "List segments starting at A, then B, then C, then D.",
         "Add 4+3+2+1."
       ],
-      "a": "10"
+      "a": "10",
+      "visual": "counting-example-five-points"
     },
     {
       "q": "How many squares are in 2×2 and 2×3 grids?",
@@ -39,7 +40,8 @@
         "Count 1-unit squares first.",
         "Then count larger 2×2 squares."
       ],
-      "a": "5 and 14"
+      "a": "5 and 14",
+      "visual": "counting-example-square-grids"
     },
     {
       "q": "How many triangles are in the shown fan and triangular grid?",
@@ -47,7 +49,8 @@
         "Count smallest triangles.",
         "Then count triangles made from 2, 3, … small triangles."
       ],
-      "a": "10 and 13"
+      "a": "10 and 13",
+      "visual": "counting-example-triangles"
     },
     {
       "q": "How many rectangles are in the sample grid?",
@@ -55,7 +58,8 @@
         "Count rectangles by width/size.",
         "Record each subtotal before adding."
       ],
-      "a": "36"
+      "a": "36",
+      "visual": "counting-example-rectangles"
     }
   ],
   "practice": [

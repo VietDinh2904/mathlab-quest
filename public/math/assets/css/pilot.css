@@ -199,6 +199,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
 .reveal-panel { display: none; margin-top: 13px; padding: 15px; border: 2px solid #d8cdf8; border-radius: 16px; background: #f7f3ff; }
 .reveal-panel.show { display: block; }
 .reveal-panel strong { color: #684fc1; }
+.solution-method { margin: 14px 0 12px; padding: 12px 14px; border-left: 5px solid #f3b746; border-radius: 10px; background: #fff9df; line-height: 1.55; }
+.solution-method strong { color: #8b5a00; }
+.solution-steps-title { display: block; margin-top: 14px; color: #17345d !important; }
 
 .math-visual { margin: 5px 0 15px; padding: 10px; overflow: auto; border: 2px dashed #d4dee9; border-radius: 18px; background: #fffdf8; }
 .math-visual svg { display: block; width: min(100%, 660px); height: auto; max-height: 260px; margin: auto; }

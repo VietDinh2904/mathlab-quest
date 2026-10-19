@@ -101,20 +101,27 @@
           partIndex === null
             ? question.answers
             : [question.answers[partIndex]],
-        hint: localValue(question.hint),
+        method: localValue(question.hint),
         steps: localValue(question.steps),
       };
     }
     const sourceId = question.parentId || question.id;
     const solution = window.PILOT_PDF_SOLUTIONS[state.chapter][sourceId];
+    const guide = localValue(solution.guide);
+    const guideSteps = Array.isArray(guide)
+      ? guide
+      : String(guide || "")
+          .split(/(?<=[.!?])\s+|\s*;\s*/)
+          .map((step) => step.trim())
+          .filter(Boolean);
     return {
       ...solution,
-      hint: localValue(solution.hint),
+      method: localValue(solution.hint),
       answers:
         partIndex === null
           ? solution.answers
           : [solution.answers[partIndex]],
-      steps: [localValue(solution.guide)],
+      steps: guideSteps,
     };
   }
 
@@ -241,8 +248,12 @@
       .join("");
     const examples = chapter.examples
       .map(
-        (example, index) =>
-          `<article class="example-card" data-example="${index}"><h3>🔎 Example ${index + 1}</h3><p>${escapeHTML(localValue(example.q))}</p><div class="step-list" id="exampleSteps-${index}"></div><button class="soft-button" type="button" data-next-example="${index}">${t("revealStep")}</button><div class="step-answer" id="exampleAnswer-${index}" hidden>⭐ ${escapeHTML(localValue(example.a))}</div></article>`,
+        (example, index) => {
+          const illustration = example.visual && window.PILOT_ILLUSTRATIONS[example.visual]
+            ? window.PILOT_ILLUSTRATIONS[example.visual]()
+            : "";
+          return `<article class="example-card" data-example="${index}"><h3>🔎 Example ${index + 1}</h3><p>${escapeHTML(localValue(example.q))}</p>${illustration}<div class="step-list" id="exampleSteps-${index}"></div><button class="soft-button" type="button" data-next-example="${index}">${t("revealStep")}</button><div class="step-answer" id="exampleAnswer-${index}" hidden>⭐ ${escapeHTML(localValue(example.a))}</div></article>`;
+        },
       )
       .join("");
     return `<div class="section-heading"><div><h2>${t("theoryTitle")}</h2><p>${t("theoryIntro")}</p></div></div><div class="theory-grid">${ideas}</div><div class="section-heading"><div><h2>${t("workedExamples")}</h2></div></div><div class="example-stack">${examples}</div>`;
@@ -280,7 +291,9 @@
       .map((step, stepIndex) => `<div class="step-row"><span class="step-dot">${stepIndex + 1}</span><span>${escapeHTML(step)}</span></div>`)
       .join("");
     const answerText = solution.answers.map((answer) => escapeHTML(answer[0])).join(" · ");
-    return `<article class="question-card" data-question-card="${escapeHTML(question.id)}"><div class="question-head"><span class="question-number">${escapeHTML(question.n || index + 1)}</span><div class="question-copy"><div class="badges"><span class="badge ${question.source === "ai" ? "ai" : ""}">${sourceLabel}</span>${level}</div><p>${escapeHTML(localQuestion(question))}</p></div></div><div class="question-body">${questionIllustration}<div class="answer-grid">${fields}</div><div class="question-actions"><button class="primary-button" type="button" data-check="${escapeHTML(question.id)}">✓ ${t("check")}</button><button class="soft-button" type="button" data-hint="${escapeHTML(question.id)}">💡 ${t("hint")}</button><button class="ghost-button" type="button" data-solution="${escapeHTML(question.id)}">🪄 ${t("solution")}</button><button class="ghost-button" type="button" data-question-tool="drawing">✏️</button><button class="ghost-button" type="button" data-question-tool="calculator">🧮</button></div><div class="feedback" id="feedback-${safeId(question.id)}"></div><div class="reveal-panel" id="hint-${safeId(question.id)}"><strong>💡 ${t("hint")}:</strong> ${escapeHTML(solution.hint)}</div><div class="reveal-panel" id="solution-${safeId(question.id)}"><strong>🪄 ${t("solution")}</strong>${solutionIllustration}<div class="step-list">${steps}</div><div class="step-answer">⭐ ${t("answer")}: ${answerText}</div></div></div></article>`;
+    const methodLabel = state.lang === "vi" ? "Phương pháp" : "Method";
+    const stepsLabel = state.lang === "vi" ? "Các bước thực hiện" : "Steps";
+    return `<article class="question-card" data-question-card="${escapeHTML(question.id)}"><div class="question-head"><span class="question-number">${escapeHTML(question.n || index + 1)}</span><div class="question-copy"><div class="badges"><span class="badge ${question.source === "ai" ? "ai" : ""}">${sourceLabel}</span>${level}</div><p>${escapeHTML(localQuestion(question))}</p></div></div><div class="question-body">${questionIllustration}<div class="answer-grid">${fields}</div><div class="question-actions"><button class="primary-button" type="button" data-check="${escapeHTML(question.id)}">✓ ${t("check")}</button><button class="ghost-button" type="button" data-solution="${escapeHTML(question.id)}">🪄 ${t("solution")}</button><button class="ghost-button" type="button" data-question-tool="drawing">✏️</button><button class="ghost-button" type="button" data-question-tool="calculator">🧮</button></div><div class="feedback" id="feedback-${safeId(question.id)}"></div><div class="reveal-panel" id="solution-${safeId(question.id)}"><strong>🪄 ${t("solution")}</strong>${solutionIllustration}<div class="solution-method"><strong>🧭 ${methodLabel}:</strong> ${escapeHTML(solution.method || "")}</div><strong class="solution-steps-title">${stepsLabel}</strong><div class="step-list">${steps}</div><div class="step-answer">⭐ ${t("answer")}: ${answerText}</div></div></div></article>`;
   }
 
   function renderQuestions(questions, heading, intro = "") {
@@ -485,7 +498,6 @@
     const languageButton = event.target.closest("[data-lang]");
     const toolButton = event.target.closest("[data-open-tool], [data-question-tool]");
     const checkButton = event.target.closest("[data-check]");
-    const hintButton = event.target.closest("[data-hint]");
     const solutionButton = event.target.closest("[data-solution]");
     const exampleButton = event.target.closest("[data-next-example]");
     if (chapterButton) { state.chapter = Number(chapterButton.dataset.chapter); state.tab = "learn"; saveState(); render(); }
@@ -493,7 +505,6 @@
     else if (languageButton) { state.lang = languageButton.dataset.lang; saveState(); render(); }
     else if (toolButton) openTool(toolButton.dataset.openTool || toolButton.dataset.questionTool);
     else if (checkButton) checkQuestion(checkButton.dataset.check);
-    else if (hintButton) togglePanel("hint", hintButton.dataset.hint);
     else if (solutionButton) togglePanel("solution", solutionButton.dataset.solution);
     else if (exampleButton) handleExampleStep(exampleButton);
   });
