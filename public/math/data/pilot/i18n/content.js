@@ -254,6 +254,26 @@
         tagline: { en: "Count by place value and number groups", vi: "Đếm theo hàng và theo nhóm số" },
         theoryVi: [["Đếm bội số", "Số bội dương của k không vượt N là phần nguyên của N÷k."],["Đếm chữ số trang", "Tách các trang 1 chữ số, 2 chữ số, 3 chữ số rồi cộng số chữ số của từng nhóm."],["Đếm một chữ số", "Đếm riêng số lần xuất hiện ở hàng đơn vị, hàng chục, hàng trăm và hàng nghìn."],["Lập số lớn nhất, nhỏ nhất", "Sắp xếp chữ số cẩn thận; chữ số 0 không thể đứng đầu số có nhiều chữ số."],["Điều kiện chữ số", "Đổi mỗi câu thành quan hệ giữa các hàng rồi thử các chữ số hợp lệ từ 0 đến 9."]],
       },
+      19: {
+        title: { en: "Cryptarithm", vi: "Mật mã chữ số" },
+        tagline: { en: "Turn letters into digits one column at a time", vi: "Đổi chữ thành số theo từng cột tính" },
+        theoryVi: [["Chữ cái đại diện cho chữ số", "Mỗi chữ cái ứng với một chữ số để phép tính dọc trở thành đúng."],["Giải theo từng cột", "Bắt đầu từ hàng đơn vị rồi ghi lại số nhớ khi chuyển sang cột bên trái."],["Cùng chữ, cùng số", "Một chữ lặp lại luôn mang cùng giá trị; chữ đứng đầu không được bằng 0."],["Kiểm tra toàn bộ phép tính", "Thay tất cả chữ số vừa tìm vào phép tính ban đầu để kiểm tra."]],
+      },
+      20: {
+        title: { en: "Perimeter of Squares and Rectangles", vi: "Chu vi hình vuông và hình chữ nhật" },
+        tagline: { en: "Trace every outside edge exactly once", vi: "Đi quanh và cộng mỗi cạnh ngoài đúng một lần" },
+        theoryVi: [["Chu vi là đường bao quanh", "Cộng độ dài tất cả các cạnh nằm trên đường bao ngoài của hình."],["Hình vuông", "Chu vi hình vuông bằng 4 nhân độ dài một cạnh."],["Hình chữ nhật", "Chu vi hình chữ nhật bằng 2 nhân tổng chiều dài và chiều rộng."],["Dời các đoạn bị khuyết", "Ở hình bậc thang, có thể ghép các đoạn ngang thành chiều dài và các đoạn dọc thành chiều rộng."],["Cạnh chung nằm bên trong", "Khi hai ô vuông chạm nhau, không tính cạnh chung vào chu vi ngoài."]],
+      },
+      21: {
+        title: { en: "Observation", vi: "Quan sát" },
+        tagline: { en: "Notice what moves, changes, repeats or stays", vi: "Nhận ra phần di chuyển, thay đổi, lặp lại hoặc giữ nguyên" },
+        theoryVi: [["Tìm một quy luật thống nhất", "So sánh vị trí, hướng, hình dạng, màu sắc và số lượng trước khi tính."],["Thử với mọi hình mẫu", "Một quy luật đúng phải giải thích được tất cả hình hoặc số đã cho."],["Hàng, cột và vùng", "Trong bài lưới, kiểm tra đồng thời điều kiện của từng hàng, từng cột và từng vùng."],["Nói rõ sự thay đổi", "Mô tả chính xác phần nào quay, đổi chỗ, lặp lại hoặc tăng lên trước khi chọn đáp án."]],
+      },
+      22: {
+        title: { en: "Number Puzzles", vi: "Câu đố số học" },
+        tagline: { en: "Use totals, symmetry and smaller cases", vi: "Dùng tổng, tính đối xứng và trường hợp nhỏ" },
+        theoryVi: [["Dùng tổng", "So sánh tổng cần đạt trên các đường với tổng của tất cả số được phép dùng."],["Ma phương", "Trong ma phương 3×3, mỗi hàng, cột và đường chéo có cùng tổng; tổng đó bằng 3 lần số ở tâm."],["Đối xứng và ô trung tâm", "Trong hình chữ thập hoặc các nhánh, ô trung tâm được tính nhiều lần nên phải bù phần lặp."],["Làm trường hợp nhỏ", "Với bài đếm rất lớn, hãy giải một phiên bản nhỏ hơn rồi nhận ra quy luật."]],
+      },
     },
     questionsVi: {
       "1-2": "Hoàn thành hàng tiếp theo của Tam giác Pascal.",

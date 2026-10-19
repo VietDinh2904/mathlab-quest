@@ -29,11 +29,17 @@ const questionText = (question, language = "vi") =>
 const visualRegistry = context.window.PILOT_ILLUSTRATIONS || {};
 const books = context.window.MQ_BOOK_DATA || {};
 const findings = [];
+const warnings = [];
 let visualCount = 0;
 let questionCount = 0;
 let chapterCount = 0;
 let availableChapterCount = 0;
 const reviewMetaPrompt = /(?:Ý tưởng.+dùng để làm gì|Tên chuyên đề này là gì|Viết ngắn gọn mục tiêu|What is .+ used for|What is this topic called|State the main goal)/i;
+const normalizedPrompt = (question) => String(questionText(question) || "")
+  .normalize("NFKC")
+  .toLocaleLowerCase("vi")
+  .replace(/[^\p{L}\p{N}]+/gu, " ")
+  .trim();
 
 const auditQuestion = (bookKey, chapter, question, collection) => {
   questionCount += 1;
@@ -56,13 +62,19 @@ for (const [bookKey, book] of Object.entries(books)) {
   for (const [chapter, meta] of Object.entries(book.chapters || {})) {
     chapterCount += 1;
     if (meta.available !== false) availableChapterCount += 1;
-    else findings.push(`${bookKey} chapter ${chapter}: unavailable chapter`);
+    else warnings.push(`${bookKey} chapter ${chapter}: source content has not been digitized yet`);
     const sourceCount = (book.exercises?.[chapter] || []).length;
     if (meta.available !== false && sourceCount === 0) findings.push(`${bookKey} chapter ${chapter}: no book exercises`);
     const extraCount = (book.extra?.[chapter] || []).length;
     if (meta.available !== false && extraCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 extra exercises, found ${extraCount}`);
     const reviewCount = (book.review?.[chapter] || []).length;
     if (meta.available !== false && reviewCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 review exercises, found ${reviewCount}`);
+    const extraPrompts = new Set((book.extra?.[chapter] || []).map(normalizedPrompt));
+    for (const question of book.review?.[chapter] || []) {
+      if (extraPrompts.has(normalizedPrompt(question))) {
+        findings.push(`${bookKey} chapter ${chapter} ${question.id}: duplicates an extra-practice problem`);
+      }
+    }
   }
   for (const collection of ["exercises", "extra", "review"]) {
     for (const [chapter, questions] of Object.entries(book[collection] || {})) {
@@ -103,5 +115,5 @@ if (!sixSquareTiling || !/data-tiling-count="13"/.test(sixSquareTiling)) {
   findings.push("advanced chapter 6 tiling visual: expected all 13 layouts for a 6-square strip");
 }
 
-console.log(JSON.stringify({ chapterCount, availableChapterCount, questionCount, visualCount, findings }, null, 2));
+console.log(JSON.stringify({ chapterCount, availableChapterCount, questionCount, visualCount, findings, warnings }, null, 2));
 if (findings.length) process.exitCode = 1;

@@ -37,27 +37,27 @@
   const patterns = [
     ["1(a)", "b1-1a", "1, 1, 2, 3, 5, __, __", ["8", "13"], "Add the two previous terms.", "Cộng hai số đứng trước.", "5 + 3 = 8; 8 + 5 = 13."],
     ["1(b)", "b1-1b", "1, 1, 1, 1, 4, 7, 13, __", ["25"], "Add the previous four terms.", "Cộng bốn số đứng trước.", "1 + 4 + 7 + 13 = 25."],
-    ["1(c)", "b1-1c", "3, 5, 9, 15, 23, 33, 45, __", ["59"], "The differences are consecutive even numbers.", "Các hiệu là những số chẵn liên tiếp.", "The next difference is 14, so 45 + 14 = 59."],
+    ["1(c)", "b1-1c", "3, 5, 9, 15, 23, 33, 45, __", ["59"], "The differences are consecutive even numbers.", "Các hiệu là những số chẵn liên tiếp.", "The next difference is 14, so 45 + 14 = 59.", "Hiệu tiếp theo là 14 nên 45 + 14 = 59."],
     ["1(d)", "b1-1d", "1, 3, 6, 10, __, 21, 28, 36", ["15"], "Add 2, 3, 4, 5, …", "Cộng lần lượt 2, 3, 4, 5,…", "10 + 5 = 15."],
-    ["1(e)", "b1-1e", "0, 3, 8, 15, 24, __, 48, 63", ["35"], "Look at the odd-number differences.", "Quan sát các hiệu là số lẻ.", "Differences are 3, 5, 7, 9, 11, …; 24 + 11 = 35."],
+    ["1(e)", "b1-1e", "0, 3, 8, 15, 24, __, 48, 63", ["35"], "Look at the odd-number differences.", "Quan sát các hiệu là số lẻ.", "Differences are 3, 5, 7, 9, 11, …; 24 + 11 = 35.", "Các hiệu là 3, 5, 7, 9, 11, …; 24 + 11 = 35."],
     ["1(f)", "b1-1f", "1, 2, 6, 24, 120, __, 5040", ["720"], "Multiply by 2, 3, 4, 5, …", "Nhân lần lượt với 2, 3, 4, 5,…", "120 × 6 = 720."],
     ["1(g)", "b1-1g", "0, 1, 3, 8, 21, 55, __, __", ["144", "377"], "Three times the previous term, minus the term before it.", "Lấy 3 lần số trước rồi trừ số đứng trước nữa.", "3 × 55 − 21 = 144; 3 × 144 − 55 = 377."],
     ["1(h)", "b1-1h", "1, 3, 7, 15, 31, __, 127", ["63"], "Double, then add 1.", "Nhân đôi rồi cộng 1.", "31 × 2 + 1 = 63."],
     ["1(i)", "b1-1i", "1, 1, 3, 7, 13, __, 31", ["21"], "Add consecutive even numbers.", "Cộng các số chẵn liên tiếp.", "13 + 8 = 21."],
     ["1(j)", "b1-1j", "1, 2, 5, 13, 34, 89, __, __", ["233", "610"], "Multiply the previous term by 3, then subtract the term before it.", "Lấy 3 lần số trước rồi trừ số đứng trước nữa.", "3 × 89 − 34 = 233; 3 × 233 − 89 = 610."],
   ];
-  patterns.forEach(([n,id,series,answers,hEn,hVi,guide]) => add(n,id,`Complete the pattern: ${series}`,`Hoàn thành dãy: ${series}`,answers,hEn,hVi,guide,guide,`number-pattern-${id}`));
+  patterns.forEach(([n,id,series,answers,hEn,hVi,guideEn,guideVi]) => add(n,id,`Complete the pattern: ${series}`,`Hoàn thành dãy: ${series}`,answers,hEn,hVi,guideEn,guideVi || guideEn,`number-pattern-${id}`));
   add("2", "b1-2", "Use the pattern to calculate the five products ending with 54,321 × 9 through 987,654,321 × 9.", "Dựa vào quy luật, tính năm tích từ 54 321 × 9 đến 987 654 321 × 9.", ["488889","5888889","68888889","788888889","8888888889"], "Watch the 8s grow while the outside digits change.", "Quan sát số chữ số 8 tăng dần, hai đầu thay đổi.", "Multiply each number by 9 and verify the digit pattern.", "Nhân từng số với 9 và kiểm tra quy luật chữ số.", "magic-nine", ["54 321 × 9", "654 321 × 9", "7 654 321 × 9", "87 654 321 × 9", "987 654 321 × 9"]);
   add("3", "b1-3", "Complete the next three rows of Pascal's Triangle.", "Hoàn thành ba hàng tiếp theo của tam giác Pascal.", ["5","10","10","5","6","15","20","15","6","7","21","35","35","21","7"], "Each inside number is the sum of the two numbers above it.", "Mỗi số bên trong bằng tổng hai số ngay phía trên.", "The rows are 1 5 10 10 5 1; 1 6 15 20 15 6 1; 1 7 21 35 35 21 7 1.", "Ba hàng là 1 5 10 10 5 1; 1 6 15 20 15 6 1; 1 7 21 35 35 21 7 1.", "pascal-beginner");
   add("4", "b1-4", "Complete: 101 × 44, 55, 66, 77, 88 and 99.", "Tính tiếp: 101 × 44, 55, 66, 77, 88 và 99.", ["4444","5555","6666","7777","8888","9999"], "The repeated two-digit factor becomes four repeated digits.", "Số có hai chữ số lặp lại trở thành số có bốn chữ số lặp lại.", "101 × 44 = 4444, and the same structure continues.", "101 × 44 = 4444 và quy luật tiếp tục tương tự.", "multiply-101", ["101 × 44","101 × 55","101 × 66","101 × 77","101 × 88","101 × 99"]);
   const boxes = [
-    ["5(a)","b1-5a","25",["30","15"],"In the examples, right = 2 × bottom and left = bottom + 10."],
-    ["5(b)","b1-5b","20",["19","38"],"The top difference decreases 3, 2, 1; bottom = 2 × top-right."],
-    ["5(c)","b1-5c","17",["14","22"],"Top-right = left − 3; bottom = left + 5."],
-    ["5(d)","b1-5d","7",["42","26"],"Across the three boxes, each row changes by 1, 6 and 6."],
-    ["5(e)","b1-5e","20",["80","92"],"Top-right = 4 × left; bottom = top-right + 12."],
+    ["5(a)","b1-5a","25",["30","15"],"In the examples, right = 2 × bottom and left = bottom + 10.","Trong các hình mẫu, số bên phải = 2 × số dưới và số bên trái = số dưới + 10."],
+    ["5(b)","b1-5b","20",["19","38"],"The top difference decreases 3, 2, 1; bottom = 2 × top-right.","Hiệu của hai số trên giảm lần lượt 3, 2, 1; số dưới = 2 × số trên bên phải."],
+    ["5(c)","b1-5c","17",["14","22"],"Top-right = left − 3; bottom = left + 5.","Số trên bên phải = số bên trái − 3; số dưới = số bên trái + 5."],
+    ["5(d)","b1-5d","7",["42","26"],"Across the three boxes, each row changes by 1, 6 and 6.","Qua ba ô, mỗi hàng thay đổi lần lượt 1, 6 và 6."],
+    ["5(e)","b1-5e","20",["80","92"],"Top-right = 4 × left; bottom = top-right + 12.","Số trên bên phải = 4 × số bên trái; số dưới = số trên bên phải + 12."],
   ];
-  boxes.forEach(([n,id,given,answers,rule],idx)=>add(n,id,`Find the two missing numbers when the top-left number is ${given}.`,`Tìm hai số còn thiếu khi số góc trên trái là ${given}.`,answers,rule,rule,rule,rule,`number-box-${idx+1}`, ["top-right","bottom"]));
+  boxes.forEach(([n,id,given,answers,ruleEn,ruleVi],idx)=>add(n,id,`Find the two missing numbers when the top-left number is ${given}.`,`Tìm hai số còn thiếu khi số góc trên trái là ${given}.`,answers,ruleEn,ruleVi,ruleEn,ruleVi,`number-box-${idx+1}`, ["top-right","bottom"]));
   extra[1] = [
     { id:"b1-extra-1",source:"ai",level:"warmup",q:{en:"Continue: 4, 9, 16, 25, __.",vi:"Điền tiếp: 4, 9, 16, 25, __."},answers:[["36"]],hint:{en:"These are square numbers.",vi:"Đây là các số chính phương."},steps:{en:["2², 3², 4², 5², so next is 6²."],vi:["2², 3², 4², 5² nên tiếp theo là 6²."]}},
     { id:"b1-extra-2",source:"ai",level:"warmup",q:{en:"Continue: 2, 5, 10, 17, __.",vi:"Điền tiếp: 2, 5, 10, 17, __."},answers:[["26"]],hint:{en:"Add consecutive odd numbers.",vi:"Cộng các số lẻ liên tiếp."},steps:{en:["Differences are 3,5,7,9."],vi:["Các hiệu là 3,5,7,9."]}},
