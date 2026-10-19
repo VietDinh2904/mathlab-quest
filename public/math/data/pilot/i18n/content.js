@@ -5,7 +5,7 @@
     ui: {
       en: {
         appName: "Math Quest Lab",
-        pilot: "Complete Chapters 1–18",
+        pilot: "Three interactive Olympiad books",
         learn: "Learn",
         pdfPractice: "Book practice",
         extraPractice: "More practice",
@@ -44,7 +44,7 @@
       },
       vi: {
         appName: "Phòng Lab Toán Học",
-        pilot: "Trọn bộ Chương 1–18",
+        pilot: "Ba bộ sách Olympic tương tác",
         learn: "Học lý thuyết",
         pdfPractice: "Bài tập trong sách",
         extraPractice: "Luyện thêm",

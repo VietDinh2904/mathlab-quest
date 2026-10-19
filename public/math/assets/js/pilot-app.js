@@ -1,7 +1,8 @@
 (function startMathQuestLab() {
   "use strict";
 
-  const STORAGE_KEY = "math-quest-pilot-v1";
+  const ACTIVE_BOOK = window.PILOT_ACTIVE_BOOK || "junior2";
+  const STORAGE_KEY = `math-quest-${ACTIVE_BOOK}-v2`;
   const TABS = [
     ["learn", "📘", "learn"],
     ["pdf", "✍️", "pdfPractice"],
@@ -58,6 +59,14 @@
 
   function chapterText(number) {
     const source = window.PILOT_CHAPTERS[number];
+    if (ACTIVE_BOOK !== "junior2") {
+      return {
+        ...source,
+        title: localValue(source.title),
+        tagline: localValue(source.tagline),
+        theory: (source.theory || []).map(([title, description]) => [localValue(title), localValue(description)]),
+      };
+    }
     const translated = window.PILOT_I18N.chapters[number] || {};
     return {
       ...source,
@@ -177,6 +186,14 @@
     });
   }
 
+  function renderBookSwitcher() {
+    const catalog = window.PILOT_BOOK_CATALOG || {};
+    byId("bookSwitcher").innerHTML = Object.entries(catalog).map(([key, book]) => {
+      const active = key === ACTIVE_BOOK ? "active" : "";
+      return `<a class="book-tab ${active} ${book.accent}" href="?book=${key}" data-book="${key}"><span>${book.icon}</span><strong>${book.label}</strong><small>${escapeHTML(book.grades[state.lang])}</small></a>`;
+    }).join("");
+  }
+
   function renderNavigation() {
     byId("chapterNav").innerHTML = CHAPTER_NUMBERS
       .map((number) => {
@@ -185,7 +202,8 @@
           window.PILOT_PDF_EXERCISES[number],
         );
         const done = chapterQuestions.filter((question) => state.completed[question.id]).length;
-        return `<button class="chapter-button ${number === state.chapter ? "active" : ""}" type="button" data-chapter="${number}"><span class="chapter-emoji">${chapter.emoji}</span><span class="chapter-copy"><strong>Chapter ${number}</strong><small>${escapeHTML(chapter.title)}</small></span>${done === chapterQuestions.length ? '<span class="chapter-check">●</span>' : ""}</button>`;
+        const unavailable = chapter.available === false;
+        return `<button class="chapter-button ${number === state.chapter ? "active" : ""} ${unavailable ? "coming-soon" : ""}" type="button" data-chapter="${number}" ${unavailable ? "disabled" : ""}><span class="chapter-emoji">${chapter.emoji}</span><span class="chapter-copy"><strong>Chapter ${number}</strong><small>${escapeHTML(chapter.title)}</small>${unavailable ? `<em>${state.lang === "vi" ? "Đang dựng hình" : "Illustrating"}</em>` : ""}</span>${chapterQuestions.length > 0 && done === chapterQuestions.length ? '<span class="chapter-check">●</span>' : ""}</button>`;
       })
       .join("");
   }
@@ -193,7 +211,7 @@
   function renderProgress() {
     const questions = allQuestions();
     const done = questions.filter((question) => state.completed[question.id]).length;
-    const percent = Math.round((done / questions.length) * 100);
+    const percent = questions.length ? Math.round((done / questions.length) * 100) : 0;
     byId("globalProgress").style.width = `${percent}%`;
     byId("globalProgressText").textContent = `${done}/${questions.length} ${t("questions")} · ${percent}% ${t("completed")}`;
   }
@@ -224,7 +242,7 @@
     const examples = chapter.examples
       .map(
         (example, index) =>
-          `<article class="example-card" data-example="${index}"><h3>🔎 Example ${index + 1}</h3><p>${escapeHTML(example.q)}</p><div class="step-list" id="exampleSteps-${index}"></div><button class="soft-button" type="button" data-next-example="${index}">${t("revealStep")}</button><div class="step-answer" id="exampleAnswer-${index}" hidden>⭐ ${escapeHTML(example.a)}</div></article>`,
+          `<article class="example-card" data-example="${index}"><h3>🔎 Example ${index + 1}</h3><p>${escapeHTML(localValue(example.q))}</p><div class="step-list" id="exampleSteps-${index}"></div><button class="soft-button" type="button" data-next-example="${index}">${t("revealStep")}</button><div class="step-answer" id="exampleAnswer-${index}" hidden>⭐ ${escapeHTML(localValue(example.a))}</div></article>`,
       )
       .join("");
     return `<div class="section-heading"><div><h2>${t("theoryTitle")}</h2><p>${t("theoryIntro")}</p></div></div><div class="theory-grid">${ideas}</div><div class="section-heading"><div><h2>${t("workedExamples")}</h2></div></div><div class="example-stack">${examples}</div>`;
@@ -287,6 +305,7 @@
 
   function render() {
     renderStaticTranslations();
+    renderBookSwitcher();
     renderNavigation();
     renderProgress();
     renderHero();
@@ -337,7 +356,7 @@
     button.dataset.currentStep = next;
     byId(`exampleSteps-${index}`).innerHTML = example.steps
       .slice(0, next)
-      .map((step, stepIndex) => `<div class="step-row"><span class="step-dot">${stepIndex + 1}</span><span>${escapeHTML(step)}</span></div>`)
+      .map((step, stepIndex) => `<div class="step-row"><span class="step-dot">${stepIndex + 1}</span><span>${escapeHTML(localValue(step))}</span></div>`)
       .join("");
     if (next === example.steps.length) {
       button.textContent = t("allSteps");

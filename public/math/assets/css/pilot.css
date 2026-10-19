@@ -68,6 +68,23 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
 .language-switch button { border: 0; border-radius: 10px; background: transparent; padding: 6px 9px; cursor: pointer; font-size: 12px; font-weight: 900; }
 .language-switch button.active { color: white; background: var(--blue); }
 
+.book-switcher {
+  display: flex; justify-content: center; gap: 10px; padding: 12px clamp(14px, 4vw, 56px);
+  overflow-x: auto; border-bottom: 1px solid rgb(24 49 83 / 10%); background: rgb(255 255 255 / 78%);
+}
+.book-tab {
+  display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 8px; align-items: center;
+  min-width: 170px; padding: 9px 15px; color: var(--navy); text-decoration: none;
+  border: 2px solid var(--line); border-radius: 17px; background: white; box-shadow: 0 3px 0 #d2dce7;
+}
+.book-tab > span { grid-row: 1 / 3; font-size: 27px; }
+.book-tab strong { font: 800 17px "Baloo 2", sans-serif; line-height: 1; }
+.book-tab small { color: var(--muted); font-size: 11px; font-weight: 800; }
+.book-tab.active { color: white; border-color: var(--navy); background: var(--blue); box-shadow: 0 4px 0 var(--navy); transform: translateY(-1px); }
+.book-tab.active small { color: rgb(255 255 255 / 82%); }
+.book-tab.active.green { background: #35a96f; }
+.book-tab.active.purple { background: #7657cc; }
+
 .app-shell { display: grid; grid-template-columns: 255px minmax(0, 980px); justify-content: center; gap: 28px; padding: 30px clamp(14px, 3vw, 42px) 110px; }
 .chapter-sidebar { position: sticky; top: 104px; align-self: start; display: grid; gap: 16px; max-height: calc(100vh - 120px); overflow-y: auto; padding-right: 5px; }
 .journey-card, .chapter-nav, .save-note { border: 2px solid rgb(24 49 83 / 9%); border-radius: 22px; background: rgb(255 255 255 / 92%); box-shadow: var(--shadow); }
@@ -85,6 +102,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
 .chapter-copy strong { display: block; font-size: 13px; }
 .chapter-copy small { display: block; overflow: hidden; color: var(--muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .chapter-button.active small { color: #cbd7e7; }
+.chapter-copy em { display: block; color: #a37a27; font-size: 10px; font-style: normal; font-weight: 900; }
+.chapter-button.coming-soon { opacity: .62; cursor: not-allowed; }
+.chapter-button.coming-soon:hover { background: transparent; }
 .chapter-check { color: var(--mint); font-size: 17px; }
 .save-note { padding: 13px; }
 
@@ -116,6 +136,33 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
 .idea-card:nth-child(3n) .idea-number { background: var(--mint); }
 .idea-card h3 { margin: 11px 0 5px; font: 800 20px "Baloo 2"; }
 .idea-card p { margin: 0; color: var(--muted); font-weight: 650; }
+
+.book-visual { margin: 0 0 18px; padding: 16px; overflow-x: auto; border: 2px dashed #c9d8e8; border-radius: 20px; background: #fffdf8; text-align: center; }
+.book-visual-title { margin-bottom: 10px; color: var(--navy); font-weight: 900; }
+.analogue-clock { width: min(250px, 70vw); height: auto; }
+.clock-pair { display: flex; align-items: center; justify-content: center; gap: 14px; min-width: 560px; }
+.clock-pair .book-visual-title { display: none; }
+.clock-pair .book-visual { margin: 0; padding: 0; border: 0; }
+.time-arrow { color: var(--coral); font-size: 25px; font-weight: 900; }
+.time-line, .pattern-strip, .pattern-hint { display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 540px; }
+.time-line span, .pattern-strip span, .pattern-hint span { padding: 10px 14px; border: 2px solid var(--navy); border-radius: 14px; background: white; color: var(--navy); font-weight: 900; }
+.time-line i { width: 55px; height: 3px; background: var(--blue); }
+.time-line b, .pattern-strip b { color: #3171d5; font-size: 12px; }
+.pattern-strip { flex-wrap: wrap; min-width: 0; }
+.pattern-hint i { color: var(--coral); font-size: 22px; font-style: normal; }
+.pattern-hint .mystery { color: white; background: var(--coral); }
+.equation-board { display: inline-grid; gap: 8px; min-width: min(100%, 360px); padding: 14px; border-radius: 16px; background: #edf5ff; color: var(--navy); font-weight: 800; }
+.equation-board .question-row { color: #b8483b; background: #fff1ed; }
+.pascal-triangle { display: grid; gap: 8px; color: var(--navy); font-size: clamp(15px, 3vw, 20px); font-weight: 900; }
+.pascal-triangle div:last-child { color: var(--coral); }
+.number-box-row { display: flex; align-items: center; justify-content: center; gap: 18px; min-width: 620px; }
+.number-box { display: grid; grid-template-columns: 1fr 1fr; width: 142px; border: 3px solid var(--navy); border-radius: 10px; overflow: hidden; background: white; color: var(--navy); font-weight: 900; }
+.number-box span { padding: 12px; border-bottom: 2px solid var(--navy); }
+.number-box span:first-child { border-right: 2px solid var(--navy); }
+.number-box b { grid-column: 1 / 3; padding: 12px; background: #fff6d9; }
+.number-box.target { border-color: var(--coral); }
+.number-box.target b { background: #fff0ec; }
+.pattern-arrow { color: var(--coral); font-size: 28px; font-weight: 900; }
 
 .example-stack, .question-stack { display: grid; gap: 16px; }
 .example-card { padding: 20px; }
@@ -270,6 +317,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px
   .brand small, .icon-button span { display: none; }
   .icon-button { width: 43px; height: 43px; padding: 0; }
   .avatar-button { display: none; }
+  .book-switcher { justify-content: flex-start; padding: 9px 10px; }
+  .book-tab { min-width: 145px; padding: 8px 11px; }
   .app-shell { padding: 18px 10px 100px; }
   .chapter-nav { grid-template-columns: 1fr; }
   .chapter-button { grid-template-columns: 42px 1fr auto; }
