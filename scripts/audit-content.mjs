@@ -31,8 +31,21 @@ const books = context.window.MQ_BOOK_DATA || {};
 const findings = [];
 let visualCount = 0;
 let questionCount = 0;
+let chapterCount = 0;
+let availableChapterCount = 0;
 
 for (const [bookKey, book] of Object.entries(books)) {
+  for (const [chapter, meta] of Object.entries(book.chapters || {})) {
+    chapterCount += 1;
+    if (meta.available !== false) availableChapterCount += 1;
+    else findings.push(`${bookKey} chapter ${chapter}: unavailable chapter`);
+    const sourceCount = (book.exercises?.[chapter] || []).length;
+    if (meta.available !== false && sourceCount === 0) findings.push(`${bookKey} chapter ${chapter}: no book exercises`);
+    const extraCount = (book.extra?.[chapter] || []).length;
+    if (meta.available !== false && extraCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 extra exercises, found ${extraCount}`);
+    const reviewCount = (book.review?.[chapter] || []).length;
+    if (meta.available !== false && reviewCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 review exercises, found ${reviewCount}`);
+  }
   for (const [chapter, questions] of Object.entries(book.exercises || {})) {
     for (const question of questions) {
       questionCount += 1;
@@ -63,6 +76,7 @@ for (const [chapter, questions] of Object.entries(context.window.PILOT_PDF_EXERC
 }
 
 const visibleEnglish = /\b(straight|curved|moves|odd|even|how many|which is|group|start|think|answer|method|make a table|total cost|total legs|total wheels|arrange|apple|peach|orange|father|brother|choose|truth|lie|dentist|teacher|driver|guests|matches|teams|marbles|students|roles|science|maths|english|row|blocks|pairs|pages|same distance|head start)\b/i;
+const placeholderVisual = /\b(Dữ kiện 1|Dữ kiện 2|Đối tượng|Ứng viên\s*1|Số đo:|Các số đo:|Candidate\s*1|Data\s*1)\b/i;
 for (const [key, render] of Object.entries(visualRegistry)) {
   if (typeof render !== "function") continue;
   let output;
@@ -73,7 +87,8 @@ for (const [key, render] of Object.entries(visualRegistry)) {
   }
   const visibleText = [...output.matchAll(/>([^<>]+)</g)].map((match) => match[1]).join(" ");
   if (visibleEnglish.test(visibleText)) findings.push(`visual ${key}: English text remains in Vietnamese mode: ${visibleText.match(visibleEnglish)?.[0]}`);
+  if (placeholderVisual.test(visibleText)) findings.push(`visual ${key}: generic placeholder remains: ${visibleText.match(placeholderVisual)?.[0]}`);
 }
 
-console.log(JSON.stringify({ questionCount, visualCount, findings }, null, 2));
+console.log(JSON.stringify({ chapterCount, availableChapterCount, questionCount, visualCount, findings }, null, 2));
 if (findings.length) process.exitCode = 1;

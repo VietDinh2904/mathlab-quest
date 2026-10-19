@@ -10,7 +10,13 @@
     const visualType = visual?.id || visual;
     const visualKey = visualType ? `${id}-visual` : null;
     if (visualKey && typeof window.MQ_METHOD_VISUAL_FACTORY === "function") {
-      window.MQ_METHOD_VISUAL_FACTORY(visualKey, visualType, pair(vi, en));
+      window.MQ_METHOD_VISUAL_FACTORY(visualKey, visualType, {
+        vi,
+        en,
+        answer: String(answer),
+        method: pair(methodVi, methodEn),
+        steps: pair(stepsVi, stepsEn),
+      });
     }
     if (source === "pdf") {
       return {

@@ -3,6 +3,7 @@
   const art = window.PILOT_ILLUSTRATIONS = window.PILOT_ILLUSTRATIONS || {};
   const isVi = () => document.documentElement.lang !== "en";
   const local = (vi, en) => isVi() ? vi : en;
+  const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[char]);
   const bilingual = (value) => {
     const parts = String(value).split(" · ");
     return parts.length === 2 ? local(parts[0], parts[1]) : value;
@@ -54,7 +55,7 @@
     const lower = String(value).toLowerCase();
     return Object.entries(numberWords).find(([word]) => lower.includes(word))?.[1] || fallback;
   };
-  const exactTitle = (question) => `<div class="method-visual-title visual-question">${isVi() ? question.vi : question.en}</div>`;
+  const exactTitle = (question) => `<div class="method-visual-title visual-question">${esc(isVi() ? question.vi : question.en)}</div>`;
   const iconStrip = (icons, labels = []) => `<div class="exact-icon-strip">${icons.map((icon,index)=>`<span><b>${icon}</b>${labels[index] ? `<small>${labels[index]}</small>` : ""}</span>`).join("")}</div>`;
   const exactGraph = (count) => {
     const points = Array.from({length:count},(_,i)=>{const a=-Math.PI/2+i*2*Math.PI/count;return{x:380+125*Math.cos(a),y:130+95*Math.sin(a)}});
@@ -65,11 +66,36 @@
     if (type.includes("triangle") && /cùng chiều cao|same height/i.test(`${question.vi} ${question.en}`)) {
       const baseSmall = ns[0] || "6";
       const baseLarge = ns[1] || "10";
-      return svg("two triangles with equal heights and bases in the ratio stated in the question", `<path d="M65 205L155 45L245 205Z" fill="#ffd98a" stroke="#17365d" stroke-width="4"/><path d="M155 45V205" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/><path d="M365 205L515 45L665 205Z" fill="#9dccff" stroke="#17365d" stroke-width="4"/><path d="M515 45V205" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/>${txt(155,238,`đáy ${baseSmall} cm`,17)}${txt(515,238,`đáy ${baseLarge} cm`,17)}${txt(335,80,"cùng chiều cao",16)}`);
+      return svg("two triangles with equal heights and bases in the ratio stated in the question", `<path d="M65 205L155 45L245 205Z" fill="#ffd98a" stroke="#17365d" stroke-width="4"/><path d="M155 45V205" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/><path d="M365 205L515 45L665 205Z" fill="#9dccff" stroke="#17365d" stroke-width="4"/><path d="M515 45V205" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/>${txt(155,238,local(`đáy ${baseSmall} cm`,`base ${baseSmall} cm`))}${txt(515,238,local(`đáy ${baseLarge} cm`,`base ${baseLarge} cm`))}${txt(335,80,local("cùng chiều cao","same height"))}`);
     }
-    if (type.includes("triangle")) return svg("triangle with the dimensions stated in the question", `<path d="M170 215L380 35L620 215Z" fill="#a9d4ff" stroke="#17365d" stroke-width="4"/><path d="M380 35V215" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/>${txt(400,250,`Số đo: ${ns.join(" · ")}`)}`);
-    if (type.includes("square")) return svg("square matching the question", `<rect x="270" y="25" width="220" height="220" rx="8" fill="#ffe59a" stroke="#17365d" stroke-width="4"/>${txt(380,140,ns.length ? `Dữ kiện: ${ns.join(" · ")}` : "S = a × a")}`);
-    return svg("area diagram matching the stated dimensions", `<path d="M150 35H610V215H150Z" fill="#9de2ce" stroke="#17365d" stroke-width="4"/><rect x="470" y="35" width="140" height="75" fill="#fff" stroke="#ff786c" stroke-width="4" stroke-dasharray="8 6"/>${txt(380,250,ns.length ? `Các số đo: ${ns.join(" · ")}` : "Tách hình thành các phần quen thuộc")}`);
+    if (type.includes("triangle")) return svg("triangle with the dimensions stated in the question", `<path d="M170 215L380 35L620 215Z" fill="#a9d4ff" stroke="#17365d" stroke-width="4"/><path d="M380 35V215" stroke="#ff786c" stroke-width="3" stroke-dasharray="7 6"/>${txt(400,250,local(`Các số trong đề: ${ns.join(" · ")}`,`Numbers in the problem: ${ns.join(" · ")}`))}`);
+    if (type.includes("square")) return svg("square matching the question", `<rect x="270" y="25" width="220" height="220" rx="8" fill="#ffe59a" stroke="#17365d" stroke-width="4"/>${txt(380,140,ns.length ? local(`Các số trong đề: ${ns.join(" · ")}`,`Numbers in the problem: ${ns.join(" · ")}`) : "S = a × a")}`);
+    return svg("area diagram matching the stated dimensions", `<path d="M150 35H610V215H150Z" fill="#9de2ce" stroke="#17365d" stroke-width="4"/><rect x="470" y="35" width="140" height="75" fill="#fff" stroke="#ff786c" stroke-width="4" stroke-dasharray="8 6"/>${txt(380,250,ns.length ? local(`Các số trong đề: ${ns.join(" · ")}`,`Numbers in the problem: ${ns.join(" · ")}`) : local("Tách hình thành các phần quen thuộc","Split into familiar shapes"))}`);
+  };
+
+  const exactSteps = (question) => {
+    const steps = (isVi() ? question.steps?.vi : question.steps?.en) || [];
+    return `<div class="exact-method-steps">${steps.map((step, index) => `<div class="exact-method-step"><span>${index + 1}</span><p>${esc(step)}</p></div>`).join("")}</div>`;
+  };
+
+  const selectionTable = (question) => {
+    const steps = (isVi() ? question.steps?.vi : question.steps?.en) || [];
+    const first = steps[0] || "";
+    const afterColon = first.includes(":") ? first.slice(first.indexOf(":") + 1) : "";
+    const candidates = afterColon.split(/[,;]/).map((item) => item.trim().replace(/[.]$/, "")).filter(Boolean);
+    if (candidates.length < 2 || candidates.length > 12) return exactSteps(question);
+    const answer = String(question.answer || "").toLowerCase().replace(/\s+/g, "");
+    return `<div class="exact-candidate-board"><strong>${local("Các khả năng cần thử","Candidates to test")}</strong><div>${candidates.map((candidate) => {
+      const normalized = candidate.toLowerCase().replace(/\s+/g, "");
+      const selected = answer && (normalized === answer || normalized.includes(answer));
+      return `<span class="${selected ? "selected" : ""}">${esc(candidate)}${selected ? " ✓" : ""}</span>`;
+    }).join("")}</div></div>${exactSteps(question)}`;
+  };
+
+  const relationBoard = (question) => {
+    const prompt = isVi() ? question.vi : question.en;
+    const relations = String(prompt).split(/[;。]/).map((item) => item.trim()).filter((item) => /[=+−×÷]|\b(?:giá|cost|tổng|total)\b/i.test(item));
+    return `${relations.length ? `<div class="equation-board method-equations">${relations.map((item) => `<div>${esc(item)}</div>`).join("")}</div>` : ""}${exactSteps(question)}`;
   };
   const exactPigeonhole = (type, question) => {
     const ns = numbersIn(question.vi);
@@ -87,23 +113,23 @@
       return exactGraph(Math.min(firstCount(vi),8));
     }
     if (type.startsWith("method-area")) return exactArea(type, question);
-    if (type.includes("logic")) return `<div class="logic-mini"><table><tbody><tr><th>Đối tượng</th><td>?</td><td>?</td><td>?</td></tr><tr><th>Dữ kiện</th><td>×</td><td class="yes">✓</td><td>×</td></tr></tbody></table></div>`;
-    if (type.startsWith("method-false")) return iconStrip(["① Giả sử tất cả cùng loại","② So với dữ kiện thật","③ Chia phần chênh lệch"]);
-    if (type === "method-working-backwards") return `<div class="method-flow backwards"><span>Kết quả</span><b>←</b><span>Đảo phép cuối</span><b>←</b><span>Đảo từng bước</span><b>←</b><span>Số ban đầu</span></div>`;
-    if (type === "method-selection-table") return `<div class="logic-mini choice-table"><table><thead><tr><th>Ứng viên</th><th>1</th><th>2</th><th>3</th><th>…</th></tr></thead><tbody><tr><th>Kiểm tra dữ kiện</th><td>×</td><td>×</td><td class="yes">✓</td><td>×</td></tr></tbody></table></div>`;
-    if (type.startsWith("method-letter")) return iconStrip(["Hàng trăm","Hàng chục","Hàng đơn vị"],["xét từ phải sang trái"]);
-    if (type === "method-elimination") return iconStrip(["Quan hệ 1","−  Quan hệ 2","Đại lượng còn lại"],["làm bằng nhau","khử","tìm giá trị"]);
+    if (type.includes("logic")) return exactSteps(question);
+    if (type.startsWith("method-false")) return exactSteps(question);
+    if (type === "method-working-backwards") return exactSteps(question);
+    if (type === "method-selection-table") return selectionTable(question);
+    if (type.startsWith("method-letter")) return relationBoard(question);
+    if (type === "method-elimination") return relationBoard(question);
     if (type.includes("ratio") || type.includes("bar")) {
       const ratio = vi.match(/(\d+)\s*:\s*(\d+)/) || question.en.match(/(\d+)\s*:\s*(\d+)/);
       const times = vi.match(/gấp\s+(\d+)/i) || question.en.match(/(\d+)\s+times/i);
       const left = ratio ? Number(ratio[1]) : 1;
       const right = ratio ? Number(ratio[2]) : (times ? Number(times[1]) : 2);
       const scale = Math.min(75, 520 / Math.max(left + right, 1));
-      return svg(local("Sơ đồ đoạn thẳng theo đúng tỉ lệ trong đề", "Bar model matching the ratio in the question"), `${bar(70,55,Math.max(70,left*scale),local(`${left} phần`,`${left} part${left===1?"":"s"}`),"#ffd56a")}${bar(70,135,Math.max(70,right*scale),local(`${right} phần`,`${right} part${right===1?"":"s"}`),"#86dcca")}${txt(650,92,`${left} : ${right}`)}`);
+      return `${svg(local("Sơ đồ đoạn thẳng theo đúng tỉ lệ trong đề", "Bar model matching the ratio in the question"), `${bar(70,55,Math.max(70,left*scale),local(`${left} phần`,`${left} part${left===1?"":"s"}`),"#ffd56a")}${bar(70,135,Math.max(70,right*scale),local(`${right} phần`,`${right} part${right===1?"":"s"}`),"#86dcca")}${txt(650,92,`${left} : ${right}`)}`)}${exactSteps(question)}`;
     }
-    if (type.includes("unitary")) return iconStrip(["Nhiều đơn vị","÷","1 đơn vị","×","Số đơn vị mới"]);
-    if (type === "method-substitution") return iconStrip(["Đại lượng A","=","Đại lượng B","→","Cùng một loại"]);
-    return iconStrip(["Dữ kiện 1","Dữ kiện 2","?"],["đọc đề","lập quan hệ","tìm đáp án"]);
+    if (type.includes("unitary")) return exactSteps(question);
+    if (type === "method-substitution") return relationBoard(question);
+    return exactSteps(question);
   };
 
   window.MQ_METHOD_VISUAL_FACTORY = (key, type, question) => {
