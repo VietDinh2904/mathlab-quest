@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#96d4ce">
-  <meta name="description" content="International Math: luyện đề SMC, TIMO và Kangaroo Écolier với bản dịch tiếng Việt, công cụ viết trực tiếp lên đề, đáp án và lời giải từng bước.">
+  <meta name="description" content="International Math: luyện đề SMC, TIMO và kho Kangaroo 2020–2025 cho ba khối Felix, Écolier, Benjamin, kèm đáp án và công cụ học tập.">
   <title>SMC · TIMO · Kangaroo | Math Quest Lab</title>
-  <link rel="stylesheet" href="styles.css?v=20261020-1">
+  <link rel="stylesheet" href="styles.css?v=20261020-2">
   <link rel="stylesheet" href="zoom.css?v=20260921-2">
   <link rel="stylesheet" href="tools.css?v=20260921-2">
   <link rel="stylesheet" href="test.css?v=20260921-2">
@@ -50,11 +50,25 @@
           <button class="year-tab lavender" role="tab" aria-selected="false" data-year="TIMO-H4">Heat · 17–18</button>
           <button class="year-tab lavender" role="tab" aria-selected="false" data-year="TIMO-H5">Heat · 16–17</button>
         </div>
-        <div class="year-tabs hidden" id="kangarooPaperTabs" role="tablist" aria-label="Chọn đề Kangaroo Écolier">
+        <p class="paper-group-label hidden" id="kangarooInteractiveLabel">Luyện tương tác · Écolier</p>
+        <div class="year-tabs hidden" id="kangarooPaperTabs" role="tablist" aria-label="Chọn đề Kangaroo Écolier đã số hóa">
           <button class="year-tab coral" role="tab" aria-selected="false" data-year="KANGAROO-2025">2025</button>
           <button class="year-tab yellow" role="tab" aria-selected="false" data-year="KANGAROO-2024">2024</button>
           <button class="year-tab lavender" role="tab" aria-selected="false" data-year="KANGAROO-2023">2023</button>
         </div>
+        <section class="kangaroo-archive hidden" id="kangarooArchive" aria-labelledby="kangarooArchiveTitle">
+          <div class="kangaroo-archive-heading">
+            <div><span aria-hidden="true">🦘</span><strong id="kangarooArchiveTitle">Kho đề 2020–2025</strong></div>
+            <small>Chọn khối và năm</small>
+          </div>
+          <div class="kangaroo-level-tabs" id="kangarooLevelTabs" role="tablist" aria-label="Chọn khối Kangaroo"></div>
+          <div class="kangaroo-year-grid" id="kangarooYearGrid" role="tablist" aria-label="Chọn năm Kangaroo"></div>
+          <div class="kangaroo-archive-actions">
+            <a id="kangarooTestLink" target="_blank" rel="noopener">📄 Mở đề PDF</a>
+            <a id="kangarooAnswersLink" target="_blank" rel="noopener">✓ Mở đáp án</a>
+          </div>
+          <p class="kangaroo-selection" id="kangarooSelection" aria-live="polite"></p>
+        </section>
         <section class="question-board review-board" aria-label="Question review tools">
           <div class="board-heading hidden"><div><p class="eyebrow">QUESTION MAP</p><h1 id="questionBoardTitle">Your progress</h1></div><span id="answeredCount">0 done</span></div>
           <div class="status-key hidden"><span><i class="status-current"></i>Current</span><span><i class="status-done"></i>Done</span><span><i class="status-open"></i>Not done</span></div>
@@ -97,10 +111,15 @@
         <article class="paper-card lavender-card"><img src="assets/cover-2021.jpg" alt="SMC 2021 Grade 3 practice cover"><div><span class="paper-year">2021</span><h3>SINGA Assessment Practice</h3><p>Primary 3 · 14 pages · 45 questions</p><a href="assets/smc-2021.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
         <article class="paper-card coral-card"><img src="assets/cover-2023.jpg" alt="SMC 2023 Grade 3 cover"><div><span class="paper-year">2023</span><h3>SMC Contest Paper</h3><p>Grade 3 · 28 pages</p><a href="assets/smc-2023.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
         <article class="paper-card mint-card"><img src="assets/cover-2024.jpg" alt="SMC 2024 Grade 3 cover"><div><span class="paper-year">2024</span><h3>SMC Challenge</h3><p>Grade 3 · 24 pages</p><a href="assets/smc-2024.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
-        <article class="paper-card coral-card"><img src="assets/kangaroo/cover-2025.jpg" alt="Kangaroo Écolier 2025 cover"><div><span class="paper-year">Kangaroo 2025</span><h3>Écolier Contest Paper</h3><p>Grades 3–4 · 24 questions</p><a href="assets/kangaroo/kangaroo-ecolier-2025.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
-        <article class="paper-card yellow-card"><img src="assets/kangaroo/cover-2024.jpg" alt="Kangaroo Écolier 2024 cover"><div><span class="paper-year">Kangaroo 2024</span><h3>Écolier Contest Paper</h3><p>Grades 3–4 · 24 questions</p><a href="assets/kangaroo/kangaroo-ecolier-2024.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
-        <article class="paper-card lavender-card"><img src="assets/kangaroo/cover-2023.jpg" alt="Kangaroo Écolier 2023 cover"><div><span class="paper-year">Kangaroo 2023</span><h3>Écolier Contest Paper</h3><p>Grades 3–4 · 24 questions</p><a href="assets/kangaroo/kangaroo-ecolier-2023.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
       </div>
+      <section class="kangaroo-library" aria-labelledby="kangarooLibraryTitle">
+        <div class="kangaroo-library-heading">
+          <div><p class="eyebrow">KANGAROO ARCHIVE</p><h3 id="kangarooLibraryTitle">18 đề · 3 khối · 6 năm</h3></div>
+          <p>Đề gốc đầy đủ từ năm 2020 đến 2025. Mỗi năm có một bảng đáp án chung cho các khối.</p>
+        </div>
+        <div class="kangaroo-library-grid" id="kangarooLibraryGrid"></div>
+        <p class="kangaroo-credit">Nguồn đề: <a href="https://www.matematica.pt/en/useful/kangaroo-questions.php" target="_blank" rel="noopener">Matematica.pt · Kangaroo Questions</a></p>
+      </section>
     </section>
   </main>
   <section class="test-mode" id="testMode" aria-label="Focused test mode" hidden>
@@ -181,7 +200,8 @@
   <script src="timo-remaining.js?v=20260926-1"></script>
   <script src="smc-2021.js?v=20260925-1"></script>
   <script src="kangaroo.js?v=20260925-1"></script>
-  <script src="app.js?v=20261020-1"></script>
+  <script src="app.js?v=20261020-2"></script>
+  <script src="kangaroo-archive.js?v=20261020-1"></script>
   <script src="tools.js?v=20260921-2"></script>
 </body>
 </html>
