@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="t d">
+  <title id="t">Cookie pictograph</title><desc id="d">Four rows contain seven, four, three and six cookie symbols. Each symbol represents seven cookies.</desc>
+  <defs><g id="cookie"><circle cx="22" cy="22" r="20" fill="#efb55f" stroke="#8f4f18" stroke-width="3"/><path d="M12 24q10-20 22-4t-15 15" fill="none" stroke="#8f4f18" stroke-width="3"/><circle cx="12" cy="12" r="2.5" fill="#704119"/><circle cx="32" cy="30" r="2.5" fill="#704119"/></g></defs>
+  <rect width="980" height="560" rx="28" fill="#fffaf2"/>
+  <style>.label{font:800 20px system-ui;fill:#17365f}.line{stroke:#b7c6d7;stroke-width:2}</style>
+  <g transform="translate(20 35)"><rect width="940" height="420" rx="18" fill="#fff" stroke="#17365f" stroke-width="4"/>
+    <path class="line" d="M230 0v420M0 95h940M0 190h940M0 285h940"/>
+    <text class="label" x="25" y="58">Chocolate chip</text><text class="label" x="25" y="153">Oatmeal raisin</text><text class="label" x="25" y="248">Peanut butter</text><text class="label" x="25" y="343">Almond</text>
+    <g transform="translate(255 27)"><use href="#cookie"/><use href="#cookie" x="70"/><use href="#cookie" x="140"/><use href="#cookie" x="210"/><use href="#cookie" x="280"/><use href="#cookie" x="350"/><use href="#cookie" x="420"/></g>
+    <g transform="translate(255 122)"><use href="#cookie"/><use href="#cookie" x="70"/><use href="#cookie" x="140"/><use href="#cookie" x="210"/></g>
+    <g transform="translate(255 217)"><use href="#cookie"/><use href="#cookie" x="70"/><use href="#cookie" x="140"/></g>
+    <g transform="translate(255 312)"><use href="#cookie"/><use href="#cookie" x="70"/><use href="#cookie" x="140"/><use href="#cookie" x="210"/><use href="#cookie" x="280"/><use href="#cookie" x="350"/></g>
+  </g>
+  <g transform="translate(260 485)"><use href="#cookie"/><text x="65" y="30" style="font:900 24px system-ui;fill:#17365f">= 7 bánh quy / cookies</text></g>
+</svg>

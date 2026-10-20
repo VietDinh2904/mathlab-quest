@@ -160,6 +160,7 @@
     advanced: { label: "Maths Olympiad · Advanced", grades: { vi: "6 chuyên đề từ bản PDF", en: "6 topics from the supplied PDF" }, icon: "🎓", accent: "red" },
     smc: { label: "SMC", grades: { vi: "Đề thi quốc tế 2021–2024", en: "International papers 2021–2024" }, icon: "🌟", accent: "orange", href: "/contests/?contest=SMC" },
     timo: { label: "TIMO", grades: { vi: "10 bộ đề Preliminary & Heat", en: "10 Preliminary & Heat papers" }, icon: "🏅", accent: "teal", href: "/contests/?contest=TIMO" },
+    sasmo: { label: "SASMO", grades: { vi: "2020 Grade 2 · 25 câu tương tác", en: "2020 Grade 2 · 25 interactive questions" }, icon: "🧠", accent: "teal", href: "/contests/?contest=SASMO&paper=SASMO-2020-G2" },
     kangaroo: { label: "Kangaroo", grades: { vi: "Écolier 2023–2025", en: "Écolier 2023–2025" }, icon: "🦘", accent: "purple", href: "/contests/?contest=KANGAROO" },
   };
   const requested = new URLSearchParams(location.search).get("book");

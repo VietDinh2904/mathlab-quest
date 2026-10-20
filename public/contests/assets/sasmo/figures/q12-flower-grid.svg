@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 650" role="img" aria-labelledby="t d">
+  <title id="t">Three by three flower pattern with one missing cell</title><desc id="d">Flowers, stems, leaves and pots cycle through each row and column. Choice C completes the grid.</desc>
+  <rect width="940" height="650" rx="28" fill="#fffaf2"/>
+  <style>.cell{fill:#fff;stroke:#8fb3cf;stroke-width:3}.pot{stroke:#17365f;stroke-width:3}.stem{fill:none;stroke:#17365f;stroke-width:4}.flower{font:42px 'Segoe UI Emoji','Apple Color Emoji',sans-serif;text-anchor:middle}.opt{font:900 22px system-ui;fill:#17365f;text-anchor:middle}</style>
+  <g transform="translate(230 35)">
+    <rect x="0" y="0" width="480" height="390" rx="24" fill="#edf7ff" stroke="#17365f" stroke-width="4"/>
+    <g transform="translate(20 15)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q-20-35 0-58"/><text class="flower" x="70" y="47">🔵</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#fff"/></g>
+    <g transform="translate(170 15)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q20-35 0-58"/><text class="flower" x="70" y="47">🌼</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#996a00"/></g>
+    <g transform="translate(320 15)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q0-42 0-58"/><text class="flower" x="70" y="47">🌷</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#fff"/></g>
+    <g transform="translate(20 140)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q0-42 0-58"/><text class="flower" x="70" y="47">🌼</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#996a00"/></g>
+    <g transform="translate(170 140)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q-20-35 0-58"/><text class="flower" x="70" y="47">🌷</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#fff"/></g>
+    <g transform="translate(320 140)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q20-35 0-58"/><text class="flower" x="70" y="47">🔵</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#fff"/></g>
+    <g transform="translate(20 265)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q20-35 0-58"/><text class="flower" x="70" y="47">🌷</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#fff"/></g>
+    <g transform="translate(170 265)"><rect class="cell" width="140" height="110" rx="16"/><path class="stem" d="M70 82q0-42 0-58"/><text class="flower" x="70" y="47">🔵</text><path class="pot" d="M48 78h44l-6 28H54z" fill="#fff"/></g>
+    <g transform="translate(320 265)"><rect class="cell" width="140" height="110" rx="16" fill="#fff6d8"/><text x="70" y="77" text-anchor="middle" style="font:900 58px system-ui;fill:#ef5f56">?</text></g>
+  </g>
+  <g transform="translate(45 500)">
+    <g transform="translate(0)"><text class="flower" x="60" y="45">🌷</text><path class="pot" d="M38 68h44l-6 35H44z" fill="#fff"/><text class="opt" x="60" y="135">A</text></g>
+    <g transform="translate(170)"><text class="flower" x="60" y="45">🔵</text><path class="pot" d="M38 68h44l-6 35H44z" fill="#fff"/><text class="opt" x="60" y="135">B</text></g>
+    <g transform="translate(340)"><text class="flower" x="60" y="45">🌼</text><path class="pot" d="M38 68h44l-6 35H44z" fill="#996a00"/><text class="opt" x="60" y="135">C</text></g>
+    <g transform="translate(510)"><text class="flower" x="60" y="45">🌷</text><path class="pot" d="M38 68h44l-6 35H44z" fill="#fff"/><text class="opt" x="60" y="135">D</text></g>
+    <g transform="translate(680)"><text class="flower" x="60" y="45">🔵</text><path class="pot" d="M38 68h44l-6 35H44z" fill="#996a00"/><text class="opt" x="60" y="135">E</text></g>
+  </g>
+</svg>

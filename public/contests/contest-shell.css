@@ -1,6 +1,6 @@
 .contest-tabs {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   margin: 24px 0 12px;
 }
@@ -19,7 +19,8 @@
 
 .contest-tab:nth-child(1) { background: #ffcf70; }
 .contest-tab:nth-child(2) { background: #bfeadf; }
-.contest-tab:nth-child(3) { background: #d9ccff; }
+.contest-tab:nth-child(3) { background: #9edcff; }
+.contest-tab:nth-child(4) { background: #d9ccff; }
 .contest-tab.active {
   transform: translate(3px, 3px);
   box-shadow: none;
@@ -35,5 +36,5 @@
   .desktop-bar { overflow-x: auto; }
   .desktop-bar nav { display: flex; }
   .desktop-bar nav a { padding: 6px 8px; white-space: nowrap; }
-  .contest-tabs { margin-top: 0; }
+  .contest-tabs { margin-top: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

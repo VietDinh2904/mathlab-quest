@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" role="img" aria-labelledby="t d">
+  <title id="t">Three differently coloured dice summing to twelve</title><desc id="d">Three dice in red, blue and yellow show question marks and must have different top values summing to twelve.</desc>
+  <rect width="820" height="380" rx="28" fill="#fffaf2"/>
+  <style>.die{stroke:#17365f;stroke-width:5}.q{font:900 70px system-ui;fill:#17365f;text-anchor:middle}.label{font:900 28px system-ui;fill:#17365f;text-anchor:middle}</style>
+  <g transform="translate(90 75)"><rect class="die" width="160" height="160" rx="28" fill="#ff8a7b"/><text class="q" x="80" y="110">?</text><text class="label" x="80" y="205">Đỏ</text></g>
+  <text class="q" x="285" y="180">+</text>
+  <g transform="translate(330 75)"><rect class="die" width="160" height="160" rx="28" fill="#78b4ff"/><text class="q" x="80" y="110">?</text><text class="label" x="80" y="205">Xanh</text></g>
+  <text class="q" x="525" y="180">+</text>
+  <g transform="translate(570 75)"><rect class="die" width="160" height="160" rx="28" fill="#ffd56a"/><text class="q" x="80" y="110">?</text><text class="label" x="80" y="205">Vàng</text></g>
+  <text class="label" x="410" y="340">Ba số khác nhau · tổng bằng 12</text>
+</svg>

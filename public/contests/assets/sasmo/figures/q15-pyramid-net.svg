@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" role="img" aria-labelledby="t d">
+  <title id="t">Pyramid and five triangular nets</title><desc id="d">A marked triangular pyramid is compared with five possible triangular nets. Net E has the correct adjacent face markings.</desc>
+  <rect width="1000" height="720" rx="28" fill="#fffaf2"/>
+  <style>.tri{fill:#fff;stroke:#17365f;stroke-width:3}.fold{stroke:#56c6aa;stroke-width:3;stroke-dasharray:8 6}.mark{font:900 24px system-ui;fill:#17365f;text-anchor:middle}.opt{font:900 22px system-ui;fill:#17365f;text-anchor:middle}</style>
+  <g transform="translate(425 20)"><path d="M75 0 0 120l75 70 75-70z" fill="#fff" stroke="#17365f" stroke-width="4"/><path d="M75 0v190M0 120h150" fill="none" stroke="#17365f" stroke-width="3"/><text class="mark" x="40" y="105">●↗</text><text class="mark" x="112" y="105">◇↗</text><text class="opt" x="75" y="225">HÌNH CHÓP / PYRAMID</text></g>
+  <defs><g id="net"><path class="tri" d="M100 0 0 170h200z"/><path class="tri" d="M100 0 200 170h200L300 0z"/><path class="tri" d="M0 170h200L100 340z"/><path class="fold" d="M100 0 200 170 100 340M0 170h200"/></g></defs>
+  <g transform="translate(20 300)"><use href="#net" transform="scale(.42)"/><text class="mark" x="43" y="56">●↙</text><text class="mark" x="126" y="56">◇↗</text><text class="opt" x="84" y="165">A</text></g>
+  <g transform="translate(210 300)"><use href="#net" transform="scale(.42)"/><text class="mark" x="43" y="56">◇↙</text><text class="mark" x="126" y="56">●↗</text><text class="opt" x="84" y="165">B</text></g>
+  <g transform="translate(400 300)"><use href="#net" transform="scale(.42)"/><text class="mark" x="43" y="56">●↗</text><text class="mark" x="126" y="56">◇↙</text><text class="opt" x="84" y="165">C</text></g>
+  <g transform="translate(590 300)"><use href="#net" transform="scale(.42)"/><text class="mark" x="43" y="56">●↙</text><text class="mark" x="126" y="56">◇↙</text><text class="opt" x="84" y="165">D</text></g>
+  <g transform="translate(780 300)"><use href="#net" transform="scale(.42)"/><text class="mark" x="43" y="56">●↗</text><text class="mark" x="126" y="56">◇↗</text><text class="opt" x="84" y="165">E</text></g>
+  <g transform="translate(160 545)"><text x="0" y="0" style="font:800 23px system-ui;fill:#17365f">Ký hiệu mặt:</text><text class="mark" x="230" y="0">● = chấm trên mũ</text><text class="mark" x="500" y="0">◇ = nơ</text><text class="mark" x="745" y="0">↗ = mắt nhìn phải</text></g>
+</svg>

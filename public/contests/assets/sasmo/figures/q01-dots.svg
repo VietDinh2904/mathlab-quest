@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 250" role="img" aria-labelledby="t d">
+  <title id="t">38 dots arranged in three rows</title><desc id="d">Twelve dots in the top row, fourteen in the middle row and twelve in the bottom row.</desc>
+  <rect width="820" height="250" rx="28" fill="#fffaf2"/>
+  <g fill="#17365f">
+    <circle cx="90" cy="55" r="9"/><circle cx="120" cy="55" r="9"/><circle cx="205" cy="55" r="9"/><circle cx="235" cy="55" r="9"/><circle cx="320" cy="55" r="9"/><circle cx="350" cy="55" r="9"/><circle cx="435" cy="55" r="9"/><circle cx="465" cy="55" r="9"/><circle cx="550" cy="55" r="9"/><circle cx="580" cy="55" r="9"/><circle cx="665" cy="55" r="9"/><circle cx="695" cy="55" r="9"/>
+    <circle cx="60" cy="125" r="9"/><circle cx="145" cy="125" r="9"/><circle cx="175" cy="125" r="9"/><circle cx="260" cy="125" r="9"/><circle cx="290" cy="125" r="9"/><circle cx="375" cy="125" r="9"/><circle cx="405" cy="125" r="9"/><circle cx="490" cy="125" r="9"/><circle cx="520" cy="125" r="9"/><circle cx="605" cy="125" r="9"/><circle cx="635" cy="125" r="9"/><circle cx="720" cy="125" r="9"/><circle cx="750" cy="125" r="9"/><circle cx="780" cy="125" r="9"/>
+    <circle cx="90" cy="195" r="9"/><circle cx="120" cy="195" r="9"/><circle cx="205" cy="195" r="9"/><circle cx="235" cy="195" r="9"/><circle cx="320" cy="195" r="9"/><circle cx="350" cy="195" r="9"/><circle cx="435" cy="195" r="9"/><circle cx="465" cy="195" r="9"/><circle cx="550" cy="195" r="9"/><circle cx="580" cy="195" r="9"/><circle cx="665" cy="195" r="9"/><circle cx="695" cy="195" r="9"/>
+  </g>
+</svg>

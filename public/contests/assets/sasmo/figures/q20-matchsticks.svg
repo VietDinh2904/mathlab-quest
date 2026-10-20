@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" role="img" aria-labelledby="t d">
+  <title id="t">Matchstick digits zero to nine</title><desc id="d">The number 2020 is made with twenty-two matchsticks. The standard seven-segment forms of digits zero through nine are shown below.</desc>
+  <rect width="1040" height="560" rx="28" fill="#fffaf2"/>
+  <style>.label{font:900 24px system-ui;fill:#17365f;text-anchor:middle}.match{stroke:#d48c25;stroke-width:8;stroke-linecap:round}.head{fill:#6c4219}</style>
+  <defs>
+    <g id="sa"><path class="match" d="M12 8h48"/><circle class="head" cx="12" cy="8" r="3"/><circle class="head" cx="60" cy="8" r="3"/></g>
+    <g id="sb"><path class="match" d="M64 12v46"/><circle class="head" cx="64" cy="12" r="3"/><circle class="head" cx="64" cy="58" r="3"/></g>
+    <g id="sc"><path class="match" d="M64 66v46"/><circle class="head" cx="64" cy="66" r="3"/><circle class="head" cx="64" cy="112" r="3"/></g>
+    <g id="sd"><path class="match" d="M12 116h48"/><circle class="head" cx="12" cy="116" r="3"/><circle class="head" cx="60" cy="116" r="3"/></g>
+    <g id="se"><path class="match" d="M8 66v46"/><circle class="head" cx="8" cy="66" r="3"/><circle class="head" cx="8" cy="112" r="3"/></g>
+    <g id="sf"><path class="match" d="M8 12v46"/><circle class="head" cx="8" cy="12" r="3"/><circle class="head" cx="8" cy="58" r="3"/></g>
+    <g id="sg"><path class="match" d="M12 62h48"/><circle class="head" cx="12" cy="62" r="3"/><circle class="head" cx="60" cy="62" r="3"/></g>
+    <g id="d0"><use href="#sa"/><use href="#sb"/><use href="#sc"/><use href="#sd"/><use href="#se"/><use href="#sf"/></g>
+    <g id="d1"><use href="#sb"/><use href="#sc"/></g>
+    <g id="d2"><use href="#sa"/><use href="#sb"/><use href="#sg"/><use href="#se"/><use href="#sd"/></g>
+    <g id="d3"><use href="#sa"/><use href="#sb"/><use href="#sg"/><use href="#sc"/><use href="#sd"/></g>
+    <g id="d4"><use href="#sf"/><use href="#sg"/><use href="#sb"/><use href="#sc"/></g>
+    <g id="d5"><use href="#sa"/><use href="#sf"/><use href="#sg"/><use href="#sc"/><use href="#sd"/></g>
+    <g id="d6"><use href="#sa"/><use href="#sf"/><use href="#sg"/><use href="#se"/><use href="#sc"/><use href="#sd"/></g>
+    <g id="d7"><use href="#sa"/><use href="#sb"/><use href="#sc"/></g>
+    <g id="d8"><use href="#sa"/><use href="#sb"/><use href="#sc"/><use href="#sd"/><use href="#se"/><use href="#sf"/><use href="#sg"/></g>
+    <g id="d9"><use href="#sa"/><use href="#sb"/><use href="#sc"/><use href="#sd"/><use href="#sf"/><use href="#sg"/></g>
+  </defs>
+  <text class="label" x="170" y="62">22 que:</text>
+  <g transform="translate(330 22) scale(.95)"><use href="#d2"/><use href="#d0" x="88"/><use href="#d2" x="176"/><use href="#d0" x="264"/></g>
+  <text class="label" x="520" y="185">Mẫu chữ số / digit forms</text>
+  <g transform="translate(30 215) scale(.72)"><use href="#d0"/></g><g transform="translate(128 215) scale(.72)"><use href="#d1"/></g><g transform="translate(226 215) scale(.72)"><use href="#d2"/></g><g transform="translate(324 215) scale(.72)"><use href="#d3"/></g><g transform="translate(422 215) scale(.72)"><use href="#d4"/></g>
+  <g transform="translate(520 215) scale(.72)"><use href="#d5"/></g><g transform="translate(618 215) scale(.72)"><use href="#d6"/></g><g transform="translate(716 215) scale(.72)"><use href="#d7"/></g><g transform="translate(814 215) scale(.72)"><use href="#d8"/></g><g transform="translate(912 215) scale(.72)"><use href="#d9"/></g>
+  <g style="font:800 18px system-ui;fill:#17365f;text-anchor:middle"><text x="55" y="330">0</text><text x="153" y="330">1</text><text x="251" y="330">2</text><text x="349" y="330">3</text><text x="447" y="330">4</text><text x="545" y="330">5</text><text x="643" y="330">6</text><text x="741" y="330">7</text><text x="839" y="330">8</text><text x="937" y="330">9</text></g>
+  <rect x="190" y="395" width="660" height="100" rx="20" fill="#edf7ff" stroke="#17365f" stroke-width="4"/>
+  <text x="520" y="455" text-anchor="middle" style="font:900 28px system-ui;fill:#17365f">Số nhỏ nhất dùng đúng 27 que là số nào?</text>
+</svg>

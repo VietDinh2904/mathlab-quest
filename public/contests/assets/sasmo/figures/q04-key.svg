@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 430" role="img" aria-labelledby="t d">
+  <title id="t">Key and five treasure chest keyholes</title><desc id="d">A gold key with four teeth is compared with five black keyhole profiles. Choice E matches.</desc>
+  <rect width="960" height="430" rx="28" fill="#fffaf2"/>
+  <style>.txt{font:900 24px system-ui;fill:#17365f;text-anchor:middle}.ch{fill:#f6b72b;stroke:#17365f;stroke-width:4}.lock{fill:#fff3c8;stroke:#17365f;stroke-width:4}</style>
+  <text x="80" y="62" style="font:800 24px system-ui;fill:#17365f">CHÌA KHÓA / KEY</text>
+  <g transform="translate(330 25) rotate(6)">
+    <circle cx="15" cy="50" r="34" fill="none" stroke="#d89700" stroke-width="16"/><path d="M45 50H260v24h-48v34h-25V74h-44v22h-24V74H45z" fill="#f7bf2b" stroke="#17365f" stroke-width="4"/>
+  </g>
+  <g transform="translate(35 185)">
+    <g transform="translate(0)"><rect class="ch" width="150" height="130" rx="28"/><rect class="lock" x="38" y="48" width="74" height="55" rx="18"/><path d="M55 70h42v10H76v16H66V80H55z" fill="#17365f"/><text class="txt" x="75" y="165">A</text></g>
+    <g transform="translate(190)"><rect class="ch" width="150" height="130" rx="28"/><rect class="lock" x="38" y="48" width="74" height="55" rx="18"/><path d="M53 69h48v10H82v17H72V79H53z" fill="#17365f"/><circle cx="57" cy="84" r="5" fill="#17365f"/><text class="txt" x="75" y="165">B</text></g>
+    <g transform="translate(380)"><rect class="ch" width="150" height="130" rx="28"/><rect class="lock" x="38" y="48" width="74" height="55" rx="18"/><path d="M54 67h46v10H88v19H77V77H63v12h-9z" fill="#17365f"/><text class="txt" x="75" y="165">C</text></g>
+    <g transform="translate(570)"><rect class="ch" width="150" height="130" rx="28"/><rect class="lock" x="38" y="48" width="74" height="55" rx="18"/><path d="M54 66h47v10H91v20H80V76H68v13H58V76H54z" fill="#17365f"/><text class="txt" x="75" y="165">D</text></g>
+    <g transform="translate(760)"><rect class="ch" width="150" height="130" rx="28"/><rect class="lock" x="38" y="48" width="74" height="55" rx="18"/><path d="M53 66h49v10H90v20H79V76H68v12H58V76H53z" fill="#17365f"/><circle cx="103" cy="82" r="5" fill="#17365f"/><text class="txt" x="75" y="165">E</text></g>
+  </g>
+</svg>

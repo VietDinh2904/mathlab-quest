@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" role="img" aria-labelledby="t d">
+  <title id="t">Letter digit addition COR plus OR equals REEF</title><desc id="d">A vertical addition puzzle in which different letters stand for different digits.</desc>
+  <rect width="700" height="420" rx="28" fill="#fffaf2"/>
+  <rect x="160" y="55" width="380" height="285" rx="24" fill="#edf7ff" stroke="#17365f" stroke-width="4"/>
+  <g style="font:900 58px ui-monospace,monospace;fill:#17365f;letter-spacing:18px;text-anchor:end"><text x="480" y="135">COR</text><text x="480" y="205">OR</text><text x="480" y="305">REEF</text></g>
+  <text x="210" y="205" style="font:900 58px system-ui;fill:#ef5f56">+</text>
+  <path d="M205 230h295" stroke="#17365f" stroke-width="5"/>
+  <text x="350" y="385" text-anchor="middle" style="font:800 22px system-ui;fill:#17365f">Các chữ cái khác nhau là các chữ số khác nhau.</text>
+</svg>

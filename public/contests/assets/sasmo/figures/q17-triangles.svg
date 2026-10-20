@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" role="img" aria-labelledby="t d">
+  <title id="t">Overlapping triangle crown</title><desc id="d">Five main straight segments form a crown-like network containing fourteen triangles.</desc>
+  <rect width="760" height="430" rx="28" fill="#fffaf2"/>
+  <g fill="none" stroke="#17365f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 90 230 340 380 40 530 340 640 90"/>
+    <path d="M120 90 530 340 230 340 640 90"/>
+  </g>
+  <g fill="#ef5f56"><circle cx="120" cy="90" r="7"/><circle cx="230" cy="340" r="7"/><circle cx="380" cy="40" r="7"/><circle cx="530" cy="340" r="7"/><circle cx="640" cy="90" r="7"/></g>
+</svg>

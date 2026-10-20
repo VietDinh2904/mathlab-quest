@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 700" role="img" aria-labelledby="t d">
+  <title id="t">SASMO 2020 Grade 2 interactive practice cover</title><desc id="d">A teal and yellow Math Quest Lab cover with geometric shapes.</desc>
+  <rect width="520" height="700" rx="38" fill="#3bb6a0"/><circle cx="430" cy="110" r="130" fill="#70d6c3"/><circle cx="70" cy="620" r="150" fill="#ffd166"/>
+  <g fill="none" stroke="#17365f" stroke-width="9"><path d="M70 130h120v120H70z"/><circle cx="330" cy="250" r="70"/><path d="M235 530 330 360l95 170z"/></g>
+  <text x="52" y="340" style="font:900 70px system-ui;fill:white">SASMO</text><text x="55" y="405" style="font:900 44px system-ui;fill:#17365f">2020 · GRADE 2</text><text x="55" y="465" style="font:800 24px system-ui;fill:#17365f">Luyện đề tương tác song ngữ</text>
+</svg>

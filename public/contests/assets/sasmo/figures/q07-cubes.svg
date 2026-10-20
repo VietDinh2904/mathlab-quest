@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" role="img" aria-labelledby="t d">
+  <title id="t">Cube stacks in the corner of a room</title><desc id="d">Four stepped stacks of two, four, five and seven unit cubes are arranged in a room corner.</desc>
+  <defs><g id="cube"><path d="M0 18 32 0l32 18-32 18z" fill="#d8efff" stroke="#17365f" stroke-width="2"/><path d="M0 18l32 18v38L0 56z" fill="#9ed0f3" stroke="#17365f" stroke-width="2"/><path d="M64 18 32 36v38l32-18z" fill="#78b4df" stroke="#17365f" stroke-width="2"/></g></defs>
+  <rect width="900" height="470" rx="28" fill="#fffaf2"/>
+  <path d="M70 390h760M120 60v330M780 60v330" stroke="#b8c9db" stroke-width="4"/><path d="M120 60 450 250 780 60" fill="none" stroke="#b8c9db" stroke-width="4"/>
+  <g transform="translate(160 315)"><use href="#cube" y="-56"/><use href="#cube"/></g>
+  <g transform="translate(300 315)"><use href="#cube" y="-168"/><use href="#cube" y="-112"/><use href="#cube" y="-56"/><use href="#cube"/></g>
+  <g transform="translate(440 315)"><use href="#cube" y="-224"/><use href="#cube" y="-168"/><use href="#cube" y="-112"/><use href="#cube" y="-56"/><use href="#cube"/></g>
+  <g transform="translate(580 340)"><use href="#cube" y="-336"/><use href="#cube" y="-280"/><use href="#cube" y="-224"/><use href="#cube" y="-168"/><use href="#cube" y="-112"/><use href="#cube" y="-56"/><use href="#cube"/></g>
+  <text x="450" y="458" text-anchor="middle" style="font:800 22px system-ui;fill:#17365f">Không có khoảng trống phía sau các khối nhìn thấy</text>
+</svg>

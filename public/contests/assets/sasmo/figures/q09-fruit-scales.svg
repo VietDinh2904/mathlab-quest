@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 470" role="img" aria-labelledby="t d">
+  <title id="t">Three balanced fruit equations</title><desc id="d">Yellow apple plus red apple equals 14, all three fruits equal 22, and yellow apple plus pear equals 11.</desc>
+  <rect width="820" height="470" rx="28" fill="#fffaf2"/>
+  <style>.fruit{font:54px 'Segoe UI Emoji','Apple Color Emoji',sans-serif}.num{font:900 34px system-ui;fill:#17365f}.beam{stroke:#17365f;stroke-width:5;stroke-linecap:round}</style>
+  <g transform="translate(80 35)"><text class="fruit" x="70" y="62">🍏</text><text class="fruit" x="125" y="62">🍎</text><path class="beam" d="M40 85h190"/><path d="M135 85l-18 40h36z" fill="#56a1ef"/><text class="num" x="285" y="75">= 14</text></g>
+  <g transform="translate(80 165)"><text class="fruit" x="45" y="62">🍏</text><text class="fruit" x="100" y="62">🍐</text><text class="fruit" x="155" y="62">🍎</text><path class="beam" d="M30 85h220"/><path d="M140 85l-18 40h36z" fill="#56a1ef"/><text class="num" x="285" y="75">= 22</text></g>
+  <g transform="translate(80 295)"><text class="fruit" x="75" y="62">🍏</text><text class="fruit" x="130" y="62">🍐</text><path class="beam" d="M40 85h190"/><path d="M135 85l-18 40h36z" fill="#56a1ef"/><text class="num" x="285" y="75">= 11</text></g>
+  <g transform="translate(560 145)"><rect width="190" height="170" rx="24" fill="#edf7ff" stroke="#17365f" stroke-width="4"/><text x="95" y="55" text-anchor="middle" style="font:800 24px system-ui;fill:#17365f">TÌM / FIND</text><text class="fruit" x="65" y="125">🍏</text><text x="140" y="125" style="font:900 50px system-ui;fill:#ef5f56">?</text></g>
+</svg>

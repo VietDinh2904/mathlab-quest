@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#96d4ce">
-  <meta name="description" content="International Math: luyện đề SMC, TIMO và kho Kangaroo 2020–2025 cho ba khối Felix, Écolier, Benjamin, kèm đáp án và công cụ học tập.">
-  <title>SMC · TIMO · Kangaroo | Math Quest Lab</title>
+  <meta name="description" content="International Math: luyện đề SMC, TIMO, SASMO và kho Kangaroo 2020–2025, kèm đáp án, lời giải từng bước và công cụ học tập.">
+  <title>SMC · TIMO · SASMO · Kangaroo | Math Quest Lab</title>
   <link rel="stylesheet" href="styles.css?v=20261020-2">
   <link rel="stylesheet" href="zoom.css?v=20260921-2">
   <link rel="stylesheet" href="tools.css?v=20260921-2">
   <link rel="stylesheet" href="test.css?v=20260921-2">
   <link rel="stylesheet" href="review.css?v=20260921-2">
-  <link rel="stylesheet" href="contest-shell.css?v=20261020-1">
+  <link rel="stylesheet" href="contest-shell.css?v=20261020-2">
 </head>
 <body>
   <aside class="reading-zoom" aria-label="Text zoom controls"><button id="readingZoomOut" type="button" aria-label="Make text smaller">A−</button><output id="readingZoomLevel">100%</output><button id="readingZoomIn" type="button" aria-label="Make text larger">A+</button></aside>
@@ -31,6 +31,7 @@
         <div class="contest-tabs" role="tablist" aria-label="Chọn kỳ thi">
           <button class="contest-tab active" role="tab" aria-selected="true" data-contest="SMC">SMC</button>
           <button class="contest-tab" role="tab" aria-selected="false" data-contest="TIMO">TIMO</button>
+          <button class="contest-tab" role="tab" aria-selected="false" data-contest="SASMO">SASMO</button>
           <button class="contest-tab" role="tab" aria-selected="false" data-contest="KANGAROO">Kangaroo</button>
         </div>
         <div class="year-tabs" id="smcPaperTabs" role="tablist" aria-label="Chọn đề SMC">
@@ -49,6 +50,9 @@
           <button class="year-tab lavender" role="tab" aria-selected="false" data-year="TIMO-H3">Heat · 18–19</button>
           <button class="year-tab lavender" role="tab" aria-selected="false" data-year="TIMO-H4">Heat · 17–18</button>
           <button class="year-tab lavender" role="tab" aria-selected="false" data-year="TIMO-H5">Heat · 16–17</button>
+        </div>
+        <div class="year-tabs hidden" id="sasmoPaperTabs" role="tablist" aria-label="Chọn đề SASMO">
+          <button class="year-tab mint" role="tab" aria-selected="false" data-year="SASMO-2020-G2">2020 · Grade 2</button>
         </div>
         <p class="paper-group-label hidden" id="kangarooInteractiveLabel">Luyện tương tác · Écolier</p>
         <div class="year-tabs hidden" id="kangarooPaperTabs" role="tablist" aria-label="Chọn đề Kangaroo Écolier đã số hóa">
@@ -107,6 +111,7 @@
     <section class="library" id="library" aria-labelledby="libraryTitle">
       <div class="section-heading"><div><p class="eyebrow">PAPER LIBRARY</p><h2 id="libraryTitle">Original papers</h2></div><p>Open the complete paper to print or compare with the interactive version.</p></div>
       <div class="paper-grid">
+        <article class="paper-card mint-card"><img src="assets/sasmo/cover-2020-g2.svg" alt="Bìa luyện đề SASMO 2020 Grade 2"><div><span class="paper-year">SASMO 2020</span><h3>Grade 2 · Interactive</h3><p>25 câu · song ngữ · hình dựng lại</p><a href="https://simcc.org/wp-content/uploads/2025/03/2020-SASMO-G2.pdf" target="_blank" rel="noopener">Mở PDF nguồn ↗</a></div></article>
         <article class="paper-card yellow-card"><img src="assets/cover-timo-2020.jpg" alt="TIMO Grade 3 paper collection"><div><span class="paper-year">TIMO</span><h3>Grade 3 Past Papers</h3><p>10 papers · 48 pages</p><a href="assets/timo-grade-3.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
         <article class="paper-card lavender-card"><img src="assets/cover-2021.jpg" alt="SMC 2021 Grade 3 practice cover"><div><span class="paper-year">2021</span><h3>SINGA Assessment Practice</h3><p>Primary 3 · 14 pages · 45 questions</p><a href="assets/smc-2021.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
         <article class="paper-card coral-card"><img src="assets/cover-2023.jpg" alt="SMC 2023 Grade 3 cover"><div><span class="paper-year">2023</span><h3>SMC Contest Paper</h3><p>Grade 3 · 28 pages</p><a href="assets/smc-2023.pdf" target="_blank" rel="noopener">Open PDF ↗</a></div></article>
@@ -194,13 +199,14 @@
       <div class="weather-face" id="weatherFace" aria-hidden="true">🌞</div><h2 id="raceFeedbackTitle">Path unlocked!</h2><p id="raceFeedbackMessage"></p><button id="closeRaceFeedback" type="button">Keep racing</button>
     </div>
   </div>
-  <footer><strong>International Math</strong><span>SMC · TIMO · Kangaroo</span><a href="#practice">Back to top ↑</a></footer>
+  <footer><strong>International Math</strong><span>SMC · TIMO · SASMO · Kangaroo</span><a href="#practice">Back to top ↑</a></footer>
+  <script src="sasmo-2020-g2.js?v=20261020-1"></script>
   <script src="timo-2020.js?v=20260925-1"></script>
   <script src="timo-2020-exact.js?v=20260925-1"></script>
   <script src="timo-remaining.js?v=20260926-1"></script>
   <script src="smc-2021.js?v=20260925-1"></script>
   <script src="kangaroo.js?v=20260925-1"></script>
-  <script src="app.js?v=20261020-2"></script>
+  <script src="app.js?v=20261020-3"></script>
   <script src="kangaroo-archive.js?v=20261020-1"></script>
   <script src="tools.js?v=20260921-2"></script>
 </body>

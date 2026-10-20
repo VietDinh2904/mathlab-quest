@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 500" role="img" aria-labelledby="t d">
+  <title id="t">Capacity relationships among a stewpan, kettle, coffee pot and cup</title><desc id="d">A stewpan equals a kettle plus a coffee pot plus a cup. A kettle equals three coffee pots plus three cups. One coffee pot equals three cups.</desc>
+  <rect width="980" height="500" rx="28" fill="#fffaf2"/>
+  <style>.label{font:800 20px system-ui;fill:#17365f;text-anchor:middle}.op{font:900 48px system-ui;fill:#17365f;text-anchor:middle}.metal{fill:#b9d1df;stroke:#17365f;stroke-width:5}.glass{fill:#dff4ff;stroke:#17365f;stroke-width:4}</style>
+  <defs>
+    <g id="stew"><path class="metal" d="M5 28h120l-10 72H15z"/><path d="M30 25c0-34 70-34 70 0" fill="none" stroke="#17365f" stroke-width="6"/><path d="M0 32h-25m155 0h25" stroke="#17365f" stroke-width="8" stroke-linecap="round"/></g>
+    <g id="kettle"><path class="metal" d="M20 18h62l13 82H8z"/><path d="M82 28q55 8 18 57M20 26-18 48" fill="none" stroke="#17365f" stroke-width="8" stroke-linecap="round"/></g>
+    <g id="pot"><path class="metal" d="M8 35h54l-6 62H14z"/><path d="M62 45l50-18" fill="none" stroke="#17365f" stroke-width="8" stroke-linecap="round"/></g>
+    <g id="cup"><path class="glass" d="M8 14h38l-5 75H13z"/><path d="M14 62h27v27H14z" fill="#8fd0ef" opacity=".7"/></g>
+  </defs>
+  <g transform="translate(55 35)"><use href="#stew" x="15" y="15"/><text class="label" x="80" y="145">Nồi / Stewpan</text><text class="op" x="245" y="87">=</text><use href="#kettle" x="300" y="18"/><text class="op" x="435" y="87">+</text><use href="#pot" x="485" y="18"/><text class="op" x="625" y="87">+</text><use href="#cup" x="680" y="30"/></g>
+  <g transform="translate(20 200)"><use href="#kettle" x="20" y="12"/><text class="label" x="65" y="135">1200 ml</text><text class="op" x="165" y="82">=</text><use href="#pot" x="205" y="15"/><text class="op" x="320" y="82">+</text><use href="#pot" x="355" y="15"/><text class="op" x="470" y="82">+</text><use href="#pot" x="505" y="15"/><text class="op" x="620" y="82">+</text><use href="#cup" x="655" y="25"/><text class="op" x="720" y="82">+</text><use href="#cup" x="755" y="25"/><text class="op" x="820" y="82">+</text><use href="#cup" x="855" y="25"/></g>
+  <g transform="translate(255 360)"><use href="#pot" x="0" y="0"/><text class="op" x="145" y="65">=</text><use href="#cup" x="205" y="8"/><text class="op" x="278" y="65">+</text><use href="#cup" x="330" y="8"/><text class="op" x="403" y="65">+</text><use href="#cup" x="455" y="8"/></g>
+</svg>
