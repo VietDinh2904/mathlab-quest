@@ -219,7 +219,8 @@
     const catalog = window.PILOT_BOOK_CATALOG || {};
     byId("bookSwitcher").innerHTML = Object.entries(catalog).map(([key, book]) => {
       const active = key === ACTIVE_BOOK ? "active" : "";
-      return `<a class="book-tab ${active} ${book.accent}" href="?book=${key}" data-book="${key}"><span>${book.icon}</span><strong>${book.label}</strong><small>${escapeHTML(book.grades[state.lang])}</small></a>`;
+      const href = book.href || `?book=${key}`;
+      return `<a class="book-tab ${active} ${book.accent}" href="${href}" data-book="${key}"><span>${book.icon}</span><strong>${book.label}</strong><small>${escapeHTML(book.grades[state.lang])}</small></a>`;
     }).join("");
   }
 
