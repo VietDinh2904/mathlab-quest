@@ -38,3 +38,6 @@ next-env.d.ts
 /work/
 /.ocrdeps/
 /.venv-ocr/
+/tmp/
+/.openai/*
+!/.openai/hosting.json
