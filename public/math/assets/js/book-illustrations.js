@@ -184,4 +184,157 @@
   art["j1-replace-extra-1"] = () => balanceRelation("🐻", "🐇🐇🐇", "🐻 = 3 × 2 = 6 🥕");
   art["j1-replace-extra-4"] = () => balanceRelation("🍐🍐", "6 plums", "🍐🍐🍐 = 9 plums");
   [["2","○ + □ = 18; ○ − □ = 4","○ = 11; □ = 7"],["3","2△ + ○ = 19; △ + ○ = 12","△ = 7; ○ = 5"],["5","□ × ○ = 18; □ + ○ = 9","□ = 3; ○ = 6"]].forEach(([number,relations,result])=>{ art[`j1-replace-extra-${number}`]=()=>additionBoard(relations,[result]); });
+
+  const balanceQuestion = (rows, target) => wrap(
+    local("Các quan hệ cân bằng trong đề", "Balance relations in the question"),
+    `<div class="question-balance-list">${rows.map(([left, right]) => `<div class="question-balance-row"><div class="question-balance-pan">${left}</div><div class="question-balance-center" aria-hidden="true"><i></i><b>△</b></div><div class="question-balance-pan">${right}</div></div>`).join("")}<div class="question-balance-target"><span>${local("Cần tìm", "Find")}</span><strong>${target}</strong></div></div>`,
+  );
+
+  const balanceQuestions = {
+    "1": [["🐔", "🐿️ 🐿️"], ["🐿️", "10 × 🥚"], "🐔 = ? × 🥚"],
+    "2": [["🐥 🐥 🐥 🐥 🐥", "🦆"], ["🦢", "🦆 🦆"], "🦢 = ? × 🐥"],
+    "3": [["○ + □", "14"], ["○ − □", "6"], "○ = ? &nbsp; · &nbsp; □ = ?"],
+    "4": [["□ + △", "15"], ["△ − □", "7"], "△ = ? &nbsp; · &nbsp; □ = ?"],
+    "5": [["✳ − □", "22"], ["✳ + □", "30"], "✳ = ? &nbsp; · &nbsp; □ = ?"],
+    "6": [["❖ + ✳ + ❖", "15"], ["✳ + ❖", "11"], "❖ = ? &nbsp; · &nbsp; ✳ = ?"],
+    "7": [["○ + ○ + ○ + ✳", "22"], ["○ + ✳", "12"], "○ = ? &nbsp; · &nbsp; ✳ = ?"],
+    "8": [["❖ + ✳ + ✳", "14"], ["❖ + ❖ + ❖ + ✳ + ✳", "18"], "❖ = ? &nbsp; · &nbsp; ✳ = ?"],
+    "9": [["□ + ○ + ○", "14"], ["□ + ○ + ○ + ○ + ○", "24"], "□ = ? &nbsp; · &nbsp; ○ = ?"],
+    "10": [["🍍", "🍊 🍊 🍊"], ["🍊 🍊", "🍎 🍎 🍎"], "🍍 = ? × 🍎"],
+    "11": [["🍎 🍎", "6 × 🍓"], ["🍐 🍐", "🍎 🍎 🍎"], "🍐 🍐 = ? × 🍓"],
+    "12": [["🍉", "16 × 🍎"], ["🍎 🍎", "3 × quả mơ"], "🍉 = ? × quả mơ"],
+    "13": [["✳ + ❖", "22"], ["✳ + ✳ + ❖ + ❖ + ❖", "58"], "✳ = ? &nbsp; · &nbsp; ❖ = ?"],
+    "14": [["✳ + ○", "25"], ["✳ + ✳ + ✳ + ○ + ○", "65"], "✳ = ? &nbsp; · &nbsp; ○ = ?"],
+    "15": [["❖ + ○", "9"], ["○ + □", "12"], ["□ + ❖", "11"], "❖ = ? &nbsp; · &nbsp; □ = ? &nbsp; · &nbsp; ○ = ?"],
+    "16": [["❖ + △ + △ + △ + △", "33"], ["❖ + ❖", "△ + △ + △"], "❖ = ? &nbsp; · &nbsp; △ = ?"],
+    "17": [["○ × ✳", "24"], ["○ + ✳", "11"], ["○ + ✳ + △", "17"], "△ = ?"],
+    "18": [["◇ × ○", "❖"], ["◇ + ◇ + ◇", "❖ − ◇"], "○ = ?"],
+    "19": [["✳ × ○", "24"], ["○ × □", "40"], ["□ × ❖", "45"], ["✳ × □", "15"], "✳ = ? &nbsp; · &nbsp; ○ = ? &nbsp; · &nbsp; ❖ = ? &nbsp; · &nbsp; □ = ?"],
+    "20": [["◇ × ○", "30"], ["✳ × ◇", "12"], ["✳ × ○", "10"], "✳ = ? &nbsp; · &nbsp; ◇ = ? &nbsp; · &nbsp; ○ = ?"],
+  };
+  Object.entries(balanceQuestions).forEach(([number, data]) => {
+    const target = data[data.length - 1];
+    art[`j1-replace-${number}`] = () => balanceQuestion(data.slice(0, -1), target);
+  });
+  art["j1-replace-extra-1"] = () => balanceQuestion([["🐻", "🐇 🐇 🐇"], ["🐇", "🥕 🥕"]], "🐻 = ? × 🥕");
+  art["j1-replace-extra-2"] = () => balanceQuestion([["○ + □", "18"], ["○ − □", "4"]], "○ = ? &nbsp; · &nbsp; □ = ?");
+  art["j1-replace-extra-3"] = () => balanceQuestion([["△ + △ + ○", "19"], ["△ + ○", "12"]], "△ = ? &nbsp; · &nbsp; ○ = ?");
+  art["j1-replace-extra-4"] = () => balanceQuestion([["🍐 🍐", "6 × quả mận"]], "🍐 🍐 🍐 = ? × quả mận");
+  art["j1-replace-extra-5"] = () => balanceQuestion([["□ × ○", "18"], ["□ + ○", "9"]], "□ = ? &nbsp; · &nbsp; ○ = ?");
+
+  const ageQuestion = (people, timeNote, target, totalNote = "") => wrap(
+    local("Sơ đồ tuổi theo thời gian", "Age timeline"),
+    `<div class="age-question-board">${people.map(({icon,name,age,after}) => `<div class="age-person-row"><span class="age-person-name"><b>${icon}</b>${name}</span><span class="age-now"><small>${local("Hiện nay", "Now")}</small><strong>${age}</strong></span>${after !== undefined ? `<i>→</i><span class="age-after"><small>${timeNote}</small><strong>${after}</strong></span>` : ""}</div>`).join("")}${totalNote ? `<div class="age-total-note">${totalNote}</div>` : ""}<div class="age-target"><span>${local("Cần tìm", "Find")}</span><strong>${target}</strong></div></div>`,
+  );
+  const person = (icon, vi, en, age, after) => ({icon,name:local(vi,en),age,after});
+
+  art["j1-age-example-1"] = () => ageQuestion([person("👧","Amanda","Amanda","7","7 + 4"),person("👨","Bố","Father","36","36 + 4")],local("Sau 4 năm","In 4 years"),local("Bố hơn Amanda bao nhiêu tuổi?","How much older is Father?"));
+  art["j1-age-example-2"] = () => ageQuestion([person("👧","Natalie","Natalie","8","8 + 5"),person("👨","Ông Jensen","Mr Jensen","45","45 + 5")],local("Sau 5 năm","In 5 years"),local("Hiệu số tuổi = ?","Age difference = ?"));
+  art["j1-age-example-3"] = () => ageQuestion([person("🧒","Andrew","Andrew","8"),person("👩","Mẹ","Mother","32")],"",local("32 gấp mấy lần 8?","How many times is 32 compared with 8?"));
+  art["j1-age-example-4"] = () => ageQuestion([person("👧","Paula","Paula","6","10"),person("👨","Bố","Father","?","40")],local("Sau cùng một số năm","After the same number of years"),local("Tuổi bố hiện nay = ?","Father's age now = ?"));
+  art["j1-age-example-5"] = () => ageQuestion([person("🧒","Edward","Edward","8","?"),person("👩","Mẹ","Mother","32","3 × ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm để tuổi mẹ gấp 3 lần?","How many years until Mother is 3 times as old?"));
+
+  const ageQuestions = {
+    "1": () => ageQuestion([person("👩","Mẹ","Mother","?","? − 5"),person("👵","Bà","Grandmother","? + 25","? + 20")],local("5 năm trước","5 years ago"),local("Hiệu số tuổi 5 năm trước = ?","Age difference 5 years ago = ?")),
+    "2": () => ageQuestion([person("👧","Chloe","Chloe","4","4 + 8"),person("👨","Bố","Father","36","36 + 8")],local("Sau 8 năm","In 8 years"),local("Hiệu số tuổi = ?","Age difference = ?")),
+    "3": () => ageQuestion([person("👨","Bố","Father","35","35 + 12"),person("👴","Ông","Grandfather","62","62 + 12")],local("Sau 12 năm","In 12 years"),local("Tuổi của mỗi người = ?","Each future age = ?")),
+    "4": () => ageQuestion([person("🧒","Tom","Tom","6","6 + 10"),person("👦","Anh trai","Brother","11","11 + 10")],local("Sau 10 năm","In 10 years"),local("Hiệu số tuổi hiện nay và sau 10 năm = ?","Age difference now and in 10 years = ?")),
+    "5": () => ageQuestion([person("👧","Em gái","Sister","22 ÷ 2"),person("👩","Valerie","Valerie","22"),person("👨","Bố","Father","?")],"",local("Tuổi bố = ?","Father's age = ?"),local("Tổng tuổi: 85","Total age: 85")),
+    "6": () => ageQuestion([person("👵","Bà","Granny","56","56 + ?"),person("👩","Mẹ","Mother","31","31 + ?"),person("🧒","Em","Me","7","7 + ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm?","How many years?"),local("Tổng tương lai: 100","Future total: 100")),
+    "7": () => ageQuestion([person("🧒","Wilfred","Wilfred","4"),person("👨","Bố","Father","7 × 4")],"",local("Tuổi bố = ?","Father's age = ?")),
+    "8": () => ageQuestion([person("🧒","Teddy","Teddy","5","?"),person("👨","Bố","Father","7 × 5","40")],local("Sau cùng một số năm","After the same number of years"),local("Tuổi Teddy khi bố 40 = ?","Teddy's age when Father is 40 = ?")),
+    "9": () => ageQuestion([person("👩","Mẹ","Mother","36","36 + ?"),person("👨","Bố","Father","42","42 + ?"),person("👧","Julia","Julia","7","7 + ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm?","How many years?"),local("Tổng tương lai: 100","Future total: 100")),
+    "10": () => ageQuestion([person("👧","Phyllis","Phyllis","5","?"),person("👨","Bố","Father","40","6 × ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm để tuổi bố gấp 6 lần?","How many years until Father is 6 times as old?")),
+    "11": () => ageQuestion([person("👧","Anna","Anna","5","?"),person("👩","Mẹ","Mother","33","5 × ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm để tuổi mẹ gấp 5 lần?","How many years until Mother is 5 times as old?")),
+    "12": () => ageQuestion([person("👧","Wendy","Wendy","6","6 + 9"),person("👧","Chị gái","Sister","?","? + 9")],local("Sau 9 năm","In 9 years"),local("Tuổi chị hiện nay = ?","Sister's age now = ?"),local("Tổng sau 9 năm: 40","Total in 9 years: 40")),
+    "13": () => ageQuestion([person("👩","Bà Gibson","Mrs Gibson","?","? + 5"),person("👨","Ông Gibson","Mr Gibson","? + 5","? + 10")],local("Sau 5 năm","In 5 years"),local("Tuổi hiện nay của mỗi người = ?","Each present age = ?"),local("Tổng sau 5 năm: 95","Total in 5 years: 95")),
+    "14": () => ageQuestion([person("👩","Bà Woody","Mrs Woody","38","38 + ?"),person("👨","Ông Woody","Mr Woody","38 + 4","42 + ?"),person("🧒","Jim","Jim","8","8 + ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm?","How many years?"),local("Tổng tương lai: 100","Future total: 100")),
+  };
+  Object.entries(ageQuestions).forEach(([number, draw]) => { art[`j1-age-${number}`] = draw; });
+  art["j1-age-extra-1"] = () => ageQuestion([person("👧","Mai","Mai","9","9 + 6"),person("👦","Anh trai","Brother","14","14 + 6")],local("Sau 6 năm","In 6 years"),local("Hiệu số tuổi = ?","Age difference = ?"));
+  art["j1-age-extra-2"] = () => ageQuestion([person("👧","An","An","6"),person("👩","Mẹ","Mother","30")],"",local("30 gấp mấy lần 6?","How many times is 30 compared with 6?"));
+  art["j1-age-extra-3"] = () => ageQuestion([person("🧒","Con","Son","10","?"),person("👨","Bố","Father","34","3 × ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm?","How many years?"));
+  art["j1-age-extra-4"] = () => ageQuestion([person("🧒","Bạn 1","Child 1","6","6 + ?"),person("🧒","Bạn 2","Child 2","8","8 + ?"),person("🧒","Bạn 3","Child 3","10","10 + ?")],local("Sau ? năm","After ? years"),local("Bao nhiêu năm?","How many years?"),local("Tổng tương lai: 36","Future total: 36"));
+  art["j1-age-extra-5"] = () => ageQuestion([person("👧","Con","Daughter","?"),person("👩","Mẹ","Mother","? + 26")],"",local("Tuổi mỗi người = ?","Each age = ?"),local("Tổng tuổi: 50","Total age: 50"));
+
+  const divisionQuestion = (dividend, divisor, fields = ["?", "?"]) => wrap(
+    local("Sơ đồ phép chia", "Division diagram"),
+    `<div class="division-question-board"><div class="division-equation"><strong>${dividend}</strong><span>÷</span><strong>${divisor}</strong><span>=</span><b>${fields[0]}</b><small>${local("thương", "quotient")}</small><span class="division-r">R</span><b>${fields[1]}</b><small>${local("số dư", "remainder")}</small></div><div class="division-check">${dividend} = ${divisor} × ? + ?</div></div>`,
+  );
+  const cycleQuestion = (items, target, label) => wrap(
+    local("Một chu kỳ được lặp lại", "One repeating cycle"),
+    `<div class="cycle-question-board"><div class="cycle-items">${items.map((item,i)=>`<span style="--cycle-i:${i}">${item}</span>`).join("")}<i>↻</i></div><div class="cycle-target"><span>${label}</span><strong>${target}</strong></div></div>`,
+  );
+  const calendarQuestion = (fromDate, fromDay, toDate) => wrap(
+    local("Dòng thời gian theo tuần", "Weekly timeline"),
+    `<div class="calendar-question-board"><div class="calendar-anchor"><span>${fromDate}</span><strong>${fromDay}</strong></div><div class="calendar-weeks"><i>+7</i><i>+7</i><i>+7</i><b>…</b></div><div class="calendar-target"><span>${toDate}</span><strong>?</strong></div></div>`,
+  );
+  const remainderQuestion = (divisors, remainder) => wrap(
+    local("Hai điều kiện về số dư", "Two remainder conditions"),
+    `<div class="remainder-question-board"><div class="mystery-number">?</div>${divisors.map(divisor=>`<div class="remainder-rule"><span>÷ ${divisor}</span><b>${local("dư", "R")} ${remainder}</b></div>`).join("")}<div class="remainder-target">${local("Số có 2 chữ số", "2-digit number")}</div></div>`,
+  );
+
+  art["j1-div-example-1"] = () => divisionQuestion("48", "9");
+  art["j1-div-example-2"] = () => divisionQuestion("25", "?", ["?", "1"]);
+  art["j1-div-example-3"] = () => wrap(local("Thương bằng số dư", "Quotient equals remainder"), `<div class="equal-remainder-board"><span>? ÷ 5</span><b>=</b><em>□</em><strong>${local("dư", "R")}</strong><em>□</em><i>=</i><small>${local("hai ô có cùng số", "same number in both boxes")}</small></div>`);
+  art["j1-div-example-4"] = () => cycleQuestion(["○","○","●","●","●"], local("Hạt 24 và 32", "24th and 32nd beads"), local("Cần tìm", "Find"));
+  art["j1-div-example-5"] = () => calendarQuestion(local("1 tháng 3", "March 1"), local("Chủ nhật", "Sunday"), local("25 tháng 3", "March 25"));
+
+  const divisionQuestionValues = {
+    "1a":[36,7],"1b":[45,6],"1c":[51,7],"1d":[28,5],"1e":[47,9],"1f":[66,8],"1g":[88,9],"1h":[45,7],
+    "2a":[26,6],"2b":[39,6],"2c":[47,9],"2d":[58,9],"2e":[68,9],"2f":[78,9],
+    "3a":[31,6],"3b":[50,7],"3c":[57,8],"3d":[64,9],
+    "4a":[17,3],"4b":[39,5],"4c":[27,4],"4d":[35,6],"4e":[47,6],"4f":[62,7],
+  };
+  Object.entries(divisionQuestionValues).forEach(([number,[dividend,divisor]]) => { art[`j1-div-${number}`] = () => divisionQuestion(dividend, divisor); });
+  [["5a",29],["5b",31],["5c",41],["5d",44],["5e",39],["5f",59]].forEach(([number,dividend])=>{ art[`j1-div-${number}`]=()=>divisionQuestion(dividend,"?"); });
+  [["6a",1],["6b",2],["6c",3],["6d",4],["6e",5]].forEach(([number,value])=>{ art[`j1-div-${number}`]=()=>wrap(local("Thương bằng số dư", "Quotient equals remainder"),`<div class="division-given"><div><small>${local("Số chia", "Divisor")}</small><b>6</b></div><span>×</span><div><small>${local("Thương", "Quotient")}</small><b>${value}</b></div><span>+</span><div><small>${local("Số dư", "Remainder")}</small><b>${value}</b></div><span>=</span><div class="unknown"><small>${local("Số bị chia", "Dividend")}</small><b>?</b></div></div>`); });
+  art["j1-div-7a"] = () => cycleQuestion(["○","●","●"], local("Hạt thứ 23", "23rd bead"), local("Cần tìm", "Find"));
+  art["j1-div-7b"] = () => cycleQuestion(["○","●","●"], local("Hạt thứ 31", "31st bead"), local("Cần tìm", "Find"));
+  art["j1-div-8a"] = () => cycleQuestion(["○","○","■","■","■"], local("Hình thứ 26", "26th shape"), local("Cần tìm", "Find"));
+  art["j1-div-8b"] = () => cycleQuestion(["○","○","■","■","■"], local("Hình thứ 33", "33rd shape"), local("Cần tìm", "Find"));
+  art["j1-div-9"] = () => cycleQuestion(["👧 Charmaine","👧 Shola","👧 Amy"], local("Thẻ thứ 34", "34th card"), local("Ai nhận?", "Who receives it?"));
+  art["j1-div-10"] = () => cycleQuestion(["Jolene × 1","Anna × 2","Jim × 1"], local("Viên bi thứ 54", "54th marble"), local("Ai nhận?", "Who receives it?"));
+  art["j1-div-11a"] = () => cycleQuestion(["1","3","2","4"], local("Số thứ 27", "27th number"), local("Cần tìm", "Find"));
+  art["j1-div-11b"] = () => cycleQuestion(["1","3","2","4"], local("Số thứ 42", "42nd number"), local("Cần tìm", "Find"));
+  art["j1-div-12a"] = () => cycleQuestion(["🏮 đỏ","🏮 đỏ","🏮 đỏ","🏮 cam","🏮 cam","🏮 hồng"], local("Đèn thứ 38", "38th lantern"), local("Cần tìm", "Find"));
+  art["j1-div-12b"] = () => cycleQuestion(["🏮 đỏ","🏮 đỏ","🏮 đỏ","🏮 cam","🏮 cam","🏮 hồng"], local("Đèn thứ 58", "58th lantern"), local("Cần tìm", "Find"));
+  art["j1-div-13"] = () => calendarQuestion(local("1 tháng 5", "May 1"), local("Thứ Tư", "Wednesday"), local("23 tháng 5", "May 23"));
+  art["j1-div-14"] = () => calendarQuestion(local("20 tháng 3", "March 20"), local("Chủ nhật", "Sunday"), local("11 tháng 4", "April 11"));
+  art["j1-div-15"] = () => remainderQuestion([3,5],1);
+  art["j1-div-16"] = () => remainderQuestion([4,5],2);
+  art["j1-div-extra-1"] = () => divisionQuestion(29,6);
+  art["j1-div-extra-2"] = () => cycleQuestion(["▲","●","●"],local("Hình thứ 20", "20th shape"),local("Cần tìm", "Find"));
+  art["j1-div-extra-3"] = () => calendarQuestion(local("2 tháng 6", "June 2"),local("Thứ Hai", "Monday"),local("24 tháng 6", "June 24"));
+  art["j1-div-extra-4"] = () => remainderQuestion([4,5],3);
+  art["j1-div-extra-5"] = () => cycleQuestion(["A","B","C","D"],local("Thẻ thứ 73", "73rd card"),local("Ai nhận?", "Who receives it?"));
+
+  const mixedTotalQuestion = (first, second, count, total, unitLabel) => wrap(
+    local("Hai loại trong cùng một tổng", "Two types in one total"),
+    `<div class="mixed-total-board"><div class="mixed-types"><div><b>${first.icon}</b><strong>${first.name}</strong><span>${first.unit} ${unitLabel}</span></div><i>+</i><div><b>${second.icon}</b><strong>${second.name}</strong><span>${second.unit} ${unitLabel}</span></div></div><div class="mixed-givens"><span><small>${local("Tổng số", "Total items")}</small><b>${count}</b></span><span><small>${local("Tổng cộng", "Grand total")}</small><b>${total} ${unitLabel}</b></span></div><div class="mixed-target">${first.name} = ? &nbsp; · &nbsp; ${second.name} = ?</div></div>`,
+  );
+  const kind = (icon, vi, en, unit) => ({icon,name:local(vi,en),unit});
+  const mixVisuals = {
+    "example-1":[kind("🐔","Gà","Chicken",2),kind("🐇","Thỏ","Rabbit",4),4,10,local("chân","legs")],
+    "example-2":[kind("🕷️","Nhện","Spider",8),kind("🪰","Chuồn chuồn","Dragonfly",6),6,40,local("chân","legs")],
+    "example-3":[kind("🖊️","Bút mực","Pen",4),kind("✏️","Bút chì","Pencil",2),6,"$20",local("mỗi món","each")],
+    "example-4":[kind("🐔","Gà","Chicken",2),kind("🐇","Thỏ","Rabbit",4),11,30,local("chân","legs")],
+    "example-5":[kind("✉️","Tem $5","$5 stamp",5),kind("✉️","Tem $2","$2 stamp",2),12,"$45",local("mỗi tem","each")],
+    "1":[kind("🚗","Ô tô","Car",4),kind("🏍️","Xe máy","Motorcycle",2),8,26,local("bánh","wheels")],
+    "2":[kind("🎟️","Vé người lớn","Adult ticket",8),kind("🎫","Vé trẻ em","Child ticket",5),5,"$31",local("mỗi vé","each")],
+    "3":[kind("📘","Sách KHVT","Science fiction",5),kind("📗","Sách phiêu lưu","Adventure",3),6,"$26",local("mỗi quyển","each")],
+    "4":[kind("🛺","Xe ba bánh","Tricycle",3),kind("🚲","Xe đạp","Bicycle",2),8,22,local("bánh","wheels")],
+    "5":[kind("🐔","Gà","Chicken",2),kind("🐇","Thỏ","Rabbit",4),12,34,local("chân","legs")],
+    "6":[kind("🐔","Gà","Chicken",2),kind("🐇","Thỏ","Rabbit",4),17,52,local("chân","legs")],
+    "7":[kind("📦","Hộp lớn","Big box",12),kind("▫️","Hộp nhỏ","Small box",6),10,84,local("viên bi","marbles")],
+    "8":[kind("🕷️","Nhện","Spider",8),kind("🪰","Chuồn chuồn","Dragonfly",6),10,68,local("chân","legs")],
+    "9":[kind("✉️","Tem $2","$2 stamp",2),kind("✉️","Tem $1","$1 stamp",1),11,"$16",local("mỗi tem","each")],
+    "10":[kind("🚚","Xe tải","Truck",6),kind("🚗","Ô tô","Car",4),14,72,local("bánh","wheels")],
+    "extra-1":[kind("🐔","Gà","Chicken",2),kind("🐇","Thỏ","Rabbit",4),5,14,local("chân","legs")],
+    "extra-2":[kind("💳","Thẻ $3","$3 card",3),kind("💳","Thẻ $1","$1 card",1),6,"$14",local("mỗi thẻ","each")],
+    "extra-3":[kind("🛺","Xe ba bánh","Tricycle",3),kind("🚲","Xe đạp","Bicycle",2),9,23,local("bánh","wheels")],
+    "extra-4":[kind("🎟️","Vé người lớn","Adult ticket",8),kind("🎫","Vé trẻ em","Child ticket",5),10,"$62",local("mỗi vé","each")],
+    "extra-5":[kind("⭐","Câu 5 điểm","5-point",5),kind("🔹","Câu 2 điểm","2-point",2),20,64,local("điểm","points")],
+  };
+  Object.entries(mixVisuals).forEach(([number,args])=>{ art[`j1-mix-${number}`]=()=>mixedTotalQuestion(...args); });
 })();
