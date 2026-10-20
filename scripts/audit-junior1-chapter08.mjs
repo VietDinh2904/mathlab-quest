@@ -45,6 +45,9 @@ for (const question of [...questions, ...extra]) {
   if (!solution) issues.push(`${question.id}: missing solution`);
   const answers = solution?.answers || [];
   const labels = question.labels?.vi || question.labels?.en || [];
+  if (labels.length > 1 && labels.every((label) => /^\(?[a-z]\)?(?:\s|$)/i.test(String(label)))) {
+    issues.push(`${question.id}: answer labels would be mistaken for lettered subquestions`);
+  }
   if (labels.length && labels.length !== answers.length) {
     issues.push(`${question.id}: ${labels.length} labels but ${answers.length} answer groups`);
   }
