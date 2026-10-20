@@ -1,0 +1,35 @@
+(function registerJuniorOneChapterElevenIllustrations(){
+  "use strict";
+  const art=window.PILOT_ILLUSTRATIONS=window.PILOT_ILLUSTRATIONS||{};
+  const isVi=()=>document.documentElement.lang!=="en";
+  const t=(vi,en)=>isVi()?vi:en;
+  const wrap=(title,body)=>`<div class="book-visual"><div class="book-visual-title">${title}</div>${body}</div>`;
+  const svg=(body,label)=>wrap(t("Hình trong đề","Figure in the question"),`<svg viewBox="0 0 720 350" role="img" aria-label="${label}" style="max-height:350px"><g fill="none" stroke="#17365d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${body}</g></svg>`);
+  const boxes=(items)=>wrap(t("Lập danh sách","Make a list"),`<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">${items.map(x=>`<span style="padding:14px 18px;border:3px solid #17365d;border-radius:14px;background:#eef6ff;color:#17365d;font-weight:900">${x}</span>`).join("")}</div>`);
+  const table=(headers,rows)=>wrap(t("Lập bảng","Make a table"),`<div style="display:grid;grid-template-columns:repeat(${headers.length},minmax(90px,1fr));max-width:760px;margin:auto;border:3px solid #17365d;border-radius:14px;overflow:hidden">${headers.map(x=>`<b style="padding:12px;background:#eaf4ff;border:1px solid #b9cde5;text-align:center">${x}</b>`).join("")}${rows.flat().map(x=>`<span style="padding:11px;border:1px solid #d5e2f1;text-align:center;background:white">${x}</span>`).join("")}</div>`);
+  const gridPath=(cols,rows,diag=false,forbidden=false)=>{let b="";const ox=150,oy=55,cw=130,ch=75;for(let c=0;c<=cols;c++)b+=`<line x1="${ox+c*cw}" y1="${oy}" x2="${ox+c*cw}" y2="${oy+rows*ch}"/>`;for(let r=0;r<=rows;r++)b+=`<line x1="${ox}" y1="${oy+r*ch}" x2="${ox+cols*cw}" y2="${oy+r*ch}"/>`;if(diag)for(let c=0;c<cols;c++)b+=`<line x1="${ox+c*cw}" y1="${oy+rows*ch}" x2="${ox+(c+1)*cw}" y2="${oy}"/>`;b+=`<circle cx="${ox}" cy="${oy+rows*ch}" r="8" fill="#ff7568" stroke="none"/><text x="${ox-28}" y="${oy+rows*ch+12}" fill="#17365d" stroke="none" font-size="28" font-weight="900">A</text><circle cx="${ox+cols*cw}" cy="${oy}" r="8" fill="#54c8aa" stroke="none"/><text x="${ox+cols*cw+15}" y="${oy+12}" fill="#17365d" stroke="none" font-size="28" font-weight="900">B</text>`;if(forbidden)b+=`<circle cx="${ox+(cols-1)*cw}" cy="${oy+(rows-1)*ch}" r="16" fill="#ff7568" stroke="none"/><text x="${ox+(cols-1)*cw+22}" y="${oy+(rows-1)*ch+8}" fill="#17365d" stroke="none" font-size="26" font-weight="900">C</text>`;return svg(b,t("Lưới đường đi","Route grid"));};
+  const letters=(rows)=>wrap(t("Mạng chữ trong đề","Letter network in the question"),`<div style="display:grid;gap:12px;justify-items:center">${rows.map(row=>`<div style="display:flex;gap:64px">${row.map(x=>`<b style="display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#eef6ff;border:3px solid #17365d;color:#17365d;font-size:1.3rem">${x}</b>`).join("")}</div>`).join("")}</div>`);
+
+  art["j1-list-example-paths"]=()=>gridPath(2,1,true);
+  art["j1-list-example-factors"]=()=>table([t("Thừa số 1","Factor 1"),t("Thừa số 2","Factor 2"),t("Tổng","Sum")],[[1,36,37],[2,18,20],[3,12,15],[4,9,13],[6,6,12]]);
+  art["j1-list-example-seats"]=()=>boxes(["ABC","ACB","BAC","BCA","CAB","CBA"]);
+  art["j1-list-1-stairs"]=()=>svg(`<path d="M120 300H600V230H470V160H340V90H210V300Z"/><path d="M260 70l22 40h-44Z" fill="#ffd269"/><rect x="385" y="120" width="38" height="38" fill="#8fc3ff"/><circle cx="535" cy="205" r="22" fill="#76d5bd"/>`,t("Ba vật trên ba bậc thang","Three objects on three steps"));
+  art["j1-list-2-multiples"]=()=>boxes(["8","12","16","20","24","28","32","36"]);
+  art["j1-list-3-paths"]=()=>gridPath(2,1,true);
+  art["j1-list-4-factors"]=()=>table([t("Số thứ nhất","First"),t("Số thứ hai","Second"),t("Tổng","Sum")],[[1,48,49],[2,24,26],[3,16,19],[4,12,16],[6,8,14]]);
+  art["j1-list-5-seats"]=()=>table(["1","2","3"],[[t("Mẹ","Mum"),"Jonathan",t("Bố","Dad")],["?","?","?"],["?","?","?"],["?","?","?"],["?","?","?"],["?","?","?"]]);
+  art["j1-list-6-mayor"]=()=>letters([["Y"],["A","O"],["M","Y","R"],["A","O"],["Y"]]);
+  art["j1-list-7-movies"]=()=>boxes(["1. Pets Next Door","2. Tommy and Jeffrey","3. The Wonder Cat","4. Mission Accomplished"]);
+  art["j1-list-8-dots"]=()=>svg([170,360,550].map(x=>[115,245].map(y=>`<circle cx="${x}" cy="${y}" r="9" fill="#17365d" stroke="none"/>`).join("")).join(""),t("Sáu điểm xếp thành hai hàng","Six dots in two rows"));
+  art["j1-list-9-ants"]=()=>gridPath(3,3,false,true);
+  art["j1-list-10-stamps"]=()=>boxes(["20¢","50¢","$1"]);
+  art["j1-list-11-water"]=()=>letters([["T"],["A","E"],["W","T","R"],["A","E"],["T"]]);
+  art["j1-list-12-money"]=()=>table(["$1","$2","$5",t("Tổng","Total")],[[7,0,0,"$7"],[5,1,0,"$7"],["?","?","?","$7"],["?","?","?","$7"],["?","?","?","$7"],["?","?","?","$7"]]);
+  art["j1-list-13-menu"]=()=>table([t("Khai vị","Starter"),t("Món chính","Main"),t("Đồ uống","Drink")],[["2 choices","3 choices","3 choices"]]);
+  art["j1-list-14-balls"]=()=>boxes(["🔴 × 5","⚪ × 5","🟢 × 3"]);
+  art["j1-list-extra-1"]=()=>boxes(["10","15","20","25","30","35","40"]);
+  art["j1-list-extra-2"]=()=>boxes(["A","B","C","D","E"]);
+  art["j1-list-extra-3"]=()=>table([t("Thừa số 1","Factor 1"),t("Thừa số 2","Factor 2")],[[1,36],[2,18],[3,12],[4,9],[6,6]]);
+  art["j1-list-extra-4"]=()=>table([t("Khai vị","Starter"),t("Món chính","Main")],[["3 choices","4 choices"]]);
+  art["j1-list-extra-5"]=()=>table(["$1","$2","$3",t("Tổng","Total")],[["?","?","?","$6"]]);
+})();
