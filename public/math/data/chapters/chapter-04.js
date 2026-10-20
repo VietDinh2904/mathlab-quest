@@ -69,6 +69,8 @@
       ],
       "hint": "5 matchsticks create 4 intervals.",
       "guide": "4×10=40 cm.",
+      "visual": "interval-4-1",
+      "visualPlacement": "question",
       "id": "4-1"
     },
     {
@@ -117,6 +119,8 @@
       ],
       "hint": "3 sides ×6 counts each corner twice.",
       "guide": "18−3=15 coins.",
+      "visual": "interval-4-5",
+      "visualPlacement": "question",
       "id": "4-5"
     },
     {
@@ -177,6 +181,8 @@
       ],
       "hint": "3 chimes make 2 intervals.",
       "guide": "6÷2=3 s per interval; 6 chimes make 5 intervals: 15 s.",
+      "visual": "interval-4-10",
+      "visualPlacement": "question",
       "id": "4-10"
     },
     {
@@ -201,6 +207,8 @@
       ],
       "hint": "Four sides ×16, then correct for corners counted twice.",
       "guide": "64−4=60 flags.",
+      "visual": "interval-4-12",
+      "visualPlacement": "question",
       "id": "4-12"
     },
     {
@@ -213,6 +221,8 @@
       ],
       "hint": "Each side has 24÷3=8 intervals; a closed square has as many pots as intervals around the loop.",
       "guide": "4×8=32 pots.",
+      "visual": "interval-4-13",
+      "visualPlacement": "question",
       "id": "4-13"
     },
     {

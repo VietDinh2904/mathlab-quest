@@ -21,6 +21,7 @@
   art["clock-j1-2340"] = () => clock(11,40,"buổi tối · pm");
   art["clock-j1-0650"] = () => clock(6,50,"buổi sáng · am");
   art["clock-j1-1815"] = () => clock(6,15,"buổi tối · pm");
+  art["clock-chimes-j1-13"] = () => wrap(local("Số tiếng chuông từ 1 giờ đến 6 giờ", "Clock chimes from one o'clock through six o'clock"), `<div style="display:grid;grid-template-columns:repeat(6,minmax(72px,1fr));gap:12px;width:100%;align-items:end">${[1,2,3,4,5,6].map((hour)=>`<div style="display:grid;gap:8px;justify-items:center"><strong style="font-size:1.1rem">${hour}:00</strong><div style="display:flex;gap:2px;flex-wrap:wrap;justify-content:center">${Array.from({length:hour},()=>'<span aria-hidden="true">🔔</span>').join("")}</div></div>`).join("")}</div>`);
   const timeline = (start, end, note) => wrap("Dòng thời gian · Timeline", `<div class="time-line"><span>${start}</span><i></i><b>${note}</b><i></i><span>${end}</span></div>`);
   art["timeline-j1-2a"] = () => timeline("2:00 pm","?","+25 phút");
   art["timeline-j1-2b"] = () => timeline("?","5:45 pm","40 phút");
