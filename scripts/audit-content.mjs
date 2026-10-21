@@ -4,7 +4,9 @@ import vm from "node:vm";
 
 const root = process.cwd();
 const html = fs.readFileSync(path.join(root, "public/math/index.html"), "utf8");
-const scripts = [...html.matchAll(/<script\s+src="([^"]+\.js)"/g)].map((match) => match[1]);
+const scripts = [...html.matchAll(/<script\s+src="([^"]+\.js)"/g)].map(
+  (match) => match[1],
+);
 const context = {
   console,
   document: { documentElement: { lang: "vi" } },
@@ -20,7 +22,11 @@ vm.createContext(context);
 
 for (const source of scripts) {
   if (source.endsWith("pilot-app.js") || source.endsWith("app.js")) continue;
-  const filename = path.join(root, "public/math", source.replaceAll("/", path.sep));
+  const filename = path.join(
+    root,
+    "public/math",
+    source.replaceAll("/", path.sep),
+  );
   vm.runInContext(fs.readFileSync(filename, "utf8"), context, { filename });
 }
 
@@ -34,73 +40,135 @@ let visualCount = 0;
 let questionCount = 0;
 let chapterCount = 0;
 let availableChapterCount = 0;
-const reviewMetaPrompt = /(?:Ý tưởng.+dùng để làm gì|Tên chuyên đề này là gì|Viết ngắn gọn mục tiêu|What is .+ used for|What is this topic called|State the main goal)/i;
-const normalizedPrompt = (question) => String(questionText(question) || "")
-  .normalize("NFKC")
-  .toLocaleLowerCase("vi")
-  .replace(/[^\p{L}\p{N}]+/gu, " ")
-  .trim();
+const reviewMetaPrompt =
+  /(?:Ý tưởng.+dùng để làm gì|Tên chuyên đề này là gì|Viết ngắn gọn mục tiêu|What is .+ used for|What is this topic called|State the main goal)/i;
+const normalizedPrompt = (question) =>
+  String(questionText(question) || "")
+    .normalize("NFKC")
+    .toLocaleLowerCase("vi")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+const collectStrings = (value) => {
+  if (typeof value === "string") return [value];
+  if (Array.isArray(value)) return value.flatMap(collectStrings);
+  if (value && typeof value === "object")
+    return Object.values(value).flatMap(collectStrings);
+  return [];
+};
+const junior2ExponentLanguage =
+  /(?:[²³]|\blũy thừa\b|\bsố chính phương\b|\btổng bình phương\b|\bbình phương từng\b|\bsquare numbers?\b|\bsum of (?:the )?squares\b|\bsquare each\b)/i;
 
 const auditQuestion = (bookKey, chapter, question, collection) => {
   questionCount += 1;
   const prompt = questionText(question);
   if (!prompt || String(prompt).trim().length < 4) {
-    findings.push(`${bookKey} chapter ${chapter} ${question.id}: empty or incomplete prompt`);
+    findings.push(
+      `${bookKey} chapter ${chapter} ${question.id}: empty or incomplete prompt`,
+    );
   }
   if (collection === "review" && reviewMetaPrompt.test(String(prompt))) {
-    findings.push(`${bookKey} chapter ${chapter} ${question.id}: review asks for theory recall instead of solving a problem`);
+    findings.push(
+      `${bookKey} chapter ${chapter} ${question.id}: review asks for theory recall instead of solving a problem`,
+    );
+  }
+  if (bookKey === "junior2") {
+    const unsuitableText = collectStrings(question).find((value) =>
+      junior2ExponentLanguage.test(value),
+    );
+    if (unsuitableText) {
+      findings.push(
+        `${bookKey} chapter ${chapter} ${question.id}: uses exponent terminology or notation not introduced in grades 2–3`,
+      );
+    }
   }
   if (question.visual) {
     visualCount += 1;
     if (typeof visualRegistry[question.visual] !== "function") {
-      findings.push(`${bookKey} chapter ${chapter} ${question.id}: missing visual ${question.visual}`);
+      findings.push(
+        `${bookKey} chapter ${chapter} ${question.id}: missing visual ${question.visual}`,
+      );
     }
   }
 };
 
 for (const [bookKey, book] of Object.entries(books)) {
+  if (bookKey === "junior2") {
+    const unsuitableEntries = collectStrings(book).filter((value) =>
+      junior2ExponentLanguage.test(value),
+    );
+    if (unsuitableEntries.length) {
+      findings.push(
+        `junior2: ${unsuitableEntries.length} remaining use(s) of exponent terminology or notation for grades 2–3`,
+      );
+    }
+  }
   for (const [chapter, meta] of Object.entries(book.chapters || {})) {
     chapterCount += 1;
     if (meta.available !== false) availableChapterCount += 1;
-    else warnings.push(`${bookKey} chapter ${chapter}: source content has not been digitized yet`);
+    else
+      warnings.push(
+        `${bookKey} chapter ${chapter}: source content has not been digitized yet`,
+      );
     const sourceCount = (book.exercises?.[chapter] || []).length;
-    if (meta.available !== false && sourceCount === 0) findings.push(`${bookKey} chapter ${chapter}: no book exercises`);
+    if (meta.available !== false && sourceCount === 0)
+      findings.push(`${bookKey} chapter ${chapter}: no book exercises`);
     const extraCount = (book.extra?.[chapter] || []).length;
-    if (meta.available !== false && extraCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 extra exercises, found ${extraCount}`);
+    if (meta.available !== false && extraCount !== 5)
+      findings.push(
+        `${bookKey} chapter ${chapter}: expected 5 extra exercises, found ${extraCount}`,
+      );
     const reviewCount = (book.review?.[chapter] || []).length;
-    if (meta.available !== false && reviewCount !== 5) findings.push(`${bookKey} chapter ${chapter}: expected 5 review exercises, found ${reviewCount}`);
-    const extraPrompts = new Set((book.extra?.[chapter] || []).map(normalizedPrompt));
-    const bookPrompts = new Set((book.exercises?.[chapter] || []).map(normalizedPrompt));
+    if (meta.available !== false && reviewCount !== 5)
+      findings.push(
+        `${bookKey} chapter ${chapter}: expected 5 review exercises, found ${reviewCount}`,
+      );
+    const extraPrompts = new Set(
+      (book.extra?.[chapter] || []).map(normalizedPrompt),
+    );
+    const bookPrompts = new Set(
+      (book.exercises?.[chapter] || []).map(normalizedPrompt),
+    );
     for (const question of book.review?.[chapter] || []) {
       if (extraPrompts.has(normalizedPrompt(question))) {
-        findings.push(`${bookKey} chapter ${chapter} ${question.id}: duplicates an extra-practice problem`);
+        findings.push(
+          `${bookKey} chapter ${chapter} ${question.id}: duplicates an extra-practice problem`,
+        );
       }
       if (bookPrompts.has(normalizedPrompt(question))) {
-        findings.push(`${bookKey} chapter ${chapter} ${question.id}: duplicates a book-practice problem`);
+        findings.push(
+          `${bookKey} chapter ${chapter} ${question.id}: duplicates a book-practice problem`,
+        );
       }
     }
   }
   for (const collection of ["exercises", "extra", "review"]) {
     for (const [chapter, questions] of Object.entries(book[collection] || {})) {
-      for (const question of questions) auditQuestion(bookKey, chapter, question, collection);
+      for (const question of questions)
+        auditQuestion(bookKey, chapter, question, collection);
     }
   }
 }
 
-for (const [chapter, questions] of Object.entries(context.window.PILOT_PDF_EXERCISES || {})) {
+for (const [chapter, questions] of Object.entries(
+  context.window.PILOT_PDF_EXERCISES || {},
+)) {
   for (const question of questions) {
     questionCount += 1;
     if (question.visual) {
       visualCount += 1;
       if (typeof visualRegistry[question.visual] !== "function") {
-        findings.push(`junior2 chapter ${chapter} ${question.id}: missing visual ${question.visual}`);
+        findings.push(
+          `junior2 chapter ${chapter} ${question.id}: missing visual ${question.visual}`,
+        );
       }
     }
   }
 }
 
-const visibleEnglish = /\b(straight|curved|moves|odd|even|how many|which is|group|start|think|answer|method|make a table|total cost|total legs|total wheels|arrange|apple|peach|orange|father|brother|choose|truth|lie|dentist|teacher|driver|guests|matches|teams|marbles|students|roles|science|maths|english|row|blocks|pairs|pages|same distance|head start)\b/i;
-const placeholderVisual = /\b(Dữ kiện 1|Dữ kiện 2|Đối tượng|Ứng viên\s*1|Số đo:|Các số đo:|Candidate\s*1|Data\s*1)\b/i;
+const visibleEnglish =
+  /\b(straight|curved|moves|odd|even|how many|which is|group|start|think|answer|method|make a table|total cost|total legs|total wheels|arrange|apple|peach|orange|father|brother|choose|truth|lie|dentist|teacher|driver|guests|matches|teams|marbles|students|roles|science|maths|english|row|blocks|pairs|pages|same distance|head start)\b/i;
+const placeholderVisual =
+  /\b(Dữ kiện 1|Dữ kiện 2|Đối tượng|Ứng viên\s*1|Số đo:|Các số đo:|Candidate\s*1|Data\s*1)\b/i;
 for (const [key, render] of Object.entries(visualRegistry)) {
   if (typeof render !== "function") continue;
   let output;
@@ -109,15 +177,38 @@ for (const [key, render] of Object.entries(visualRegistry)) {
   } catch {
     continue;
   }
-  const visibleText = [...output.matchAll(/>([^<>]+)</g)].map((match) => match[1]).join(" ");
-  if (visibleEnglish.test(visibleText)) findings.push(`visual ${key}: English text remains in Vietnamese mode: ${visibleText.match(visibleEnglish)?.[0]}`);
-  if (placeholderVisual.test(visibleText)) findings.push(`visual ${key}: generic placeholder remains: ${visibleText.match(placeholderVisual)?.[0]}`);
+  const visibleText = [...output.matchAll(/>([^<>]+)</g)]
+    .map((match) => match[1])
+    .join(" ");
+  if (visibleEnglish.test(visibleText))
+    findings.push(
+      `visual ${key}: English text remains in Vietnamese mode: ${visibleText.match(visibleEnglish)?.[0]}`,
+    );
+  if (placeholderVisual.test(visibleText))
+    findings.push(
+      `visual ${key}: generic placeholder remains: ${visibleText.match(placeholderVisual)?.[0]}`,
+    );
 }
 
 const sixSquareTiling = visualRegistry["advanced-c6-ai-3-visual"]?.();
 if (!sixSquareTiling || !/data-tiling-count="13"/.test(sixSquareTiling)) {
-  findings.push("advanced chapter 6 tiling visual: expected all 13 layouts for a 6-square strip");
+  findings.push(
+    "advanced chapter 6 tiling visual: expected all 13 layouts for a 6-square strip",
+  );
 }
 
-console.log(JSON.stringify({ chapterCount, availableChapterCount, questionCount, visualCount, findings, warnings }, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      chapterCount,
+      availableChapterCount,
+      questionCount,
+      visualCount,
+      findings,
+      warnings,
+    },
+    null,
+    2,
+  ),
+);
 if (findings.length) process.exitCode = 1;

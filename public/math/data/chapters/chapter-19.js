@@ -1,21 +1,181 @@
-(function(){"use strict";
-const bi=(en,vi)=>({en,vi});
-const methodVi="Xét phép tính theo từng cột từ hàng đơn vị, ghi lại số nhớ, rồi thay các chữ số tìm được vào phép tính ban đầu để kiểm tra.";
-const one=(n,en,vi,answer,hint,guide)=>({id:`19-${n}`,n:String(n),q:bi(en,vi),ans:[Array.isArray(answer)?answer.map(String):[String(answer)]],hint:bi(hint,methodVi),guide:bi(guide,guide),visual:`cryptarithm-19-${n}`});
-const multi=(n,en,vi,answers,hint,guide)=>({id:`19-${n}`,n:String(n),q:bi(en,vi),ans:answers.map(a=>Array.isArray(a)?a.map(String):[String(a)]),labels:answers.map((_,i)=>`(${String.fromCharCode(97+i)})`),hint:bi(hint,methodVi),guide:bi(guide,guide),visual:`cryptarithm-19-${n}`});
-window.BOOK_DATA=window.BOOK_DATA||{};
-window.BOOK_DATA["19"]={title:"Cryptarithm",emoji:"🔐",pages:"172–179",theory:[["Letters stand for digits","Replace each letter by one digit so every vertical calculation is correct."],["Work by columns","Start at the ones column and keep track of any carry."],["Same letter, same digit","A repeated letter always has the same value; a leading letter cannot be zero."],["Check the whole calculation","Substitute every digit back into the original sum or product."]],examples:[
-{q:bi("Find A, B and C in AB + AB = CA6.","Tìm A, B, C trong AB + AB = CA6."),steps:["B+B ends in 6, so B=3 or 8.","The carried 1 makes A+A+1 a three-digit result; A=9, B=8, C=1."],a:bi("A=9, B=8, C=1","A=9, B=8, C=1"),visual:"cryptarithm-example-19-1"},
-{q:bi("Find a, b, c and d in a6b + 5c7 = d332.","Tìm a, b, c, d trong a6b + 5c7 = d332."),steps:["b+7 ends in 2, so b=5 and carry 1.","6+c+1=13 gives c=6; a+5+1=13 gives a=7 and d=1."],a:bi("a=7, b=5, c=6, d=1","a=7, b=5, c=6, d=1"),visual:"cryptarithm-example-19-2"}],practice:[
-one(1,"aaa + aaa = baac. Find a, b and c.","aaa + aaa = baac. Tìm a, b, c.","a=9, b=1, c=8","Begin in the ones column.","999+999=1998, so a=9, b=1, c=8."),
-multi(2,"Find the letters in (a) A×A=BA; (b) AB×AB=ACC.","Tìm các chữ trong (a) A×A=BA; (b) AB×AB=ACC.",[["A=5, B=2","A=6, B=3"],"A=1, B=2, C=4"],"Test square numbers that match the last digit.","(a) 5×5=25 or 6×6=36. (b) 12×12=144."),
-multi(3,"Find the letters in (a) AB+AB=BC; (b) A7B×8=45C2.","Tìm các chữ trong (a) AB+AB=BC; (b) A7B×8=45C2.",["A=2, B=4, C=8","A=5, B=4, C=9"],"Use the ones column first.","(a) 24+24=48. (b) 574×8=4592."),
-multi(4,"Find the letters in (a) ab5+8cb=cc59; (b) a4×b=3b8.","Tìm các chữ trong (a) ab5+8cb=cc59; (b) a4×b=3b8.",["a=3, b=4, c=1","a=5, b=7"],"Track each carry.","345+814=1159; 54×7=378."),
-multi(5,"Find the letters in (a) ABC+CDE=D68; (b) a6×7=3bb.","Tìm các chữ trong (a) ABC+CDE=D68; (b) a6×7=3bb.",["A=1, B=2, C=3, D=4, E=5","a=4, b=2"],"Write the operation in aligned columns.","123+345=468; 46×7=322."),
-multi(6,"Find the letters in (a) 34a+99=bb5; (b) a8b×9=a06b.","Tìm các chữ trong (a) 34a+99=bb5; (b) a8b×9=a06b.",["a=6, b=4","a=7, b=5"],"Use the final digit and carry.","346+99=445; 785×9=7065."),
-multi(7,"Find the letters in (a) ABB+CBB=DDD; (b) ABC+CDC=DC04.","Tìm các chữ trong (a) ABB+CBB=DDD; (b) ABC+CDC=DC04.",[["A=2, B=3, C=4, D=6","A=1, B=4, C=7, D=8"],"A=9, B=8, C=7, D=1"],"Part (a) has more than one valid assignment.","For example, 233+433=666. For (b), 987+717=1704."),
-multi(8,"Find the letters in (a) AB×A=8B8; (b) ABCD×9=DCBA.","Tìm các chữ trong (a) AB×A=8B8; (b) ABCD×9=DCBA.",["A=9, B=2","A=1, B=0, C=8, D=9"],"The product reverses or repeats digits.","92×9=828; 1089×9=9801."),
-one(9,"d + cd + bcd + abcd = 2008. Find a, b, c and d.","d + cd + bcd + abcd = 2008. Tìm a, b, c, d.","a=1, b=4, c=6, d=7","Add by place value.","7+67+467+1467=2008."),
-one(10,"f + ef + def + cdef = 2000. Find c, d, e and f.","f + ef + def + cdef = 2000. Tìm c, d, e, f.","c=1, d=4, e=6, f=5","Start with four copies of f in the ones column.","5+65+465+1465=2000."),
-one(11,"A + AB + ABC + ABCD = 1879. Find A, B, C and D.","A + AB + ABC + ABCD = 1879. Tìm A, B, C, D.","A=1, B=6, C=9, D=3","Read the carries from right to left.","1+16+169+1693=1879."),
-one(12,"Find all possible A and B such that AB−BA=27.","Tìm mọi A, B sao cho AB−BA=27.",["A=9, B=6","A=8, B=5","A=7, B=4","A=6, B=3","A=5, B=2","A=4, B=1"],"The tens digit is 3 greater than the ones digit.","96−69, 85−58, 74−47, 63−36, 52−25 and 41−14 are all 27.")],check:["19-2","19-5","19-8","19-11","19-12"]};})();
+(function () {
+  "use strict";
+  const bi = (en, vi) => ({ en, vi });
+  const methodVi =
+    "Xét phép tính theo từng cột từ hàng đơn vị, ghi lại số nhớ, rồi thay các chữ số tìm được vào phép tính ban đầu để kiểm tra.";
+  const one = (n, en, vi, answer, hint, guide) => ({
+    id: `19-${n}`,
+    n: String(n),
+    q: bi(en, vi),
+    ans: [Array.isArray(answer) ? answer.map(String) : [String(answer)]],
+    hint: bi(hint, methodVi),
+    guide: bi(guide, guide),
+    visual: `cryptarithm-19-${n}`,
+  });
+  const multi = (n, en, vi, answers, hint, guide) => ({
+    id: `19-${n}`,
+    n: String(n),
+    q: bi(en, vi),
+    ans: answers.map((a) => (Array.isArray(a) ? a.map(String) : [String(a)])),
+    labels: answers.map((_, i) => `(${String.fromCharCode(97 + i)})`),
+    hint: bi(hint, methodVi),
+    guide: bi(guide, guide),
+    visual: `cryptarithm-19-${n}`,
+  });
+  window.BOOK_DATA = window.BOOK_DATA || {};
+  window.BOOK_DATA["19"] = {
+    title: "Cryptarithm",
+    emoji: "🔐",
+    pages: "172–179",
+    theory: [
+      [
+        "Letters stand for digits",
+        "Replace each letter by one digit so every vertical calculation is correct.",
+      ],
+      [
+        "Work by columns",
+        "Start at the ones column and keep track of any carry.",
+      ],
+      [
+        "Same letter, same digit",
+        "A repeated letter always has the same value; a leading letter cannot be zero.",
+      ],
+      [
+        "Check the whole calculation",
+        "Substitute every digit back into the original sum or product.",
+      ],
+    ],
+    examples: [
+      {
+        q: bi(
+          "Find A, B and C in AB + AB = CA6.",
+          "Tìm A, B, C trong AB + AB = CA6.",
+        ),
+        steps: [
+          "B+B ends in 6, so B=3 or 8.",
+          "The carried 1 makes A+A+1 a three-digit result; A=9, B=8, C=1.",
+        ],
+        a: bi("A=9, B=8, C=1", "A=9, B=8, C=1"),
+        visual: "cryptarithm-example-19-1",
+      },
+      {
+        q: bi(
+          "Find a, b, c and d in a6b + 5c7 = d332.",
+          "Tìm a, b, c, d trong a6b + 5c7 = d332.",
+        ),
+        steps: [
+          "b+7 ends in 2, so b=5 and carry 1.",
+          "6+c+1=13 gives c=6; a+5+1=13 gives a=7 and d=1.",
+        ],
+        a: bi("a=7, b=5, c=6, d=1", "a=7, b=5, c=6, d=1"),
+        visual: "cryptarithm-example-19-2",
+      },
+    ],
+    practice: [
+      one(
+        1,
+        "aaa + aaa = baac. Find a, b and c.",
+        "aaa + aaa = baac. Tìm a, b, c.",
+        "a=9, b=1, c=8",
+        "Begin in the ones column.",
+        "999+999=1998, so a=9, b=1, c=8.",
+      ),
+      multi(
+        2,
+        "Find the letters in (a) A×A=BA; (b) AB×AB=ACC.",
+        "Tìm các chữ trong (a) A×A=BA; (b) AB×AB=ACC.",
+        [["A=5, B=2", "A=6, B=3"], "A=1, B=2, C=4"],
+        "Try products of the form n×n that have the required last digit.",
+        "(a) 5×5=25 or 6×6=36. (b) 12×12=144.",
+      ),
+      multi(
+        3,
+        "Find the letters in (a) AB+AB=BC; (b) A7B×8=45C2.",
+        "Tìm các chữ trong (a) AB+AB=BC; (b) A7B×8=45C2.",
+        ["A=2, B=4, C=8", "A=5, B=4, C=9"],
+        "Use the ones column first.",
+        "(a) 24+24=48. (b) 574×8=4592.",
+      ),
+      multi(
+        4,
+        "Find the letters in (a) ab5+8cb=cc59; (b) a4×b=3b8.",
+        "Tìm các chữ trong (a) ab5+8cb=cc59; (b) a4×b=3b8.",
+        ["a=3, b=4, c=1", "a=5, b=7"],
+        "Track each carry.",
+        "345+814=1159; 54×7=378.",
+      ),
+      multi(
+        5,
+        "Find the letters in (a) ABC+CDE=D68; (b) a6×7=3bb.",
+        "Tìm các chữ trong (a) ABC+CDE=D68; (b) a6×7=3bb.",
+        ["A=1, B=2, C=3, D=4, E=5", "a=4, b=2"],
+        "Write the operation in aligned columns.",
+        "123+345=468; 46×7=322.",
+      ),
+      multi(
+        6,
+        "Find the letters in (a) 34a+99=bb5; (b) a8b×9=a06b.",
+        "Tìm các chữ trong (a) 34a+99=bb5; (b) a8b×9=a06b.",
+        ["a=6, b=4", "a=7, b=5"],
+        "Use the final digit and carry.",
+        "346+99=445; 785×9=7065.",
+      ),
+      multi(
+        7,
+        "Find the letters in (a) ABB+CBB=DDD; (b) ABC+CDC=DC04.",
+        "Tìm các chữ trong (a) ABB+CBB=DDD; (b) ABC+CDC=DC04.",
+        [["A=2, B=3, C=4, D=6", "A=1, B=4, C=7, D=8"], "A=9, B=8, C=7, D=1"],
+        "Part (a) has more than one valid assignment.",
+        "For example, 233+433=666. For (b), 987+717=1704.",
+      ),
+      multi(
+        8,
+        "Find the letters in (a) AB×A=8B8; (b) ABCD×9=DCBA.",
+        "Tìm các chữ trong (a) AB×A=8B8; (b) ABCD×9=DCBA.",
+        ["A=9, B=2", "A=1, B=0, C=8, D=9"],
+        "The product reverses or repeats digits.",
+        "92×9=828; 1089×9=9801.",
+      ),
+      one(
+        9,
+        "d + cd + bcd + abcd = 2008. Find a, b, c and d.",
+        "d + cd + bcd + abcd = 2008. Tìm a, b, c, d.",
+        "a=1, b=4, c=6, d=7",
+        "Add by place value.",
+        "7+67+467+1467=2008.",
+      ),
+      one(
+        10,
+        "f + ef + def + cdef = 2000. Find c, d, e and f.",
+        "f + ef + def + cdef = 2000. Tìm c, d, e, f.",
+        "c=1, d=4, e=6, f=5",
+        "Start with four copies of f in the ones column.",
+        "5+65+465+1465=2000.",
+      ),
+      one(
+        11,
+        "A + AB + ABC + ABCD = 1879. Find A, B, C and D.",
+        "A + AB + ABC + ABCD = 1879. Tìm A, B, C, D.",
+        "A=1, B=6, C=9, D=3",
+        "Read the carries from right to left.",
+        "1+16+169+1693=1879.",
+      ),
+      one(
+        12,
+        "Find all possible A and B such that AB−BA=27.",
+        "Tìm mọi A, B sao cho AB−BA=27.",
+        [
+          "A=9, B=6",
+          "A=8, B=5",
+          "A=7, B=4",
+          "A=6, B=3",
+          "A=5, B=2",
+          "A=4, B=1",
+        ],
+        "The tens digit is 3 greater than the ones digit.",
+        "96−69, 85−58, 74−47, 63−36, 52−25 and 41−14 are all 27.",
+      ),
+    ],
+    check: ["19-2", "19-5", "19-8", "19-11", "19-12"],
+  };
+})();

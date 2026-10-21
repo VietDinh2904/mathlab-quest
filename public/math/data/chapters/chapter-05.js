@@ -128,7 +128,7 @@
         ]
       ],
       "hint": "Replace ▣ with 6 circles.",
-      "guide": "6○×○=54 ⇒ ○²=9 ⇒ ○=3; ▣=18.",
+      "guide": "6 × ○ × ○ = 54 nên ○ × ○ = 9. Thử 3 × 3 = 9, vậy ○ = 3 và ▣ = 18.",
       "id": "5-5",
       "visual": "compare-5-5"
     },
@@ -161,7 +161,7 @@
         ]
       ],
       "hint": "Replace ❖ by 5 circles.",
-      "guide": "5○²=45 ⇒○=3; ❖=15.",
+      "guide": "5 × ○ × ○ = 45 nên ○ × ○ = 9. Vì 3 × 3 = 9 nên ○ = 3 và ❖ = 15.",
       "id": "5-7",
       "visual": "compare-5-7"
     },
@@ -194,7 +194,7 @@
         ]
       ],
       "hint": "Replace ○ with 3 squares.",
-      "guide": "□×3□=27 ⇒3□²=27 ⇒□=3, ○=9.",
+      "guide": "□ × 3 × □ = 27 nên □ × □ = 9. Vì 3 × 3 = 9 nên □ = 3 và ○ = 9.",
       "id": "5-9",
       "visual": "compare-5-9"
     },

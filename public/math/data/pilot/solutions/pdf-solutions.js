@@ -279,7 +279,7 @@
         ]
       ],
       "hint": "Inspect the differences.",
-      "guide": "Differences are 1²,2²,3²,4²,5²; then +6² and +7²."
+      "guide": "The increases are 1×1, 2×2, 3×3, 4×4 and 5×5; next add 6×6 and 7×7."
     },
     "1-11": {
       "answers": [
@@ -426,7 +426,7 @@
         ]
       ],
       "hint": "Có 25 số lẻ đầu tiên.",
-      "guide": "Tổng 25 số lẻ đầu tiên = 25² = 625; cũng có thể ghép ngoài vào trong."
+      "guide": "Tổng 25 số lẻ đầu tiên bằng 25 × 25 = 625; cũng có thể ghép các số ở hai đầu để tính."
     },
     "2-10": {
       "answers": [

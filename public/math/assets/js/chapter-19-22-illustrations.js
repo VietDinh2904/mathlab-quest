@@ -1,62 +1,380 @@
-(function(){"use strict";const I=window.BOOK_ILLUSTRATIONS=window.BOOK_ILLUSTRATIONS||{};
-const fig=(body,label,caption="")=>`<figure class="visual book-diagram"><svg viewBox="0 0 680 300" role="img" aria-label="${label}">${body}</svg>${caption?`<figcaption>${caption}</figcaption>`:""}</figure>`;
-const txt=(x,y,s,size=26,anchor="middle")=>`<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="${size}" font-weight="700" fill="#17345d">${s}</text>`;
-const line=(x1,y1,x2,y2,dash="")=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#17345d" stroke-width="4" ${dash?`stroke-dasharray="${dash}"`:""}/>`;
-const vi=()=>document.documentElement.lang!=="en";const l=(vn,en)=>vi()?vn:en;
-const arithmetic=(rows,label)=>fig(rows.map((r,i)=>txt(340,65+i*48,r,30)).join("")+line(210,65+(rows.length-1)*48-28,470,65+(rows.length-1)*48-28),label,l("Đặt các chữ số thẳng cột theo hàng.","Keep the digits aligned by place value."));
-const ops={
-"1":["  999","+ 999"," 1998"],"2-a":["A × A = BA"],"2-b":["AB × AB = ACC"],"3-a":[" AB","+AB"," BC"],"3-b":[" A7B","×  8","45C2"],"4-a":[" ab5","+8cb","cc59"],"4-b":["a4 × b = 3b8"],"5-a":[" ABC","+CDE"," D68"],"5-b":["a6 × 7 = 3bb"],"6-a":["34a","+99","bb5"],"6-b":["a8b × 9 = a06b"],"7-a":[" ABB","+CBB"," DDD"],"7-b":[" ABC","+CDC","DC04"],"8-a":["AB × A = 8B8"],"8-b":["ABCD × 9 = DCBA"],"9":["   d","  cd"," bcd","+abcd","2008"],"10":["   f","  ef"," def","+cdef","2000"],"11":["   A","  AB"," ABC","+ABCD","1879"],"12":[" AB","−BA"," 27"]};
-Object.entries(ops).forEach(([k,rows])=>I[`cryptarithm-19-${k}`]=()=>arithmetic(rows,`Cryptarithm ${k}`));
-I["cryptarithm-19-2"]=()=>fig(txt(185,90,"A × A = BA",28)+txt(495,90,"AB × AB = ACC",28),"Two cryptarithms");
-for(let n=3;n<=8;n++)I[`cryptarithm-19-${n}`]=()=>fig(txt(185,90,ops[`${n}-a`].join("  "),23)+txt(495,90,ops[`${n}-b`].join("  "),23),`Cryptarithm question ${n}`);
-I["cryptarithm-example-19-1"]=()=>arithmetic([" AB","+AB","CA6"],"AB plus AB equals CA6");I["cryptarithm-example-19-2"]=()=>arithmetic([" a6b","+5c7","d332"],"a6b plus 5c7 equals d332");
+(function () {
+  "use strict";
+  const I = (window.BOOK_ILLUSTRATIONS = window.BOOK_ILLUSTRATIONS || {});
+  const fig = (body, label, caption = "") =>
+    `<figure class="visual book-diagram"><svg viewBox="0 0 680 300" role="img" aria-label="${label}">${body}</svg>${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`;
+  const txt = (x, y, s, size = 26, anchor = "middle") =>
+    `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="${size}" font-weight="700" fill="#17345d">${s}</text>`;
+  const line = (x1, y1, x2, y2, dash = "") =>
+    `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#17345d" stroke-width="4" ${dash ? `stroke-dasharray="${dash}"` : ""}/>`;
+  const vi = () => document.documentElement.lang !== "en";
+  const l = (vn, en) => (vi() ? vn : en);
+  const arithmetic = (rows, label) =>
+    fig(
+      rows.map((r, i) => txt(340, 65 + i * 48, r, 30)).join("") +
+        line(
+          210,
+          65 + (rows.length - 1) * 48 - 28,
+          470,
+          65 + (rows.length - 1) * 48 - 28,
+        ),
+      label,
+      l(
+        "Đặt các chữ số thẳng cột theo hàng.",
+        "Keep the digits aligned by place value.",
+      ),
+    );
+  const ops = {
+    1: ["  999", "+ 999", " 1998"],
+    "2-a": ["A × A = BA"],
+    "2-b": ["AB × AB = ACC"],
+    "3-a": [" AB", "+AB", " BC"],
+    "3-b": [" A7B", "×  8", "45C2"],
+    "4-a": [" ab5", "+8cb", "cc59"],
+    "4-b": ["a4 × b = 3b8"],
+    "5-a": [" ABC", "+CDE", " D68"],
+    "5-b": ["a6 × 7 = 3bb"],
+    "6-a": ["34a", "+99", "bb5"],
+    "6-b": ["a8b × 9 = a06b"],
+    "7-a": [" ABB", "+CBB", " DDD"],
+    "7-b": [" ABC", "+CDC", "DC04"],
+    "8-a": ["AB × A = 8B8"],
+    "8-b": ["ABCD × 9 = DCBA"],
+    9: ["   d", "  cd", " bcd", "+abcd", "2008"],
+    10: ["   f", "  ef", " def", "+cdef", "2000"],
+    11: ["   A", "  AB", " ABC", "+ABCD", "1879"],
+    12: [" AB", "−BA", " 27"],
+  };
+  Object.entries(ops).forEach(
+    ([k, rows]) =>
+      (I[`cryptarithm-19-${k}`] = () => arithmetic(rows, `Cryptarithm ${k}`)),
+  );
+  I["cryptarithm-19-2"] = () =>
+    fig(
+      txt(185, 90, "A × A = BA", 28) + txt(495, 90, "AB × AB = ACC", 28),
+      "Two cryptarithms",
+    );
+  for (let n = 3; n <= 8; n++)
+    I[`cryptarithm-19-${n}`] = () =>
+      fig(
+        txt(185, 90, ops[`${n}-a`].join("  "), 23) +
+          txt(495, 90, ops[`${n}-b`].join("  "), 23),
+        `Cryptarithm question ${n}`,
+      );
+  I["cryptarithm-example-19-1"] = () =>
+    arithmetic([" AB", "+AB", "CA6"], "AB plus AB equals CA6");
+  I["cryptarithm-example-19-2"] = () =>
+    arithmetic([" a6b", "+5c7", "d332"], "a6b plus 5c7 equals d332");
 
-const cells=(coords,s=48,ox=220,oy=25)=>coords.map(([x,y])=>`<rect x="${ox+x*s}" y="${oy+y*s}" width="${s}" height="${s}" fill="#fffdf7" stroke="#17345d" stroke-width="3"/>`).join("");
-I["perimeter-example-20-1"]=()=>fig(`<path d="M170 45H300V120H520V240H170Z" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${txt(105,150,"3 cm",20)}${txt(340,275,"5 cm",20)}`,"L shape measuring 3 cm by 5 cm");
-I["perimeter-example-20-2"]=()=>fig(`<rect x="240" y="45" width="200" height="200" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(220,150,"?",28)}`,"Square with unknown side");
-I["perimeter-20-1"]=()=>fig(`<path d="M120 45H210V85H300V125H390V165H480V245H120Z" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${txt(80,150,"4 cm",20)}${txt(300,275,"5 cm",20)}`,"Four-step shape, height 4 cm and width 5 cm");
-const pyramid=[[2,0],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[4,2]];I["perimeter-20-2"]=()=>fig(cells(pyramid,52,205,25)+txt(340,280,"side 2 cm",20),"Nine squares in rows one, three and five");
-I["perimeter-20-3"]=()=>fig(`<path d="M255 30H425V85H480V215H425V270H255V215H200V85H255Z" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${line(200,280,480,280)}${txt(340,298,"10 cm",18)}`,"Cross left after cutting four corners from a square");
-I["perimeter-20-4"]=()=>fig(cells(Array.from({length:9},(_,i)=>[i%3,Math.floor(i/3)]),70,235,30),"Three by three square grid");
-I["perimeter-20-5"]=()=>fig(cells([[0,0],[1,0],[2,0]],150,115,95),"Three identical rectangles in a row");
-I["perimeter-20-6"]=I["perimeter-20-2"];
-I["perimeter-20-7"]=()=>fig(cells([[1,0],[0,1],[1,1],[2,1],[1,2]],70,235,25),"Five squares forming a plus sign");
-I["perimeter-20-8"]=()=>fig(`<rect x="100" y="70" width="480" height="170" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${txt(340,278,"12 cm",20)}${txt(65,160,"5 cm",20)}`,"A twelve by five centimetre sheet");
-I["perimeter-20-9"]=()=>fig(cells([[0,0],[1,0],[2,0],[3,0]],78,185,20),"Square divided into four vertical rectangles");
-I["perimeter-20-10"]=()=>fig(`<rect x="220" y="25" width="240" height="240" fill="#fff" stroke="#17345d" stroke-width="4"/>${line(220,105,460,105)}${line(220,185,460,185)}`,"Square divided into three horizontal rectangles");
-I["perimeter-20-11"]=()=>fig(cells([[0,0],[3,0],[0,1],[3,1],[0,2],[1,2],[2,2],[3,2]],62,215,45),"U shape made from eight squares");
-I["perimeter-20-12"]=()=>fig(cells([[0,0],[0,1],[0,2],[1,2],[2,2]],38,60,65)+cells([[3,0],[2,1],[3,1],[4,1],[1,2],[2,2],[3,2],[4,2],[5,2],[0,3],[1,3],[2,3],[4,3],[5,3],[6,3]],38,350,25),"Figures A and B made of identical squares");
-I["perimeter-20-13"]=()=>fig(`<rect x="145" y="65" width="390" height="170" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(340,272,"length = 2 × width",20)}`,"Rectangle whose length is twice its width");
-I["perimeter-20-14"]=()=>fig(`<rect x="220" y="25" width="240" height="240" fill="#fff" stroke="#17345d" stroke-width="4"/>${[1,2,3,4].map(i=>line(220,25+i*48,460,25+i*48)).join("")}`,"Square divided into five horizontal rectangles");
-I["perimeter-20-15"]=()=>fig(`<rect x="220" y="25" width="240" height="240" fill="#fff" stroke="#17345d" stroke-width="4"/>${line(300,25,300,265)}${line(380,25,380,265)}`,"Square divided into three vertical rectangles");
-I["perimeter-20-16"]=()=>fig(`<rect x="175" y="25" width="330" height="250" fill="#fff2bf" stroke="#17345d" stroke-width="4"/><rect x="275" y="100" width="130" height="100" fill="#fff" stroke="#17345d" stroke-width="4"/>${line(175,100,405,100)}${line(405,25,405,200)}${line(275,100,275,275)}${line(275,200,505,200)}`,"Four rectangles surrounding a smaller square");
+  const cells = (coords, s = 48, ox = 220, oy = 25) =>
+    coords
+      .map(
+        ([x, y]) =>
+          `<rect x="${ox + x * s}" y="${oy + y * s}" width="${s}" height="${s}" fill="#fffdf7" stroke="#17345d" stroke-width="3"/>`,
+      )
+      .join("");
+  I["perimeter-example-20-1"] = () =>
+    fig(
+      `<path d="M170 45H300V120H520V240H170Z" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${txt(105, 150, "3 cm", 20)}${txt(340, 275, "5 cm", 20)}`,
+      "L shape measuring 3 cm by 5 cm",
+    );
+  I["perimeter-example-20-2"] = () =>
+    fig(
+      `<rect x="240" y="45" width="200" height="200" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(220, 150, "?", 28)}`,
+      "Square with unknown side",
+    );
+  I["perimeter-20-1"] = () =>
+    fig(
+      `<path d="M120 45H210V85H300V125H390V165H480V245H120Z" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${txt(80, 150, "4 cm", 20)}${txt(300, 275, "5 cm", 20)}`,
+      "Four-step shape, height 4 cm and width 5 cm",
+    );
+  const pyramid = [
+    [2, 0],
+    [1, 1],
+    [2, 1],
+    [3, 1],
+    [0, 2],
+    [1, 2],
+    [2, 2],
+    [3, 2],
+    [4, 2],
+  ];
+  I["perimeter-20-2"] = () =>
+    fig(
+      cells(pyramid, 52, 205, 25) + txt(340, 280, "side 2 cm", 20),
+      "Nine squares in rows one, three and five",
+    );
+  I["perimeter-20-3"] = () =>
+    fig(
+      `<path d="M255 30H425V85H480V215H425V270H255V215H200V85H255Z" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${line(200, 280, 480, 280)}${txt(340, 298, "10 cm", 18)}`,
+      "Cross left after cutting four corners from a square",
+    );
+  I["perimeter-20-4"] = () =>
+    fig(
+      cells(
+        Array.from({ length: 9 }, (_, i) => [i % 3, Math.floor(i / 3)]),
+        70,
+        235,
+        30,
+      ),
+      "Three by three square grid",
+    );
+  I["perimeter-20-5"] = () =>
+    fig(
+      cells(
+        [
+          [0, 0],
+          [1, 0],
+          [2, 0],
+        ],
+        150,
+        115,
+        95,
+      ),
+      "Three identical rectangles in a row",
+    );
+  I["perimeter-20-6"] = I["perimeter-20-2"];
+  I["perimeter-20-7"] = () =>
+    fig(
+      cells(
+        [
+          [1, 0],
+          [0, 1],
+          [1, 1],
+          [2, 1],
+          [1, 2],
+        ],
+        70,
+        235,
+        25,
+      ),
+      "Five squares forming a plus sign",
+    );
+  I["perimeter-20-8"] = () =>
+    fig(
+      `<rect x="100" y="70" width="480" height="170" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${txt(340, 278, "12 cm", 20)}${txt(65, 160, "5 cm", 20)}`,
+      "A twelve by five centimetre sheet",
+    );
+  I["perimeter-20-9"] = () =>
+    fig(
+      cells(
+        [
+          [0, 0],
+          [1, 0],
+          [2, 0],
+          [3, 0],
+        ],
+        78,
+        185,
+        20,
+      ),
+      "Square divided into four vertical rectangles",
+    );
+  I["perimeter-20-10"] = () =>
+    fig(
+      `<rect x="220" y="25" width="240" height="240" fill="#fff" stroke="#17345d" stroke-width="4"/>${line(220, 105, 460, 105)}${line(220, 185, 460, 185)}`,
+      "Square divided into three horizontal rectangles",
+    );
+  I["perimeter-20-11"] = () =>
+    fig(
+      cells(
+        [
+          [0, 0],
+          [3, 0],
+          [0, 1],
+          [3, 1],
+          [0, 2],
+          [1, 2],
+          [2, 2],
+          [3, 2],
+        ],
+        62,
+        215,
+        45,
+      ),
+      "U shape made from eight squares",
+    );
+  I["perimeter-20-12"] = () =>
+    fig(
+      cells(
+        [
+          [0, 0],
+          [0, 1],
+          [0, 2],
+          [1, 2],
+          [2, 2],
+        ],
+        38,
+        60,
+        65,
+      ) +
+        cells(
+          [
+            [3, 0],
+            [2, 1],
+            [3, 1],
+            [4, 1],
+            [1, 2],
+            [2, 2],
+            [3, 2],
+            [4, 2],
+            [5, 2],
+            [0, 3],
+            [1, 3],
+            [2, 3],
+            [4, 3],
+            [5, 3],
+            [6, 3],
+          ],
+          38,
+          350,
+          25,
+        ),
+      "Figures A and B made of identical squares",
+    );
+  I["perimeter-20-13"] = () =>
+    fig(
+      `<rect x="145" y="65" width="390" height="170" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(340, 272, "length = 2 × width", 20)}`,
+      "Rectangle whose length is twice its width",
+    );
+  I["perimeter-20-14"] = () =>
+    fig(
+      `<rect x="220" y="25" width="240" height="240" fill="#fff" stroke="#17345d" stroke-width="4"/>${[1, 2, 3, 4].map((i) => line(220, 25 + i * 48, 460, 25 + i * 48)).join("")}`,
+      "Square divided into five horizontal rectangles",
+    );
+  I["perimeter-20-15"] = () =>
+    fig(
+      `<rect x="220" y="25" width="240" height="240" fill="#fff" stroke="#17345d" stroke-width="4"/>${line(300, 25, 300, 265)}${line(380, 25, 380, 265)}`,
+      "Square divided into three vertical rectangles",
+    );
+  I["perimeter-20-16"] = () =>
+    fig(
+      `<rect x="175" y="25" width="330" height="250" fill="#fff2bf" stroke="#17345d" stroke-width="4"/><rect x="275" y="100" width="130" height="100" fill="#fff" stroke="#17345d" stroke-width="4"/>${line(175, 100, 405, 100)}${line(405, 25, 405, 200)}${line(275, 100, 275, 275)}${line(275, 200, 505, 200)}`,
+      "Four rectangles surrounding a smaller square",
+    );
 
-I["observation-example-21-1"]=()=>fig([20,28,40,56,"?"].map((v,i)=>`<rect x="${65+i*125}" y="90" width="70" height="70" rx="10" fill="#fff2bf" stroke="#17345d" stroke-width="3"/>${txt(100+i*125,135,v,24)}`).join(""),"Number sequence 20, 28, 40, 56, question mark");
-I["observation-example-21-2"]=()=>fig(`${txt(340,45,l("nét thẳng ↔ nét cong","straight ↔ curved"),24)}<path d="M120 220L190 70M150 80Q260 150 150 220M420 80Q530 150 420 220M490 60L550 230" fill="none" stroke="#17345d" stroke-width="4"/>`,l("Nét thẳng và nét cong đổi chỗ","Straight strokes and curved strokes swap"));
-I["observation-21-1"]=()=>{const c=(cx,cy,r=42)=>`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#17345d" stroke-width="2.5"/>`;return fig(
-  `${c(100,72)}${c(58,72,17)}${c(100,125,17)}`+
-  `${c(290,72)}${c(290,46,17)}${c(290,98,17)}`+
-  `${c(480,72)}${c(480,46,17)}${c(522,72,17)}`+
-  `${txt(100,148,"1",15)}${txt(290,148,"2",15)}${txt(480,148,"3",15)}`+
-  `${c(90,218)}${c(90,176,17)}${c(138,218,17)}${txt(90,286,"A",17)}`+
-  `${c(255,218)}${c(255,176,17)}${c(255,244,17)}${txt(255,286,"B",17)}`+
-  `${c(420,218)}${c(420,159,17)}${c(462,218,17)}${txt(420,286,"C",17)}`+
-  `${c(575,218)}${c(575,159,17)}${c(623,218,17)}${txt(575,286,"D",17)}`,
-  l("Ba hình mẫu và bốn phương án A, B, C, D", "Three pattern figures and options A, B, C, D")
-);};
-I["observation-21-2"]=()=>fig(`
+  I["observation-example-21-1"] = () =>
+    fig(
+      [20, 28, 40, 56, "?"]
+        .map(
+          (v, i) =>
+            `<rect x="${65 + i * 125}" y="90" width="70" height="70" rx="10" fill="#fff2bf" stroke="#17345d" stroke-width="3"/>${txt(100 + i * 125, 135, v, 24)}`,
+        )
+        .join(""),
+      "Number sequence 20, 28, 40, 56, question mark",
+    );
+  I["observation-example-21-2"] = () =>
+    fig(
+      `${txt(340, 45, l("nét thẳng ↔ nét cong", "straight ↔ curved"), 24)}<path d="M120 220L190 70M150 80Q260 150 150 220M420 80Q530 150 420 220M490 60L550 230" fill="none" stroke="#17345d" stroke-width="4"/>`,
+      l(
+        "Nét thẳng và nét cong đổi chỗ",
+        "Straight strokes and curved strokes swap",
+      ),
+    );
+  I["observation-21-1"] = () => {
+    const c = (cx, cy, r = 42) =>
+      `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#17345d" stroke-width="2.5"/>`;
+    return fig(
+      `${c(100, 72)}${c(58, 72, 17)}${c(100, 125, 17)}` +
+        `${c(290, 72)}${c(290, 46, 17)}${c(290, 98, 17)}` +
+        `${c(480, 72)}${c(480, 46, 17)}${c(522, 72, 17)}` +
+        `${txt(100, 148, "1", 15)}${txt(290, 148, "2", 15)}${txt(480, 148, "3", 15)}` +
+        `${c(90, 218)}${c(90, 176, 17)}${c(138, 218, 17)}${txt(90, 286, "A", 17)}` +
+        `${c(255, 218)}${c(255, 176, 17)}${c(255, 244, 17)}${txt(255, 286, "B", 17)}` +
+        `${c(420, 218)}${c(420, 159, 17)}${c(462, 218, 17)}${txt(420, 286, "C", 17)}` +
+        `${c(575, 218)}${c(575, 159, 17)}${c(623, 218, 17)}${txt(575, 286, "D", 17)}`,
+      l(
+        "Ba hình mẫu và bốn phương án A, B, C, D",
+        "Three pattern figures and options A, B, C, D",
+      ),
+    );
+  };
+  I["observation-21-2"] = () =>
+    fig(
+      `
   <g transform="translate(18 8) scale(.86)">
-    <g transform="translate(25 10) rotate(-20 70 90)"><rect x="25" y="45" width="105" height="90" fill="none" stroke="#17345d" stroke-width="3"/><path d="M104 12L75 160L116 177" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="108" cy="103" r="6" fill="#17345d"/></g>${txt(88,193,"A",18)}
-    <g transform="translate(165 5) rotate(18 70 90)"><rect x="20" y="42" width="112" height="92" fill="none" stroke="#17345d" stroke-width="3"/><path d="M105 8L87 168L120 176" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="111" cy="105" r="6" fill="#17345d"/></g>${txt(230,193,"B",18)}
-    <g transform="translate(320 8)"><rect x="40" y="38" width="86" height="125" fill="none" stroke="#17345d" stroke-width="3"/><path d="M105 5L12 165L35 184" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="58" cy="72" r="6" fill="#17345d"/></g>${txt(407,193,"C",18)}
-    <g transform="translate(485 10) rotate(-20 70 90)"><rect x="25" y="45" width="105" height="90" fill="none" stroke="#17345d" stroke-width="3"/><path d="M104 12L75 160L116 177" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="108" cy="103" r="6" fill="#17345d"/></g>${txt(548,193,"D",18)}
-    <g transform="translate(625 35) rotate(20 70 90)"><rect x="15" y="28" width="120" height="88" fill="none" stroke="#17345d" stroke-width="3"/><path d="M8 135L45 104L160 150" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="40" cy="112" r="6" fill="#17345d"/></g>${txt(685,193,"E",18)}
-  </g>`,l("Năm hình A–E gồm hình chữ nhật, đường gấp khúc và chấm tròn","Five options A–E made of a rectangle, bent line and dot"));
-const arrows=[["↑","→","→","↓"],["←","?","↑","←"],["←","↑","↓","?"],["↓","→","→","↑"]];I["observation-21-3"]=()=>fig(arrows.flatMap((r,y)=>r.map((v,x)=>`<rect x="${220+x*60}" y="${25+y*60}" width="60" height="60" fill="#fff" stroke="#17345d" stroke-width="2"/>${txt(250+x*60,65+y*60,v,30)}`)).join(""),"Four by four arrow grid with two blanks");
-const pent=(cx,cy,vals)=>`<polygon points="${cx},${cy-60} ${cx+58},${cy-18} ${cx+36},${cy+55} ${cx-36},${cy+55} ${cx-58},${cy-18}" fill="#fff" stroke="#17345d" stroke-width="3"/>${txt(cx,cy-42,vals[0],18)}${txt(cx-40,cy-5,vals[1],18)}${txt(cx+40,cy-5,vals[2],18)}${txt(cx-25,cy+43,vals[3],18)}${txt(cx+25,cy+43,vals[4],18)}${txt(cx,cy+8,vals[5],22)}`;I["observation-21-4"]=()=>fig(pent(130,140,[17,14,11,19,12,7])+pent(340,140,[18,6,16,5,15,38])+pent(550,140,[19,15,16,8,2,"?"]),"Three pentagon number puzzles");
-I["observation-21-5"]=()=>{const s=44,ox=230,oy=20;const fills=[["#b9bdc6","#b9bdc6","#b9bdc6","#ff9b98","#ff9b98"],["#b9bdc6","#b9bdc6","#3f4652","#ff9b98","#fff"],["#fff","#3f4652","#3f4652","#ff9b98","#fff"],["#fff","#fff","#3f4652","#ff9b98","#fff"],["#fff","#fff","#3f4652","#fff","#fff"]];const letters={"0-0":"D","3-0":"E","4-1":"A","1-3":"C","4-4":"B"};return fig(fills.flatMap((row,y)=>row.map((fill,x)=>`<rect x="${ox+x*s}" y="${oy+y*s}" width="${s}" height="${s}" fill="${fill}" stroke="#17345d" stroke-width="2"/>${letters[`${x}-${y}`]?txt(ox+x*s+s/2,oy+y*s+29,letters[`${x}-${y}`],18):""}`)).join(""),l("Lưới chữ cái 5×5 với ba vùng màu và các chữ D, E, A, C, B","A 5×5 letter grid with three coloured regions and the letters D, E, A, C, B"));};
-I["observation-21-6"]=()=>fig(`${txt(340,30,"A + B + C + D = D + E + F + G",18)}${txt(340,56,"= G + H + I + J = 17",18)}${line(120,120,560,120)}${line(340,120,340,235)}${line(340,235,590,235)}${["A","B","C","D"].map((v,i)=>txt(135+i*68,109,v,22)).join("")}${["E","F"].map((v,i)=>txt(340,157+i*38,v,22)).join("")}${["G","H","I","J"].map((v,i)=>txt(340+i*78,225,v,22)).join("")}${txt(170,278,"A = 4,  J = 0",18)}${txt(500,278,"D = ?   G = ?",18)}`,l("Ô chữ số hình gấp khúc A đến J; ba nhóm đều có tổng 17","Bent digit puzzle A to J; all three groups total 17"));
-I["observation-21-7"]=()=>fig(`
+    <g transform="translate(25 10) rotate(-20 70 90)"><rect x="25" y="45" width="105" height="90" fill="none" stroke="#17345d" stroke-width="3"/><path d="M104 12L75 160L116 177" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="108" cy="103" r="6" fill="#17345d"/></g>${txt(88, 193, "A", 18)}
+    <g transform="translate(165 5) rotate(18 70 90)"><rect x="20" y="42" width="112" height="92" fill="none" stroke="#17345d" stroke-width="3"/><path d="M105 8L87 168L120 176" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="111" cy="105" r="6" fill="#17345d"/></g>${txt(230, 193, "B", 18)}
+    <g transform="translate(320 8)"><rect x="40" y="38" width="86" height="125" fill="none" stroke="#17345d" stroke-width="3"/><path d="M105 5L12 165L35 184" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="58" cy="72" r="6" fill="#17345d"/></g>${txt(407, 193, "C", 18)}
+    <g transform="translate(485 10) rotate(-20 70 90)"><rect x="25" y="45" width="105" height="90" fill="none" stroke="#17345d" stroke-width="3"/><path d="M104 12L75 160L116 177" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="108" cy="103" r="6" fill="#17345d"/></g>${txt(548, 193, "D", 18)}
+    <g transform="translate(625 35) rotate(20 70 90)"><rect x="15" y="28" width="120" height="88" fill="none" stroke="#17345d" stroke-width="3"/><path d="M8 135L45 104L160 150" fill="none" stroke="#17345d" stroke-width="3"/><circle cx="40" cy="112" r="6" fill="#17345d"/></g>${txt(685, 193, "E", 18)}
+  </g>`,
+      l(
+        "Năm hình A–E gồm hình chữ nhật, đường gấp khúc và chấm tròn",
+        "Five options A–E made of a rectangle, bent line and dot",
+      ),
+    );
+  const arrows = [
+    ["↑", "→", "→", "↓"],
+    ["←", "?", "↑", "←"],
+    ["←", "↑", "↓", "?"],
+    ["↓", "→", "→", "↑"],
+  ];
+  I["observation-21-3"] = () =>
+    fig(
+      arrows
+        .flatMap((r, y) =>
+          r.map(
+            (v, x) =>
+              `<rect x="${220 + x * 60}" y="${25 + y * 60}" width="60" height="60" fill="#fff" stroke="#17345d" stroke-width="2"/>${txt(250 + x * 60, 65 + y * 60, v, 30)}`,
+          ),
+        )
+        .join(""),
+      "Four by four arrow grid with two blanks",
+    );
+  const pent = (cx, cy, vals) =>
+    `<polygon points="${cx},${cy - 60} ${cx + 58},${cy - 18} ${cx + 36},${cy + 55} ${cx - 36},${cy + 55} ${cx - 58},${cy - 18}" fill="#fff" stroke="#17345d" stroke-width="3"/>${txt(cx, cy - 42, vals[0], 18)}${txt(cx - 40, cy - 5, vals[1], 18)}${txt(cx + 40, cy - 5, vals[2], 18)}${txt(cx - 25, cy + 43, vals[3], 18)}${txt(cx + 25, cy + 43, vals[4], 18)}${txt(cx, cy + 8, vals[5], 22)}`;
+  I["observation-21-4"] = () =>
+    fig(
+      pent(130, 140, [17, 14, 11, 19, 12, 7]) +
+        pent(340, 140, [18, 6, 16, 5, 15, 38]) +
+        pent(550, 140, [19, 15, 16, 8, 2, "?"]),
+      "Three pentagon number puzzles",
+    );
+  I["observation-21-5"] = () => {
+    const s = 44,
+      ox = 230,
+      oy = 20;
+    const fills = [
+      ["#b9bdc6", "#b9bdc6", "#b9bdc6", "#ff9b98", "#ff9b98"],
+      ["#b9bdc6", "#b9bdc6", "#3f4652", "#ff9b98", "#fff"],
+      ["#fff", "#3f4652", "#3f4652", "#ff9b98", "#fff"],
+      ["#fff", "#fff", "#3f4652", "#ff9b98", "#fff"],
+      ["#fff", "#fff", "#3f4652", "#fff", "#fff"],
+    ];
+    const letters = {
+      "0-0": "D",
+      "3-0": "E",
+      "4-1": "A",
+      "1-3": "C",
+      "4-4": "B",
+    };
+    return fig(
+      fills
+        .flatMap((row, y) =>
+          row.map(
+            (fill, x) =>
+              `<rect x="${ox + x * s}" y="${oy + y * s}" width="${s}" height="${s}" fill="${fill}" stroke="#17345d" stroke-width="2"/>${letters[`${x}-${y}`] ? txt(ox + x * s + s / 2, oy + y * s + 29, letters[`${x}-${y}`], 18) : ""}`,
+          ),
+        )
+        .join(""),
+      l(
+        "Lưới chữ cái 5×5 với ba vùng màu và các chữ D, E, A, C, B",
+        "A 5×5 letter grid with three coloured regions and the letters D, E, A, C, B",
+      ),
+    );
+  };
+  I["observation-21-6"] = () =>
+    fig(
+      `${txt(340, 30, "A + B + C + D = D + E + F + G", 18)}${txt(340, 56, "= G + H + I + J = 17", 18)}${line(120, 120, 560, 120)}${line(340, 120, 340, 235)}${line(340, 235, 590, 235)}${["A", "B", "C", "D"].map((v, i) => txt(135 + i * 68, 109, v, 22)).join("")}${["E", "F"].map((v, i) => txt(340, 157 + i * 38, v, 22)).join("")}${["G", "H", "I", "J"].map((v, i) => txt(340 + i * 78, 225, v, 22)).join("")}${txt(170, 278, "A = 4,  J = 0", 18)}${txt(500, 278, "D = ?   G = ?", 18)}`,
+      l(
+        "Ô chữ số hình gấp khúc A đến J; ba nhóm đều có tổng 17",
+        "Bent digit puzzle A to J; all three groups total 17",
+      ),
+    );
+  I["observation-21-7"] = () =>
+    fig(
+      `
   <defs><marker id="arrow21" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#17345d"/></marker></defs>
   <g fill="none" stroke="#17345d" stroke-width="2.5">
     <rect x="25" y="20" width="100" height="100"/><path d="M25 120L125 20" stroke-dasharray="5 5"/>
@@ -69,43 +387,329 @@ I["observation-21-7"]=()=>fig(`
     <path d="M425 195H440V180H470V195H485V225H470V240H440V225H425Z"/>
     <path d="M505 185H525L540 200L555 185H575V205L560 220L575 235V255H555L540 240L525 255H505V235L520 220L505 205Z"/>
     <rect x="595" y="185" width="65" height="65"/><path d="M615 217L627 205L639 217L627 229Z"/>
-  </g><path d="M255 172l12 16m-12 0l12-16" stroke="#17345d" stroke-width="2"/>${txt(375,278,"A",16)}${txt(455,278,"B",16)}${txt(540,278,"C",16)}${txt(627,278,"D",16)}`,
-  l("Ba bước gấp, một đường cắt và các phương án hình mở ra","Three folds, one cut and the unfolded-shape options"));
-I["observation-21-8"]=()=>fig(`${txt(210,105,"Shawn",24)}${txt(210,150,l("thiếu $5","short $5"),20)}${txt(470,105,"Ted",24)}${txt(470,150,l("thiếu 10¢","short 10¢"),20)}${txt(340,235,l("gộp tiền: vẫn thiếu","together: still short"),22)}`,l("Hai bạn so sánh số tiền mua một quyển sách","Two children comparing money for one book"));
-I["observation-21-9"]=()=>fig(`${txt(185,45,"○ ○ ○ = D A G Y",19)}${txt(505,45,"○",22)}${txt(505,66,"○",22)}${txt(565,58,"= C A B Y",19)}${txt(185,110,"◇ ◇ = D E B Y",19)}${txt(505,100,"◇",22)}${txt(505,121,"◇",22)}${txt(505,142,"◇",22)}${txt(585,122,"= C E G I",19)}${txt(185,170,"◯◯ = D A B I",19)}<g fill="none" stroke="#17345d" stroke-width="2"><circle cx="180" cy="222" r="17"/><circle cx="180" cy="245" r="17"/><circle cx="180" cy="268" r="17"/></g>${txt(245,252,"= ?",22)}`,l("Năm ví dụ mã hóa hình và ba hình tròn chồng dọc cần giải mã","Five shape-code examples and three vertically overlapping circles to decode"));
-I["observation-21-10"]=()=>arithmetic(["111","333","555","777","+999","1111"],"Cross-out digit addition");
-I["observation-21-11"]=()=>fig(`${txt(340,34,"3, 10, 5, 16, 8, 4, 2, 1, 4, 2, …",18)}${txt(340,66,"1, 4, 2, 1, 4, 2, 1, 4, 2, 1, …",18)}${txt(340,98,"4, 2, 1, 4, 2, 1, 4, 2, 1, 4, …",18)}${txt(340,148,l("(i) Số lẻ: nhân 3 rồi cộng 1","(i) Odd: multiply by 3, then add 1"),18)}${txt(340,180,l("(ii) Số chẵn: chia 2","(ii) Even: divide by 2"),18)}${txt(205,228,l("Bắt đầu từ 5","Begin with 5"),20)}${txt(475,228,l("Bắt đầu từ 8","Begin with 8"),20)}${txt(340,275,l("Tiếp tục dãy rồi nêu nhận xét.","Continue each sequence, then state the observation."),18)}`,l("Ba dãy mẫu, hai quy tắc và hai số bắt đầu 5, 8","Three sample sequences, two rules and the starting values 5 and 8"));
-I["observation-21-12"]=()=>fig(line(90,150,590,150)+txt(170,120,"1   2",22)+txt(380,120,"6",22)+txt(290,185,"3   4   5",22)+txt(470,185,"7   8",22),"Numbers placed above and below a line");
-I["observation-21-13"]=()=>fig(["BIKE","____","____","____","MATH"].map((v,i)=>txt(340,50+i*52,v,24)).join(""),"Word ladder from BIKE to MATH");
-I["observation-21-14"]=()=>arithmetic([" A F I V E","+A F O U R","I F N I N E"],"AFIVE plus AFOUR equals IFNINE");
-I["observation-21-15"]=()=>fig([[3,5,6,70],[7,4,8,129],[6,2,1,38],[7,7,3,107]].map((a,i)=>{const x=35+i*160;return `<polygon points="${x},210 ${x+60},80 ${x+120},210" fill="#fff" stroke="#17345d" stroke-width="3"/>${txt(x+60,70,a[0],18)}${txt(x+5,235,a[1],18)}${txt(x+115,235,a[2],18)}${txt(x+60,175,a[3],20)}${txt(x+60,270,String.fromCharCode(65+i),18)}`}).join(""),"Four triangle number options");
+  </g><path d="M255 172l12 16m-12 0l12-16" stroke="#17345d" stroke-width="2"/>${txt(375, 278, "A", 16)}${txt(455, 278, "B", 16)}${txt(540, 278, "C", 16)}${txt(627, 278, "D", 16)}`,
+      l(
+        "Ba bước gấp, một đường cắt và các phương án hình mở ra",
+        "Three folds, one cut and the unfolded-shape options",
+      ),
+    );
+  I["observation-21-8"] = () =>
+    fig(
+      `${txt(210, 105, "Shawn", 24)}${txt(210, 150, l("thiếu $5", "short $5"), 20)}${txt(470, 105, "Ted", 24)}${txt(470, 150, l("thiếu 10¢", "short 10¢"), 20)}${txt(340, 235, l("gộp tiền: vẫn thiếu", "together: still short"), 22)}`,
+      l(
+        "Hai bạn so sánh số tiền mua một quyển sách",
+        "Two children comparing money for one book",
+      ),
+    );
+  I["observation-21-9"] = () =>
+    fig(
+      `${txt(185, 45, "○ ○ ○ = D A G Y", 19)}${txt(505, 45, "○", 22)}${txt(505, 66, "○", 22)}${txt(565, 58, "= C A B Y", 19)}${txt(185, 110, "◇ ◇ = D E B Y", 19)}${txt(505, 100, "◇", 22)}${txt(505, 121, "◇", 22)}${txt(505, 142, "◇", 22)}${txt(585, 122, "= C E G I", 19)}${txt(185, 170, "◯◯ = D A B I", 19)}<g fill="none" stroke="#17345d" stroke-width="2"><circle cx="180" cy="222" r="17"/><circle cx="180" cy="245" r="17"/><circle cx="180" cy="268" r="17"/></g>${txt(245, 252, "= ?", 22)}`,
+      l(
+        "Năm ví dụ mã hóa hình và ba hình tròn chồng dọc cần giải mã",
+        "Five shape-code examples and three vertically overlapping circles to decode",
+      ),
+    );
+  I["observation-21-10"] = () =>
+    arithmetic(
+      ["111", "333", "555", "777", "+999", "1111"],
+      "Cross-out digit addition",
+    );
+  I["observation-21-11"] = () =>
+    fig(
+      `${txt(340, 34, "3, 10, 5, 16, 8, 4, 2, 1, 4, 2, …", 18)}${txt(340, 66, "1, 4, 2, 1, 4, 2, 1, 4, 2, 1, …", 18)}${txt(340, 98, "4, 2, 1, 4, 2, 1, 4, 2, 1, 4, …", 18)}${txt(340, 148, l("(i) Số lẻ: nhân 3 rồi cộng 1", "(i) Odd: multiply by 3, then add 1"), 18)}${txt(340, 180, l("(ii) Số chẵn: chia 2", "(ii) Even: divide by 2"), 18)}${txt(205, 228, l("Bắt đầu từ 5", "Begin with 5"), 20)}${txt(475, 228, l("Bắt đầu từ 8", "Begin with 8"), 20)}${txt(340, 275, l("Tiếp tục dãy rồi nêu nhận xét.", "Continue each sequence, then state the observation."), 18)}`,
+      l(
+        "Ba dãy mẫu, hai quy tắc và hai số bắt đầu 5, 8",
+        "Three sample sequences, two rules and the starting values 5 and 8",
+      ),
+    );
+  I["observation-21-12"] = () =>
+    fig(
+      line(90, 150, 590, 150) +
+        txt(170, 120, "1   2", 22) +
+        txt(380, 120, "6", 22) +
+        txt(290, 185, "3   4   5", 22) +
+        txt(470, 185, "7   8", 22),
+      "Numbers placed above and below a line",
+    );
+  I["observation-21-13"] = () =>
+    fig(
+      ["BIKE", "____", "____", "____", "MATH"]
+        .map((v, i) => txt(340, 50 + i * 52, v, 24))
+        .join(""),
+      "Word ladder from BIKE to MATH",
+    );
+  I["observation-21-14"] = () =>
+    arithmetic(
+      [" A F I V E", "+A F O U R", "I F N I N E"],
+      "AFIVE plus AFOUR equals IFNINE",
+    );
+  I["observation-21-15"] = () =>
+    fig(
+      [
+        [3, 5, 6, 70],
+        [7, 4, 8, 129],
+        [6, 2, 1, 38],
+        [7, 7, 3, 107],
+      ]
+        .map((a, i) => {
+          const x = 35 + i * 160;
+          return `<polygon points="${x},210 ${x + 60},80 ${x + 120},210" fill="#fff" stroke="#17345d" stroke-width="3"/>${txt(x + 60, 70, a[0], 18)}${txt(x + 5, 235, a[1], 18)}${txt(x + 115, 235, a[2], 18)}${txt(x + 60, 175, a[3], 20)}${txt(x + 60, 270, String.fromCharCode(65 + i), 18)}`;
+        })
+        .join(""),
+      "Four triangle number options",
+    );
 
-I["extra-19-1"]=()=>arithmetic([" A","+A","BA"],l("A cộng A bằng BA","A plus A equals BA"));
-I["extra-19-2"]=()=>arithmetic([" AB","+BA"," 99"],l("AB cộng BA bằng 99","AB plus BA equals 99"));
-I["extra-19-3"]=()=>arithmetic([" AB","× 3","CCC"],l("AB nhân 3 bằng CCC","AB times 3 equals CCC"));
-I["extra-19-4"]=()=>arithmetic([" SEND","+SEND","10652"],l("SEND cộng SEND bằng 10652","SEND plus SEND equals 10652"));
-I["extra-19-5"]=()=>arithmetic([" AB","−BA"," 36"],l("AB trừ BA bằng 36","AB minus BA equals 36"));
+  I["extra-19-1"] = () =>
+    arithmetic([" A", "+A", "BA"], l("A cộng A bằng BA", "A plus A equals BA"));
+  I["extra-19-2"] = () =>
+    arithmetic(
+      [" AB", "+BA", " 99"],
+      l("AB cộng BA bằng 99", "AB plus BA equals 99"),
+    );
+  I["extra-19-3"] = () =>
+    arithmetic(
+      [" AB", "× 3", "CCC"],
+      l("AB nhân 3 bằng CCC", "AB times 3 equals CCC"),
+    );
+  I["extra-19-4"] = () =>
+    arithmetic(
+      [" SEND", "+SEND", "10652"],
+      l("SEND cộng SEND bằng 10652", "SEND plus SEND equals 10652"),
+    );
+  I["extra-19-5"] = () =>
+    arithmetic(
+      [" AB", "−BA", " 36"],
+      l("AB trừ BA bằng 36", "AB minus BA equals 36"),
+    );
 
-const measure=(body,label)=>fig(`${body}<defs><marker id="measureArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#397ee8"/></marker></defs>`,label);
-I["extra-20-1"]=()=>measure(`<rect x="230" y="35" width="220" height="220" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${line(230,275,450,275)}${txt(340,298,"7 cm",18)}`,l("Hình vuông cạnh 7 xăng-ti-mét","Square with side 7 centimetres"));
-I["extra-20-2"]=()=>measure(`<rect x="150" y="65" width="380" height="170" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(340,270,"9 cm",18)}${txt(105,158,"4 cm",18)}`,l("Hình chữ nhật dài 9 xăng-ti-mét, rộng 4 xăng-ti-mét","Rectangle 9 centimetres by 4 centimetres"));
-I["extra-20-3"]=()=>measure(cells(Array.from({length:12},(_,i)=>[i%4,Math.floor(i/4)]),58,224,42)+txt(340,252,l("mỗi cạnh ô: 2 cm","each small side: 2 cm"),18),l("Mảng bốn nhân ba ô vuông","Four by three array of squares"));
-I["extra-20-4"]=()=>measure(cells(Array.from({length:6},(_,i)=>[i%3,Math.floor(i/3)]),72,232,48)+txt(340,232,l("mỗi cạnh ô: 3 cm","each small side: 3 cm"),18),l("Sáu ô vuông ghép thành hình hai nhân ba","Six squares in a two by three rectangle"));
-I["extra-20-5"]=()=>measure(`<rect x="220" y="25" width="240" height="240" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${[1,2,3].map(i=>line(220,25+i*60,460,25+i*60)).join("")}${txt(340,295,l("Chu vi hình vuông: 64 cm","Square perimeter: 64 cm"),18)}`,l("Hình vuông chia thành bốn dải bằng nhau","Square divided into four equal strips"));
+  const measure = (body, label) =>
+    fig(
+      `${body}<defs><marker id="measureArrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#397ee8"/></marker></defs>`,
+      label,
+    );
+  I["extra-20-1"] = () =>
+    measure(
+      `<rect x="230" y="35" width="220" height="220" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${line(230, 275, 450, 275)}${txt(340, 298, "7 cm", 18)}`,
+      l("Hình vuông cạnh 7 xăng-ti-mét", "Square with side 7 centimetres"),
+    );
+  I["extra-20-2"] = () =>
+    measure(
+      `<rect x="150" y="65" width="380" height="170" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(340, 270, "9 cm", 18)}${txt(105, 158, "4 cm", 18)}`,
+      l(
+        "Hình chữ nhật dài 9 xăng-ti-mét, rộng 4 xăng-ti-mét",
+        "Rectangle 9 centimetres by 4 centimetres",
+      ),
+    );
+  I["extra-20-3"] = () =>
+    measure(
+      cells(
+        Array.from({ length: 12 }, (_, i) => [i % 4, Math.floor(i / 4)]),
+        58,
+        224,
+        42,
+      ) + txt(340, 252, l("mỗi cạnh ô: 2 cm", "each small side: 2 cm"), 18),
+      l("Mảng bốn nhân ba ô vuông", "Four by three array of squares"),
+    );
+  I["extra-20-4"] = () =>
+    measure(
+      cells(
+        Array.from({ length: 6 }, (_, i) => [i % 3, Math.floor(i / 3)]),
+        72,
+        232,
+        48,
+      ) + txt(340, 232, l("mỗi cạnh ô: 3 cm", "each small side: 3 cm"), 18),
+      l(
+        "Sáu ô vuông ghép thành hình hai nhân ba",
+        "Six squares in a two by three rectangle",
+      ),
+    );
+  I["extra-20-5"] = () =>
+    measure(
+      `<rect x="220" y="25" width="240" height="240" fill="#fff2bf" stroke="#17345d" stroke-width="4"/>${[1, 2, 3].map((i) => line(220, 25 + i * 60, 460, 25 + i * 60)).join("")}${txt(340, 295, l("Chu vi hình vuông: 64 cm", "Square perimeter: 64 cm"), 18)}`,
+      l(
+        "Hình vuông chia thành bốn dải bằng nhau",
+        "Square divided into four equal strips",
+      ),
+    );
 
-I["extra-21-3"]=()=>fig(`<defs><marker id="turnArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#397ee8"/></marker></defs>${["?","?","?","←"].map((v,i)=>`<circle cx="${100+i*160}" cy="145" r="54" fill="${i===3?"#eaf4ff":"#fff2bf"}" stroke="#17345d" stroke-width="3"/>${txt(100+i*160,158,v,35)}${i<3?`<path d="M${150+i*160} 90 Q${180+i*160} 55 ${210+i*160} 90" fill="none" stroke="#397ee8" stroke-width="3" marker-end="url(#turnArrow)"/>`:""}`).join("")}${txt(340,255,l("Mỗi bước quay 90° theo chiều kim đồng hồ","Each step turns 90° clockwise"),20)}`,l("Ba lần quay từ hướng chưa biết đến mũi tên chỉ trái","Three turns from an unknown starting direction to a left arrow"));
-I["extra-21-4"]=()=>fig(`<polygon points="340,35 135,245 545,245" fill="#fff8df" stroke="#17345d" stroke-width="4"/>${txt(340,28,"4",24)}${txt(112,260,"5",24)}${txt(568,260,"6",24)}<circle cx="340" cy="170" r="52" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(340,182,"?",36)}${txt(340,292,l("giữa = 4² + 5² + 6²","centre = 4² + 5² + 6²"),18)}`,l("Tam giác có ba đỉnh 4, 5, 6 và dấu hỏi ở giữa","Triangle with corner numbers 4, 5, 6 and a question mark in the centre"));
-I["extra-21-5"]=()=>fig(["COLD","____","____","____","WARM"].map((v,i)=>`<rect x="245" y="${18+i*54}" width="190" height="42" rx="10" fill="${i===0||i===4?"#fff2bf":"#fff"}" stroke="#17345d" stroke-width="2.5"/>${txt(340,47+i*54,v,21)}`).join(""),l("Thang từ COLD đến WARM có ba hàng trống","Word ladder from COLD to WARM with three blank rows"));
+  I["extra-21-3"] = () =>
+    fig(
+      `<defs><marker id="turnArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#397ee8"/></marker></defs>${["?", "?", "?", "←"].map((v, i) => `<circle cx="${100 + i * 160}" cy="145" r="54" fill="${i === 3 ? "#eaf4ff" : "#fff2bf"}" stroke="#17345d" stroke-width="3"/>${txt(100 + i * 160, 158, v, 35)}${i < 3 ? `<path d="M${150 + i * 160} 90 Q${180 + i * 160} 55 ${210 + i * 160} 90" fill="none" stroke="#397ee8" stroke-width="3" marker-end="url(#turnArrow)"/>` : ""}`).join("")}${txt(340, 255, l("Mỗi bước quay 90° theo chiều kim đồng hồ", "Each step turns 90° clockwise"), 20)}`,
+      l(
+        "Ba lần quay từ hướng chưa biết đến mũi tên chỉ trái",
+        "Three turns from an unknown starting direction to a left arrow",
+      ),
+    );
+  I["extra-21-4"] = () =>
+    fig(
+      `<polygon points="340,35 135,235 545,235" fill="#fff8df" stroke="#17345d" stroke-width="4"/>${txt(340, 28, "4", 24)}${txt(112, 250, "5", 24)}${txt(568, 250, "6", 24)}<circle cx="340" cy="158" r="48" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/>${txt(340, 170, "?", 36)}${txt(340, 282, l("giữa = 4×4 + 5×5 + 6×6", "centre = 4×4 + 5×5 + 6×6"), 18)}`,
+      l(
+        "Nhân mỗi số ở đỉnh với chính nó rồi cộng ba kết quả",
+        "Multiply each corner number by itself, then add the three results",
+      ),
+    );
+  I["extra-21-5"] = () =>
+    fig(
+      ["COLD", "____", "____", "____", "WARM"]
+        .map(
+          (v, i) =>
+            `<rect x="245" y="${18 + i * 54}" width="190" height="42" rx="10" fill="${i === 0 || i === 4 ? "#fff2bf" : "#fff"}" stroke="#17345d" stroke-width="2.5"/>${txt(340, 47 + i * 54, v, 21)}`,
+        )
+        .join(""),
+      l(
+        "Thang từ COLD đến WARM có ba hàng trống",
+        "Word ladder from COLD to WARM with three blank rows",
+      ),
+    );
 
-I["extra-22-4"]=()=>fig(cells(Array.from({length:9},(_,i)=>[i%3,Math.floor(i/3)]),66,241,38)+`<rect x="307" y="104" width="66" height="66" fill="#fff2bf" stroke="#17345d" stroke-width="3"/>${txt(340,146,"7",24)}${txt(340,272,l("Mỗi hàng, cột và đường chéo có cùng tổng","Every row, column and diagonal has the same sum"),18)}`,l("Ma phương ba nhân ba có số 7 ở giữa","Three by three magic square with 7 in the centre"));
-I["extra-22-5"]=()=>fig(`${Array.from({length:16},(_,i)=>`<circle cx="${55+(i%8)*82}" cy="${72+Math.floor(i/8)*88}" r="28" fill="#eaf4ff" stroke="#17345d" stroke-width="2.5"/>${txt(55+(i%8)*82,80+Math.floor(i/8)*88,i+1,17)}`).join("")}${txt(340,245,l("Mỗi vòng: xóa số ở vị trí 2, 4, 6, … rồi đếm lại","Each round: erase positions 2, 4, 6, … then restart"),18)}`,l("Các số từ 1 đến 16 trước khi bắt đầu xóa","Numbers 1 through 16 before any erasing"));
+  I["extra-22-4"] = () =>
+    fig(
+      cells(
+        Array.from({ length: 9 }, (_, i) => [i % 3, Math.floor(i / 3)]),
+        66,
+        241,
+        38,
+      ) +
+        `<rect x="307" y="104" width="66" height="66" fill="#fff2bf" stroke="#17345d" stroke-width="3"/>${txt(340, 146, "7", 24)}${txt(340, 272, l("Mỗi hàng, cột và đường chéo có cùng tổng", "Every row, column and diagonal has the same sum"), 18)}`,
+      l(
+        "Ma phương ba nhân ba có số 7 ở giữa",
+        "Three by three magic square with 7 in the centre",
+      ),
+    );
+  I["extra-22-5"] = () =>
+    fig(
+      `${Array.from({ length: 16 }, (_, i) => `<circle cx="${55 + (i % 8) * 82}" cy="${72 + Math.floor(i / 8) * 88}" r="28" fill="#eaf4ff" stroke="#17345d" stroke-width="2.5"/>${txt(55 + (i % 8) * 82, 80 + Math.floor(i / 8) * 88, i + 1, 17)}`).join("")}${txt(340, 245, l("Mỗi vòng: xóa số ở vị trí 2, 4, 6, … rồi đếm lại", "Each round: erase positions 2, 4, 6, … then restart"), 18)}`,
+      l(
+        "Các số từ 1 đến 16 trước khi bắt đầu xóa",
+        "Numbers 1 through 16 before any erasing",
+      ),
+    );
 
-const branch=(target="")=>`<path d="M340 35V150M340 150L210 250M340 150L470 250" fill="none" stroke="#17345d" stroke-width="4"/>${[[340,35],[340,92],[340,150],[275,200],[210,250],[405,200],[470,250]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="24" fill="#fff" stroke="#17345d" stroke-width="3"/>`).join("")}${target?txt(585,150,target,20):""}`;
-I["puzzle-example-22-1"]=()=>fig(branch(l("tổng 14","sum 14")),l("Bảy vòng tròn trên ba nhánh","Seven circles on three branches"));I["puzzle-example-22-2"]=()=>fig(cells(Array.from({length:9},(_,i)=>[i%3,Math.floor(i/3)]),60,250,40)+txt(280,80,"A",22)+txt(340,140,"5",22)+txt(280,200,"4",22)+txt(340,200,"9",22),l("Ô vuông kì diệu ba nhân ba","Three by three magic square"));
-I["puzzle-22-1"]=()=>fig(txt(180,100,"9 × ?",28)+txt(500,100,"4, 7, 10, 13, …",24),"Two number puzzles");
-I["puzzle-22-2"]=()=>fig(cells(Array.from({length:9},(_,i)=>[i%3,Math.floor(i/3)]),52,90,70)+cells(Array.from({length:9},(_,i)=>[i%3,Math.floor(i/3)]),52,430,70),"Two three by three magic squares");
-I["puzzle-22-3"]=()=>fig(branch(l("tổng 12 / 10","sum 12 / 10")),l("Hai sơ đồ bảy vòng tròn","Two seven-circle branch puzzles"));I["puzzle-22-4"]=()=>fig(`<path d="M260 65H330V25H400V65H470V135H400V205H330V135H260Z" fill="#fff" stroke="#17345d" stroke-width="3"/>${txt(365,115,l("tổng","sum"),22)}`,l("Khung chữ thập trên bảng số","Cross window over a number grid"));I["puzzle-22-5"]=()=>fig(branch(l("tổng 20","sum 20")),l("Bảy số chẵn trên ba nhánh","Seven even numbers on three branches"));
-I["puzzle-22-6"]=()=>fig(txt(340,80,"1 + 999",22)+txt(340,130,"2 + 998",22)+txt(340,180,"…",22)+txt(340,230,"500 + 500",22),"Pairs that sum to one thousand");
-I["puzzle-22-7"]=()=>fig(`<circle cx="340" cy="150" r="120" fill="#fff2bf" stroke="#17345d" stroke-width="4"/><circle cx="340" cy="150" r="80" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/><circle cx="340" cy="150" r="38" fill="#ffe0dc" stroke="#17345d" stroke-width="4"/>${txt(340,52,"1",22)}${txt(340,92,"3",22)}${txt(340,158,"5",22)}`,"Target with scoring rings one three and five");
-I["puzzle-22-8"]=()=>fig(txt(340,95,"A = 2 + 3 + … + 51",24)+txt(340,155,"B = 3 + 4 + … + 52",24)+txt(340,225,"B − A = ?",28),l("Hai tổng dài chồng lấn","Two overlapping long sums"));I["puzzle-22-9"]=()=>arithmetic([" THIS","+  IS"," KEEN"],"THIS plus IS equals KEEN");I["puzzle-22-10"]=()=>fig(txt(340,120,"101, 111, 121, …, 191",25)+txt(340,190,l("Có bao nhiêu?","How many?"),24),l("Các số từ 100 đến 200 có chữ số tận cùng là 1","Numbers between one hundred and two hundred ending in one"));I["puzzle-22-11"]=()=>fig(txt(340,100,"81  121  169  231  361  441",24)+txt(340,180,l("Số nào không phải n × n?","Which is not n × n?"),24),l("Danh sách các số có thể là số chính phương","List of possible square numbers"));I["puzzle-22-12"]=()=>fig(txt(340,70,"14  19  23  26  28  33  48  51  58",21)+`<rect x="130" y="115" width="420" height="130" fill="#fff" stroke="#17345d" stroke-width="3"/>${line(270,115,270,245)}${line(410,115,410,245)}${line(130,158,550,158)}${txt(200,145,l("Nhóm 1","Group 1"),18)}${txt(340,145,l("Nhóm 2","Group 2"),18)}${txt(480,145,l("Nhóm 3","Group 3"),18)}`,l("Chín số được chia thành ba nhóm","Nine numbers arranged into three groups"));
+  const branch = (target = "") =>
+    `<path d="M340 35V150M340 150L210 250M340 150L470 250" fill="none" stroke="#17345d" stroke-width="4"/>${[
+      [340, 35],
+      [340, 92],
+      [340, 150],
+      [275, 200],
+      [210, 250],
+      [405, 200],
+      [470, 250],
+    ]
+      .map(
+        ([x, y]) =>
+          `<circle cx="${x}" cy="${y}" r="24" fill="#fff" stroke="#17345d" stroke-width="3"/>`,
+      )
+      .join("")}${target ? txt(585, 150, target, 20) : ""}`;
+  I["puzzle-example-22-1"] = () =>
+    fig(
+      branch(l("tổng 14", "sum 14")),
+      l("Bảy vòng tròn trên ba nhánh", "Seven circles on three branches"),
+    );
+  I["puzzle-example-22-2"] = () =>
+    fig(
+      cells(
+        Array.from({ length: 9 }, (_, i) => [i % 3, Math.floor(i / 3)]),
+        60,
+        250,
+        40,
+      ) +
+        txt(280, 80, "A", 22) +
+        txt(340, 140, "5", 22) +
+        txt(280, 200, "4", 22) +
+        txt(340, 200, "9", 22),
+      l("Ô vuông kì diệu ba nhân ba", "Three by three magic square"),
+    );
+  I["puzzle-22-1"] = () =>
+    fig(
+      txt(180, 100, "9 × ?", 28) + txt(500, 100, "4, 7, 10, 13, …", 24),
+      "Two number puzzles",
+    );
+  I["puzzle-22-2"] = () =>
+    fig(
+      cells(
+        Array.from({ length: 9 }, (_, i) => [i % 3, Math.floor(i / 3)]),
+        52,
+        90,
+        70,
+      ) +
+        cells(
+          Array.from({ length: 9 }, (_, i) => [i % 3, Math.floor(i / 3)]),
+          52,
+          430,
+          70,
+        ),
+      "Two three by three magic squares",
+    );
+  I["puzzle-22-3"] = () =>
+    fig(
+      branch(l("tổng 12 / 10", "sum 12 / 10")),
+      l("Hai sơ đồ bảy vòng tròn", "Two seven-circle branch puzzles"),
+    );
+  I["puzzle-22-4"] = () =>
+    fig(
+      `<path d="M260 65H330V25H400V65H470V135H400V205H330V135H260Z" fill="#fff" stroke="#17345d" stroke-width="3"/>${txt(365, 115, l("tổng", "sum"), 22)}`,
+      l("Khung chữ thập trên bảng số", "Cross window over a number grid"),
+    );
+  I["puzzle-22-5"] = () =>
+    fig(
+      branch(l("tổng 20", "sum 20")),
+      l("Bảy số chẵn trên ba nhánh", "Seven even numbers on three branches"),
+    );
+  I["puzzle-22-6"] = () =>
+    fig(
+      txt(340, 80, "1 + 999", 22) +
+        txt(340, 130, "2 + 998", 22) +
+        txt(340, 180, "…", 22) +
+        txt(340, 230, "500 + 500", 22),
+      "Pairs that sum to one thousand",
+    );
+  I["puzzle-22-7"] = () =>
+    fig(
+      `<circle cx="340" cy="150" r="120" fill="#fff2bf" stroke="#17345d" stroke-width="4"/><circle cx="340" cy="150" r="80" fill="#eaf4ff" stroke="#17345d" stroke-width="4"/><circle cx="340" cy="150" r="38" fill="#ffe0dc" stroke="#17345d" stroke-width="4"/>${txt(340, 52, "1", 22)}${txt(340, 92, "3", 22)}${txt(340, 158, "5", 22)}`,
+      "Target with scoring rings one three and five",
+    );
+  I["puzzle-22-8"] = () =>
+    fig(
+      txt(340, 95, "A = 2 + 3 + … + 51", 24) +
+        txt(340, 155, "B = 3 + 4 + … + 52", 24) +
+        txt(340, 225, "B − A = ?", 28),
+      l("Hai tổng dài chồng lấn", "Two overlapping long sums"),
+    );
+  I["puzzle-22-9"] = () =>
+    arithmetic([" THIS", "+  IS", " KEEN"], "THIS plus IS equals KEEN");
+  I["puzzle-22-10"] = () =>
+    fig(
+      txt(340, 120, "101, 111, 121, …, 191", 25) +
+        txt(340, 190, l("Có bao nhiêu?", "How many?"), 24),
+      l(
+        "Các số từ 100 đến 200 có chữ số tận cùng là 1",
+        "Numbers between one hundred and two hundred ending in one",
+      ),
+    );
+  I["puzzle-22-11"] = () =>
+    fig(
+      txt(340, 100, "81  121  169  231  361  441", 24) +
+        txt(
+          340,
+          180,
+          l(
+            "Số nào không viết được dạng n × n?",
+            "Which cannot be written as n × n?",
+          ),
+          24,
+        ),
+      l(
+        "Tìm số không thể tạo bằng một số tự nhiên nhân với chính nó",
+        "Find the number that is not a whole number multiplied by itself",
+      ),
+    );
+  I["puzzle-22-12"] = () =>
+    fig(
+      txt(340, 70, "14  19  23  26  28  33  48  51  58", 21) +
+        `<rect x="130" y="115" width="420" height="130" fill="#fff" stroke="#17345d" stroke-width="3"/>${line(270, 115, 270, 245)}${line(410, 115, 410, 245)}${line(130, 158, 550, 158)}${txt(200, 145, l("Nhóm 1", "Group 1"), 18)}${txt(340, 145, l("Nhóm 2", "Group 2"), 18)}${txt(480, 145, l("Nhóm 3", "Group 3"), 18)}`,
+      l(
+        "Chín số được chia thành ba nhóm",
+        "Nine numbers arranged into three groups",
+      ),
+    );
 })();

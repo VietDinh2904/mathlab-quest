@@ -1,16 +1,292 @@
-(function(){"use strict";const bi=(en,vi)=>({en,vi});const viHelp={1:["Theo dõi riêng từng hình tròn nhỏ.",["Một hình tròn nhỏ đi theo thứ tự trái → trên → phải; hình còn lại đi dưới → dưới bên trong → trên bên trong.","Ở bước tiếp theo, cả hai ra ngoài tại vị trí trên và phải. Chọn D."]],2:["So sánh vị trí chấm đối với đường gấp khúc và hình chữ nhật.",["Ở A, C, D và E, chấm nằm trong vùng nhỏ do đường gấp khúc cắt hình chữ nhật.","Chỉ hình B không có cùng quan hệ đó nên chọn B."]],3:["So sánh ô đối xứng ở hàng đầu và hàng cuối, rồi hàng hai và hàng ba.",["Ô trống ở hàng 2 cột 2 phải là mũi tên xuống.","Ô trống ở hàng 3 cột 4 phải là mũi tên trái."]],4:["Cộng số trên và hai số bên phải, rồi trừ hai số bên trái.",["17 + 11 + 12 − 14 − 19 = 7; quy luật đúng với hình thứ nhất.","19 + 16 + 2 − 15 − 8 = 14. Số cần điền là 14."]],5:["Điền chữ còn thiếu đồng thời theo hàng, cột và từng vùng màu.",["Mỗi hàng, mỗi cột và mỗi vùng 5 ô phải có đủ A, B, C, D, E đúng một lần.","Lưới hoàn chỉnh: D A B E C / C E D B A / A B C D E / B C E A D / E D A C B."]],6:["Dùng tổng 17 của ba nhánh và tổng các chữ số 0 đến 9.",["Tổng 0 + 1 + … + 9 = 45, còn ba nhánh có tổng 3 × 17 = 51.","D và G được tính hai lần nên D + G = 51 − 45 = 6. Kết hợp A = 4, J = 0 cho D = 5 và G = 1."]],7:["Phản chiếu đường cắt qua từng nếp gấp.",["Mở nếp gấp cuối: vết cắt xuất hiện đối xứng qua đường giữa.","Mở tiếp hai nếp gấp còn lại: bốn cạnh có bốn chỗ lõm hình chữ V. Chọn C."]],8:["Gọi giá quyển sách là P đô.",["Shawn có P − 5 đô, Ted có P − 0,10 đô.","Gộp tiền vẫn thiếu: (P − 5) + (P − 0,10) < P, nên 5 < P < 5,10.","Theo đơn vị 5 xu, giá sách là 5,05 đô."]],9:["Tách mã thành bốn đặc điểm: hướng, loại hình, số lượng và cách nối.",["D/C lần lượt chỉ ngang/dọc; A/E chỉ tròn/thoi; B/G chỉ 2/3 hình; Y/I chỉ rời/chồng.","Ba hình tròn chồng dọc có mã C-A-G-I, tức CAGI."]],10:["Làm theo từng cột và nhớ số nhớ.",["Giữ lại 111, chữ số hàng đơn vị 3, chữ số hàng đơn vị 7 và 990.","111 + 3 + 7 + 990 = 1111; gạch các chữ số còn lại."]],11:["Áp dụng đúng quy tắc theo tính chẵn lẻ sau mỗi bước.",["Từ 5: 5 → 16 → 8 → 4 → 2 → 1 → 4 → 2 → …","Từ 8: 8 → 4 → 2 → 1 → 4 → 2 → …; cả hai cùng đi vào vòng lặp 1, 4, 2."]],12:["Viết tên các số bằng tiếng Anh rồi đếm số chữ cái.",["one, two, six có 3 chữ cái nên nằm trên đường thẳng.","nine có 4 chữ cái nên ở dưới; ten có 3 chữ cái nên ở trên."]],13:["Mỗi bước chỉ được thay đúng một chữ cái và phải tạo thành từ có nghĩa.",["BIKE → BITE: đổi K thành T.","BITE → MITE → MATE → MATH; mỗi cặp liền nhau chỉ khác một chữ."]],14:["Giải từ hàng đơn vị sang trái và ghi số nhớ.",["Một nghiệm hợp lệ là A=6, F=2, I=1, V=7, E=4, O=9, U=8, R=0, N=5.","Do đó AFIVE = 62174, AFOUR = 62980 và IFNINE = 125154."]],15:["Kiểm tra xem số giữa có bằng tổng bình phương ba số ở đỉnh hay không.",["A: 3² + 5² + 6² = 70; B: 7² + 4² + 8² = 129; D: 7² + 7² + 3² = 107.","C phải có số giữa 6² + 2² + 1² = 41, không phải 38. Chọn C."]]};const q=(n,en,vi,a,h,g=h)=>({id:`21-${n}`,n:String(n),q:bi(en,vi),ans:[Array.isArray(a)?a.map(String):[String(a)]],hint:bi(h,viHelp[n][0]),guide:bi(g,viHelp[n][1]),visual:`observation-21-${n}`});window.BOOK_DATA=window.BOOK_DATA||{};window.BOOK_DATA["21"]={title:"Observation",emoji:"👀",pages:"190–200",theory:[["Look for one rule","Compare position, direction, shape, colour and number before calculating."],["Test every example","A good rule must explain every given figure or number."],["Rows, columns and regions","In grid puzzles, apply the condition to all three at the same time."],["Describe the change","Say exactly what rotates, swaps, repeats or grows before choosing an answer."]],examples:[{q:bi("What comes next: 20, 28, 40, 56, ...?","Số tiếp theo của 20, 28, 40, 56, ... là gì?"),steps:["The differences are 8, 12 and 16.","They increase by 4, so the next difference is 20.","56+20=76."],a:bi("76","76"),visual:"observation-example-21-1"},{q:bi("Straight strokes change to curves and curves change to straight strokes. Which option follows?","Nét thẳng đổi thành nét cong và nét cong đổi thành nét thẳng. Chọn hình tiếp theo."),steps:["Match every stroke in the first pair.","Apply the same swap to the second figure."],a:bi("B","B"),visual:"observation-example-21-2"}],practice:[
-q(1,"Observe the three figures, then choose the next figure from A, B, C or D.","Quan sát đủ ba hình mẫu, rồi chọn hình tiếp theo trong bốn phương án A, B, C hoặc D.","D","The two small circles move clockwise and change between inside and outside positions. The next figure is D."),
-q(2,"Which of the five rectangle-line-dot figures does not belong?","Hình chữ nhật-đường thẳng-chấm nào không cùng nhóm?","B","In A, C, D and E the line, rectangle and dot form a triangular relationship; B does not."),
-q(3,"Draw the two missing arrows in the 4×4 grid.","Vẽ hai mũi tên còn thiếu trong lưới 4×4.","down, left","Each row and column contains a balanced pair of vertical or horizontal arrows. The blanks are ↓ and ←."),
-q(4,"Find the missing centre number in the third pentagon.","Tìm số còn thiếu ở giữa ngũ giác thứ ba.",14,"For each pentagon, add the top and two right numbers, then subtract the two left numbers.","First:17+11+12−14−19=7. Second:18+16+15−6−5=38. Third:19+16+2−15−8=14."),
-q(5,"Complete the 5×5 A-E grid so every row, column and shaded region contains A, B, C, D and E once.","Hoàn thành lưới 5×5 A-E để mỗi hàng, cột và vùng tô có đủ A, B, C, D, E đúng một lần.","DABEC / CEDBA / ABCDE / BCEAD / EDACB","Start with rows and columns that already contain the most letters.","Complete one forced cell at a time, checking its row, column and coloured region before moving on."),
-q(6,"In the cross-shaped digit puzzle, A=4 and J=0. Find D and G.","Trong ô chữ số hình dấu cộng, A=4 và J=0. Tìm D và G.","D=5, G=1","Each arm uses distinct digits 0-9 and has sum 17.","The ten digits total 45. Three arm sums total 51, so D+G=6. Completing the arms gives D=5 and G=1."),
-q(7,"Follow the folding and cutting diagram. Which unfolded shape results?","Theo sơ đồ gấp và cắt giấy. Hình mở ra là hình nào?","C","Reflect the triangular cut across both fold lines.","The cut is copied symmetrically four times, creating the four inward V-notches of option C."),
-q(8,"Shawn is short of $5, Ted is short of 10¢, and together they still cannot buy the book. How much is the book?","Shawn thiếu 5 đô, Ted thiếu 10 xu, gộp tiền vẫn chưa đủ. Giá sách bao nhiêu?","$5.05","Let the price be P; Shawn has P−5 and Ted has P−0.10.","Their sum is less than P, so 5<P<5.10. In 5-cent steps, the price is $5.05."),
-q(9,"Decode the three vertically chained circles using the shape-word examples.","Giải mã ba hình tròn nối dọc theo các ví dụ hình-từ.","CAGI","Read the four properties: vertical, circle, three, chained.","The matching letters are C-A-G-I, so the code is CAGI."),
-q(10,"Cross out digits from the five rows 111,333,555,777,999 so the remaining addition equals 1111.","Gạch các chữ số trong năm hàng 111,333,555,777,999 để phép cộng còn lại bằng 1111.","111 + 3 + 7 + 990 = 1111","Work column by column and preserve place value.","Keep 111, the ones digit of 333, the ones digit of 777 and the hundreds and tens digits of 999: 111+3+7+990=1111."),
-q(11,"Apply: odd ×3+1, even ÷2. Continue from 5 and from 8, then state the observation.","Áp dụng: số lẻ ×3+1, số chẵn ÷2. Tiếp tục từ 5 và 8 rồi nêu nhận xét.","all end in 1,4,2","Write each new value before applying the rule again.","5→16→8→4→2→1→4→2... and 8→4→2→1→4→2...; both enter the 1,4,2 cycle."),
-q(12,"Should 9 and 10 be placed above or below the line?","Số 9 và 10 nên đặt trên hay dưới đường thẳng?","9 below, 10 above","The groups are based on the number of letters in the English number word.","One, two and six have 3 letters and are above. Words with 4 or more letters are below. Thus nine is below and ten is above."),
-q(13,"Change BIKE to MATH by changing one letter each time; every intermediate word must be valid.","Đổi BIKE thành MATH, mỗi bước chỉ đổi một chữ và mỗi từ trung gian phải có nghĩa.","BIKE → BITE → MITE → MATE → MATH","Change the last letter first, then the first, second and last.","BIKE→BITE→MITE→MATE→MATH; each neighbouring pair differs by exactly one letter."),
-q(14,"Solve the alphametic AFIVE + AFOUR = IFNINE.","Giải mật mã chữ số AFIVE + AFOUR = IFNINE.","62174 + 62980 = 125154","Solve from the ones column and carry left.","A valid assignment gives AFIVE=62174, AFOUR=62980 and IFNINE=125154."),
-q(15,"Which numbered triangle does not belong to the group?","Tam giác số nào không cùng nhóm?","C (41)","Check whether the centre equals the sum of the squares of the three corner numbers.","A:3²+5²+6²=70; B=129; D=107. C should be 6²+2²+1²=41, not 38, so C is the odd one out.")],check:["21-1","21-4","21-7","21-13","21-15"]};})();
+(function () {
+  "use strict";
+  const bi = (en, vi) => ({ en, vi });
+  const viHelp = {
+    1: [
+      "Theo dõi riêng từng hình tròn nhỏ.",
+      [
+        "Một hình tròn nhỏ đi theo thứ tự trái → trên → phải; hình còn lại đi dưới → dưới bên trong → trên bên trong.",
+        "Ở bước tiếp theo, cả hai ra ngoài tại vị trí trên và phải. Chọn D.",
+      ],
+    ],
+    2: [
+      "So sánh vị trí chấm đối với đường gấp khúc và hình chữ nhật.",
+      [
+        "Ở A, C, D và E, chấm nằm trong vùng nhỏ do đường gấp khúc cắt hình chữ nhật.",
+        "Chỉ hình B không có cùng quan hệ đó nên chọn B.",
+      ],
+    ],
+    3: [
+      "So sánh ô đối xứng ở hàng đầu và hàng cuối, rồi hàng hai và hàng ba.",
+      [
+        "Ô trống ở hàng 2 cột 2 phải là mũi tên xuống.",
+        "Ô trống ở hàng 3 cột 4 phải là mũi tên trái.",
+      ],
+    ],
+    4: [
+      "Cộng số trên và hai số bên phải, rồi trừ hai số bên trái.",
+      [
+        "17 + 11 + 12 − 14 − 19 = 7; quy luật đúng với hình thứ nhất.",
+        "19 + 16 + 2 − 15 − 8 = 14. Số cần điền là 14.",
+      ],
+    ],
+    5: [
+      "Điền chữ còn thiếu đồng thời theo hàng, cột và từng vùng màu.",
+      [
+        "Mỗi hàng, mỗi cột và mỗi vùng 5 ô phải có đủ A, B, C, D, E đúng một lần.",
+        "Lưới hoàn chỉnh: D A B E C / C E D B A / A B C D E / B C E A D / E D A C B.",
+      ],
+    ],
+    6: [
+      "Dùng tổng 17 của ba nhánh và tổng các chữ số 0 đến 9.",
+      [
+        "Tổng 0 + 1 + … + 9 = 45, còn ba nhánh có tổng 3 × 17 = 51.",
+        "D và G được tính hai lần nên D + G = 51 − 45 = 6. Kết hợp A = 4, J = 0 cho D = 5 và G = 1.",
+      ],
+    ],
+    7: [
+      "Phản chiếu đường cắt qua từng nếp gấp.",
+      [
+        "Mở nếp gấp cuối: vết cắt xuất hiện đối xứng qua đường giữa.",
+        "Mở tiếp hai nếp gấp còn lại: bốn cạnh có bốn chỗ lõm hình chữ V. Chọn C.",
+      ],
+    ],
+    8: [
+      "Gọi giá quyển sách là P đô.",
+      [
+        "Shawn có P − 5 đô, Ted có P − 0,10 đô.",
+        "Gộp tiền vẫn thiếu: (P − 5) + (P − 0,10) < P, nên 5 < P < 5,10.",
+        "Theo đơn vị 5 xu, giá sách là 5,05 đô.",
+      ],
+    ],
+    9: [
+      "Tách mã thành bốn đặc điểm: hướng, loại hình, số lượng và cách nối.",
+      [
+        "D/C lần lượt chỉ ngang/dọc; A/E chỉ tròn/thoi; B/G chỉ 2/3 hình; Y/I chỉ rời/chồng.",
+        "Ba hình tròn chồng dọc có mã C-A-G-I, tức CAGI.",
+      ],
+    ],
+    10: [
+      "Làm theo từng cột và nhớ số nhớ.",
+      [
+        "Giữ lại 111, chữ số hàng đơn vị 3, chữ số hàng đơn vị 7 và 990.",
+        "111 + 3 + 7 + 990 = 1111; gạch các chữ số còn lại.",
+      ],
+    ],
+    11: [
+      "Áp dụng đúng quy tắc theo tính chẵn lẻ sau mỗi bước.",
+      [
+        "Từ 5: 5 → 16 → 8 → 4 → 2 → 1 → 4 → 2 → …",
+        "Từ 8: 8 → 4 → 2 → 1 → 4 → 2 → …; cả hai cùng đi vào vòng lặp 1, 4, 2.",
+      ],
+    ],
+    12: [
+      "Viết tên các số bằng tiếng Anh rồi đếm số chữ cái.",
+      [
+        "one, two, six có 3 chữ cái nên nằm trên đường thẳng.",
+        "nine có 4 chữ cái nên ở dưới; ten có 3 chữ cái nên ở trên.",
+      ],
+    ],
+    13: [
+      "Mỗi bước chỉ được thay đúng một chữ cái và phải tạo thành từ có nghĩa.",
+      [
+        "BIKE → BITE: đổi K thành T.",
+        "BITE → MITE → MATE → MATH; mỗi cặp liền nhau chỉ khác một chữ.",
+      ],
+    ],
+    14: [
+      "Giải từ hàng đơn vị sang trái và ghi số nhớ.",
+      [
+        "Một nghiệm hợp lệ là A=6, F=2, I=1, V=7, E=4, O=9, U=8, R=0, N=5.",
+        "Do đó AFIVE = 62174, AFOUR = 62980 và IFNINE = 125154.",
+      ],
+    ],
+    15: [
+      "Kiểm tra xem số giữa có bằng tổng của ba phép nhân: mỗi số ở đỉnh nhân với chính nó.",
+      [
+        "A: 3×3 + 5×5 + 6×6 = 70; B: 7×7 + 4×4 + 8×8 = 129; D: 7×7 + 7×7 + 3×3 = 107.",
+        "C phải có số giữa 6×6 + 2×2 + 1×1 = 41, không phải 38. Chọn C.",
+      ],
+    ],
+  };
+  const q = (n, en, vi, a, h, g = h) => ({
+    id: `21-${n}`,
+    n: String(n),
+    q: bi(en, vi),
+    ans: [Array.isArray(a) ? a.map(String) : [String(a)]],
+    hint: bi(h, viHelp[n][0]),
+    guide: bi(g, viHelp[n][1]),
+    visual: `observation-21-${n}`,
+  });
+  window.BOOK_DATA = window.BOOK_DATA || {};
+  window.BOOK_DATA["21"] = {
+    title: "Observation",
+    emoji: "👀",
+    pages: "190–200",
+    theory: [
+      [
+        "Look for one rule",
+        "Compare position, direction, shape, colour and number before calculating.",
+      ],
+      [
+        "Test every example",
+        "A good rule must explain every given figure or number.",
+      ],
+      [
+        "Rows, columns and regions",
+        "In grid puzzles, apply the condition to all three at the same time.",
+      ],
+      [
+        "Describe the change",
+        "Say exactly what rotates, swaps, repeats or grows before choosing an answer.",
+      ],
+    ],
+    examples: [
+      {
+        q: bi(
+          "What comes next: 20, 28, 40, 56, ...?",
+          "Số tiếp theo của 20, 28, 40, 56, ... là gì?",
+        ),
+        steps: [
+          "The differences are 8, 12 and 16.",
+          "They increase by 4, so the next difference is 20.",
+          "56+20=76.",
+        ],
+        a: bi("76", "76"),
+        visual: "observation-example-21-1",
+      },
+      {
+        q: bi(
+          "Straight strokes change to curves and curves change to straight strokes. Which option follows?",
+          "Nét thẳng đổi thành nét cong và nét cong đổi thành nét thẳng. Chọn hình tiếp theo.",
+        ),
+        steps: [
+          "Match every stroke in the first pair.",
+          "Apply the same swap to the second figure.",
+        ],
+        a: bi("B", "B"),
+        visual: "observation-example-21-2",
+      },
+    ],
+    practice: [
+      q(
+        1,
+        "Observe the three figures, then choose the next figure from A, B, C or D.",
+        "Quan sát đủ ba hình mẫu, rồi chọn hình tiếp theo trong bốn phương án A, B, C hoặc D.",
+        "D",
+        "The two small circles move clockwise and change between inside and outside positions. The next figure is D.",
+      ),
+      q(
+        2,
+        "Which of the five rectangle-line-dot figures does not belong?",
+        "Hình chữ nhật-đường thẳng-chấm nào không cùng nhóm?",
+        "B",
+        "In A, C, D and E the line, rectangle and dot form a triangular relationship; B does not.",
+      ),
+      q(
+        3,
+        "Draw the two missing arrows in the 4×4 grid.",
+        "Vẽ hai mũi tên còn thiếu trong lưới 4×4.",
+        "down, left",
+        "Each row and column contains a balanced pair of vertical or horizontal arrows. The blanks are ↓ and ←.",
+      ),
+      q(
+        4,
+        "Find the missing centre number in the third pentagon.",
+        "Tìm số còn thiếu ở giữa ngũ giác thứ ba.",
+        14,
+        "For each pentagon, add the top and two right numbers, then subtract the two left numbers.",
+        "First:17+11+12−14−19=7. Second:18+16+15−6−5=38. Third:19+16+2−15−8=14.",
+      ),
+      q(
+        5,
+        "Complete the 5×5 A-E grid so every row, column and shaded region contains A, B, C, D and E once.",
+        "Hoàn thành lưới 5×5 A-E để mỗi hàng, cột và vùng tô có đủ A, B, C, D, E đúng một lần.",
+        "DABEC / CEDBA / ABCDE / BCEAD / EDACB",
+        "Start with rows and columns that already contain the most letters.",
+        "Complete one forced cell at a time, checking its row, column and coloured region before moving on.",
+      ),
+      q(
+        6,
+        "In the cross-shaped digit puzzle, A=4 and J=0. Find D and G.",
+        "Trong ô chữ số hình dấu cộng, A=4 và J=0. Tìm D và G.",
+        "D=5, G=1",
+        "Each arm uses distinct digits 0-9 and has sum 17.",
+        "The ten digits total 45. Three arm sums total 51, so D+G=6. Completing the arms gives D=5 and G=1.",
+      ),
+      q(
+        7,
+        "Follow the folding and cutting diagram. Which unfolded shape results?",
+        "Theo sơ đồ gấp và cắt giấy. Hình mở ra là hình nào?",
+        "C",
+        "Reflect the triangular cut across both fold lines.",
+        "The cut is copied symmetrically four times, creating the four inward V-notches of option C.",
+      ),
+      q(
+        8,
+        "Shawn is short of $5, Ted is short of 10¢, and together they still cannot buy the book. How much is the book?",
+        "Shawn thiếu 5 đô, Ted thiếu 10 xu, gộp tiền vẫn chưa đủ. Giá sách bao nhiêu?",
+        "$5.05",
+        "Let the price be P; Shawn has P−5 and Ted has P−0.10.",
+        "Their sum is less than P, so 5<P<5.10. In 5-cent steps, the price is $5.05.",
+      ),
+      q(
+        9,
+        "Decode the three vertically chained circles using the shape-word examples.",
+        "Giải mã ba hình tròn nối dọc theo các ví dụ hình-từ.",
+        "CAGI",
+        "Read the four properties: vertical, circle, three, chained.",
+        "The matching letters are C-A-G-I, so the code is CAGI.",
+      ),
+      q(
+        10,
+        "Cross out digits from the five rows 111,333,555,777,999 so the remaining addition equals 1111.",
+        "Gạch các chữ số trong năm hàng 111,333,555,777,999 để phép cộng còn lại bằng 1111.",
+        "111 + 3 + 7 + 990 = 1111",
+        "Work column by column and preserve place value.",
+        "Keep 111, the ones digit of 333, the ones digit of 777 and the hundreds and tens digits of 999: 111+3+7+990=1111.",
+      ),
+      q(
+        11,
+        "Apply: odd ×3+1, even ÷2. Continue from 5 and from 8, then state the observation.",
+        "Áp dụng: số lẻ ×3+1, số chẵn ÷2. Tiếp tục từ 5 và 8 rồi nêu nhận xét.",
+        "all end in 1,4,2",
+        "Write each new value before applying the rule again.",
+        "5→16→8→4→2→1→4→2... and 8→4→2→1→4→2...; both enter the 1,4,2 cycle.",
+      ),
+      q(
+        12,
+        "Should 9 and 10 be placed above or below the line?",
+        "Số 9 và 10 nên đặt trên hay dưới đường thẳng?",
+        "9 below, 10 above",
+        "The groups are based on the number of letters in the English number word.",
+        "One, two and six have 3 letters and are above. Words with 4 or more letters are below. Thus nine is below and ten is above.",
+      ),
+      q(
+        13,
+        "Change BIKE to MATH by changing one letter each time; every intermediate word must be valid.",
+        "Đổi BIKE thành MATH, mỗi bước chỉ đổi một chữ và mỗi từ trung gian phải có nghĩa.",
+        "BIKE → BITE → MITE → MATE → MATH",
+        "Change the last letter first, then the first, second and last.",
+        "BIKE→BITE→MITE→MATE→MATH; each neighbouring pair differs by exactly one letter.",
+      ),
+      q(
+        14,
+        "Solve the alphametic AFIVE + AFOUR = IFNINE.",
+        "Giải mật mã chữ số AFIVE + AFOUR = IFNINE.",
+        "62174 + 62980 = 125154",
+        "Solve from the ones column and carry left.",
+        "A valid assignment gives AFIVE=62174, AFOUR=62980 and IFNINE=125154.",
+      ),
+      q(
+        15,
+        "Which numbered triangle does not belong to the group?",
+        "Tam giác số nào không cùng nhóm?",
+        "C (41)",
+        "Check whether the centre equals the sum obtained by multiplying each corner number by itself.",
+        "A: 3×3+5×5+6×6=70; B=129; D=107. C should be 6×6+2×2+1×1=41, not 38, so C is the odd one out.",
+      ),
+    ],
+    check: ["21-1", "21-4", "21-7", "21-13", "21-15"],
+  };
+})();

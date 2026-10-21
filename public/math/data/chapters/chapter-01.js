@@ -36,7 +36,7 @@
     {
       "q": {"en":"Find the missing numbers in the number patterns.\n(a) 1, 2, 4, 8, 16, ( ), ( ), …\n(b) 1, 4, 9, 16, ( ), ( ), …\n(c) 2, 6, 12, 20, 30, ( ), ( ), …\n(d) 1, 4, 7, 10, 13, ( ), ( ), …","vi":"Tìm các số còn thiếu trong các quy luật số.\n(a) 1, 2, 4, 8, 16, ( ), ( ), …\n(b) 1, 4, 9, 16, ( ), ( ), …\n(c) 2, 6, 12, 20, 30, ( ), ( ), …\n(d) 1, 4, 7, 10, 13, ( ), ( ), …"},
       "steps": [
-        {"en":"(a) Multiply by 2; (b) use square numbers.","vi":"(a) Nhân 2; (b) dùng các số chính phương."},
+        {"en":"(a) Multiply by 2; (b) multiply 1×1, 2×2, 3×3, and so on.","vi":"(a) Nhân 2; (b) lần lượt tính 1×1, 2×2, 3×3, …"},
         {"en":"(c) add consecutive even numbers; (d) add 3.","vi":"(c) Cộng các số chẵn liên tiếp; (d) cộng 3."}
       ],
       "a": {"en":"(a) 32, 64; (b) 25, 36; (c) 42, 56; (d) 16, 19","vi":"(a) 32, 64; (b) 25, 36; (c) 42, 56; (d) 16, 19"}
@@ -489,7 +489,7 @@
         ]
       ],
       "hint": "Inspect the differences.",
-      "guide": "Differences are 1²,2²,3²,4²,5²; then +6² and +7².",
+      "guide": "The increases are 1×1, 2×2, 3×3, 4×4 and 5×5; next add 6×6 and 7×7.",
       "id": "1-10",
       "labels": [
         "first blank",

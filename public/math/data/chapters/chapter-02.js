@@ -222,7 +222,7 @@
         ]
       ],
       "hint": "Có 25 số lẻ đầu tiên.",
-      "guide": "Tổng 25 số lẻ đầu tiên = 25² = 625; cũng có thể ghép ngoài vào trong.",
+      "guide": "Tổng 25 số lẻ đầu tiên bằng 25 × 25 = 625; cũng có thể ghép các số ở hai đầu để tính.",
       "id": "2-9"
     },
     {
