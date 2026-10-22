@@ -35,9 +35,14 @@
   }
 
   const saved = loadState();
+  const requestedChapter = Number(new URLSearchParams(window.location.search).get("chapter"));
   const state = {
     lang: saved.lang === "en" ? "en" : "vi",
-    chapter: CHAPTER_NUMBERS.includes(saved.chapter) ? saved.chapter : 1,
+    chapter: CHAPTER_NUMBERS.includes(requestedChapter)
+      ? requestedChapter
+      : CHAPTER_NUMBERS.includes(saved.chapter)
+        ? saved.chapter
+        : 1,
     tab: TABS.some(([key]) => key === saved.tab) ? saved.tab : "learn",
     answers: saved.answers || {},
     completed: saved.completed || {},
