@@ -305,7 +305,12 @@
     const illustrationIsGuidance = question.visualPlacement === "solution" ||
       (question.source === "ai" && question.visualPlacement !== "question");
     const questionIllustration = illustrationIsGuidance ? "" : illustration;
-    const solutionIllustration = illustrationIsGuidance ? illustration : "";
+    const dedicatedSolutionIllustration =
+      solution.visual && window.PILOT_ILLUSTRATIONS[solution.visual]
+        ? window.PILOT_ILLUSTRATIONS[solution.visual]()
+        : "";
+    const solutionIllustration = dedicatedSolutionIllustration ||
+      (illustrationIsGuidance ? illustration : "");
     const fields = solution.answers
       .map(
         (_, answerIndex) =>
