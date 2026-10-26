@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" role="img" aria-label="Triangle counting diagram">
+  <rect width="520" height="400" rx="22" fill="#fffdf7"/>
+  <g stroke="#17375e" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"><path d="M100 55H420L100 345H420L100 55V345"/><path d="M100 200l80-80v160z"/></g>
+  <circle cx="260" cy="200" r="7" fill="#ff7c6d"/>
+</svg>

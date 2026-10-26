@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" role="img" aria-label="Four by five grid with a star in row three column two">
+  <rect width="520" height="360" rx="22" fill="#fffdf7"/>
+  <g transform="translate(85 40)" stroke="#17375e" stroke-width="4" fill="none"><rect width="350" height="280"/><path d="M70 0v280M140 0v280M210 0v280M280 0v280M0 70h350M0 140h350M0 210h350"/></g>
+  <text x="190" y="230" fill="#ff7c6d" font-family="Arial" font-size="48" font-weight="900" text-anchor="middle">★</text>
+</svg>

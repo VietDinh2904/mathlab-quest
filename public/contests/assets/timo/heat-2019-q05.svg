@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-label="Groups 1 to 4 of the growing marked-square pattern">
+  <rect width="760" height="300" rx="22" fill="#fffdf7"/>
+  <g stroke="#17375e" stroke-width="3" fill="none">
+    <rect x="35" y="115" width="48" height="48"/>
+    <rect x="130" y="91" width="96" height="96"/><path d="M178 91v96M130 139h96"/>
+    <rect x="280" y="67" width="144" height="144"/><path d="M328 67v144M376 67v144M280 115h144M280 163h144"/>
+    <rect x="480" y="43" width="192" height="192"/><path d="M528 43v192M576 43v192M624 43v192M480 91h192M480 139h192M480 187h192"/>
+  </g>
+  <g fill="#ff7c6d" stroke="#17375e" stroke-width="2">
+    <circle cx="154" cy="115" r="8"/><circle cx="202" cy="115" r="8"/><circle cx="154" cy="163" r="8"/><circle cx="202" cy="163" r="8"/>
+    <circle cx="304" cy="91" r="8"/><circle cx="352" cy="91" r="8"/><circle cx="400" cy="91" r="8"/><circle cx="304" cy="139" r="8"/><circle cx="400" cy="139" r="8"/><circle cx="304" cy="187" r="8"/><circle cx="352" cy="187" r="8"/><circle cx="400" cy="187" r="8"/><circle cx="328" cy="115" r="8"/><circle cx="376" cy="115" r="8"/><circle cx="328" cy="163" r="8"/><circle cx="376" cy="163" r="8"/>
+    <circle cx="504" cy="67" r="8"/><circle cx="552" cy="67" r="8"/><circle cx="600" cy="67" r="8"/><circle cx="648" cy="67" r="8"/><circle cx="504" cy="115" r="8"/><circle cx="552" cy="115" r="8"/><circle cx="600" cy="115" r="8"/><circle cx="648" cy="115" r="8"/><circle cx="504" cy="163" r="8"/><circle cx="552" cy="163" r="8"/><circle cx="600" cy="163" r="8"/><circle cx="648" cy="163" r="8"/><circle cx="504" cy="211" r="8"/><circle cx="552" cy="211" r="8"/><circle cx="600" cy="211" r="8"/><circle cx="648" cy="211" r="8"/><circle cx="528" cy="91" r="8"/><circle cx="576" cy="91" r="8"/><circle cx="624" cy="91" r="8"/><circle cx="528" cy="139" r="8"/><circle cx="624" cy="139" r="8"/><circle cx="528" cy="187" r="8"/><circle cx="576" cy="187" r="8"/><circle cx="624" cy="187" r="8"/>
+  </g>
+  <g fill="#17375e" font-family="Arial" font-size="18" font-weight="700" text-anchor="middle"><text x="59" y="272">Group 1</text><text x="178" y="272">Group 2</text><text x="352" y="272">Group 3</text><text x="576" y="272">Group 4</text></g>
+</svg>

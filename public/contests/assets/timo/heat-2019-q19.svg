@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 420" role="img" aria-label="Square divided into three squares and two rectangles">
+  <rect width="520" height="420" rx="22" fill="#fffdf7"/>
+  <g transform="translate(90 45)" stroke="#17375e" stroke-width="5" fill="none"><rect width="320" height="320"/><path d="M160 0v320M240 0v160M160 160h160M240 80h80"/></g>
+  <g fill="#17375e" font-family="Georgia" font-size="24" font-style="italic"><text x="78" y="42">A</text><text x="242" y="42">B</text><text x="322" y="42">C</text><text x="410" y="42">D</text><text x="420" y="132">E</text><text x="420" y="212">F</text></g>
+  <rect x="330" y="55" width="70" height="70" rx="6" fill="#ffe49a" opacity=".65"/>
+</svg>
