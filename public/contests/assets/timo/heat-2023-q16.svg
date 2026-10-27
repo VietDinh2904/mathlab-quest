@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" role="img" aria-labelledby="title desc">
+  <title id="title">Lưới đếm hình chữ nhật của câu 16</title>
+  <desc id="desc">Một lưới bốn cột ba hàng và thêm một cột ở bên phải trong hai hàng dưới.</desc>
+  <rect width="760" height="420" rx="28" fill="#fffdf8"/>
+  <text x="380" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#17375e">Đếm tất cả các hình chữ nhật</text>
+  <g transform="translate(100 105)" fill="#e8f3ff" stroke="#17375e" stroke-width="5" stroke-linejoin="round">
+    <path d="M0 0H400V90H500V270H0Z"/>
+    <path d="M100 0V270M200 0V270M300 0V270M400 0V270M0 90H500M0 180H500" fill="none"/>
+  </g>
+  <text x="380" y="400" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#53657d">4 cột × 3 hàng, thêm 1 cột ở hai hàng dưới</text>
+</svg>

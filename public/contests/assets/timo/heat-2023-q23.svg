@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" role="img" aria-labelledby="title desc">
+  <title id="title">Sơ đồ đường đi từ A đến B của câu 23</title>
+  <desc id="desc">Lưới bốn cột bốn hàng bị khuyết cạnh trên ở giữa và khuyết ô dưới cùng bên phải; chỉ được đi sang trái hoặc đi xuống.</desc>
+  <rect width="820" height="560" rx="28" fill="#fffdf8"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ff6f61"/></marker></defs>
+  <text x="410" y="52" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#17375e">Chỉ đi sang trái hoặc đi xuống</text>
+  <g transform="translate(135 115)">
+    <path d="M0 0H120V90H240V0H480V270H360V360H0Z" fill="#eef7ff" opacity=".9"/>
+    <g fill="none" stroke="#17375e" stroke-width="5" stroke-linejoin="round">
+      <path d="M0 0H120M240 0H480"/>
+      <path d="M0 90H480M0 180H480M0 270H480M0 360H360"/>
+      <path d="M0 0V360M120 0V360M240 0V360M360 0V360M480 0V270"/>
+    </g>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#17375e">
+    <text x="635" y="102">A</text><text x="102" y="500">B</text>
+  </g>
+  <path d="M625 92H555" stroke="#ff6f61" stroke-width="7" marker-end="url(#arrow)"/>
+  <path d="M652 105V175" stroke="#ff6f61" stroke-width="7" marker-end="url(#arrow)"/>
+  <text x="410" y="532" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#53657d">Cộng số cách đến mỗi giao điểm từ phía trên và bên phải</text>
+</svg>

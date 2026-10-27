@@ -19,6 +19,7 @@ const digitized = {
   "SASMO-2020-G2": window.questionsSasmo2020G2,
   "TIMO-2020": window.questionsTimo2020,
   ...(window.questionsTimoRemaining || {}),
+  "TIMO-P4-HEAT-2023": window.questionsTimoP4Heat2023,
   "TIMO-P4-HEAT-2019": window.questionsTimoP4Heat2019,
   "TIMO-P4-HEAT-2017": window.questionsTimoP4Heat2017,
   "TIMO-P4-SF-MOCK": window.questionsTimoP4SfMock,
@@ -93,8 +94,8 @@ const digitized = {
   ]
 };
 
-const totals={"SASMO-2020-G2":25,"KANGAROO-2025":24,"KANGAROO-2024":24,"KANGAROO-2023":24,"TIMO-2020":25,"TIMO-P2":25,"TIMO-P3":25,"TIMO-P4":25,"TIMO-P5":25,"TIMO-H1":25,"TIMO-H2":25,"TIMO-H3":25,"TIMO-H4":25,"TIMO-H5":25,"TIMO-P4-HEAT-2019":25,"TIMO-P4-HEAT-2017":25,"TIMO-P4-SF-MOCK":25,"2021":45,"2023":45,"2024":31};
-const paperNames={"SASMO-2020-G2":"SASMO 2020 · Grade 2","KANGAROO-2025":"Kangaroo Écolier 2025","KANGAROO-2024":"Kangaroo Écolier 2024","KANGAROO-2023":"Kangaroo Écolier 2023","TIMO-2020":"TIMO Preliminary 2020–2021 · Lớp 3 / Primary 3","TIMO-P2":"TIMO Preliminary Paper 2 · Lớp 3 / Primary 3","TIMO-P3":"TIMO Preliminary Paper 3 · Lớp 3 / Primary 3","TIMO-P4":"TIMO Preliminary Paper 4 · Lớp 3 / Primary 3","TIMO-P5":"TIMO Preliminary Paper 5 · Lớp 3 / Primary 3","TIMO-H1":"TIMO Heat 2020–2021 · Lớp 3 / Primary 3","TIMO-H2":"TIMO Heat 2019–2020 · Lớp 3 / Primary 3","TIMO-H3":"TIMO Heat 2018–2019 · Lớp 3 / Primary 3","TIMO-H4":"TIMO Heat 2017–2018 · Lớp 3 / Primary 3","TIMO-H5":"TIMO Heat 2016–2017 · Lớp 3 / Primary 3","TIMO-P4-HEAT-2019":"TIMO Heat 2019 · Lớp 4 / Primary 4","TIMO-P4-HEAT-2017":"TIMO Heat 2017 · Lớp 4 / Primary 4","TIMO-P4-SF-MOCK":"TIMO Semi-Final Mock · Lớp 4 / Primary 4","2021":"SMC 2021","2023":"SMC 2023","2024":"SMC 2024"};
+const totals={"SASMO-2020-G2":25,"KANGAROO-2025":24,"KANGAROO-2024":24,"KANGAROO-2023":24,"TIMO-2020":25,"TIMO-P2":25,"TIMO-P3":25,"TIMO-P4":25,"TIMO-P5":25,"TIMO-H1":25,"TIMO-H2":25,"TIMO-H3":25,"TIMO-H4":25,"TIMO-H5":25,"TIMO-P4-HEAT-2023":25,"TIMO-P4-HEAT-2019":25,"TIMO-P4-HEAT-2017":25,"TIMO-P4-SF-MOCK":25,"2021":45,"2023":45,"2024":31};
+const paperNames={"SASMO-2020-G2":"SASMO 2020 · Grade 2","KANGAROO-2025":"Kangaroo Écolier 2025","KANGAROO-2024":"Kangaroo Écolier 2024","KANGAROO-2023":"Kangaroo Écolier 2023","TIMO-2020":"TIMO Preliminary 2020–2021 · Lớp 3 / Primary 3","TIMO-P2":"TIMO Preliminary Paper 2 · Lớp 3 / Primary 3","TIMO-P3":"TIMO Preliminary Paper 3 · Lớp 3 / Primary 3","TIMO-P4":"TIMO Preliminary Paper 4 · Lớp 3 / Primary 3","TIMO-P5":"TIMO Preliminary Paper 5 · Lớp 3 / Primary 3","TIMO-H1":"TIMO Heat 2020–2021 · Lớp 3 / Primary 3","TIMO-H2":"TIMO Heat 2019–2020 · Lớp 3 / Primary 3","TIMO-H3":"TIMO Heat 2018–2019 · Lớp 3 / Primary 3","TIMO-H4":"TIMO Heat 2017–2018 · Lớp 3 / Primary 3","TIMO-H5":"TIMO Heat 2016–2017 · Lớp 3 / Primary 3","TIMO-P4-HEAT-2023":"TIMO Heat 2023 · Lớp 4 / Primary 4","TIMO-P4-HEAT-2019":"TIMO Heat 2019 · Lớp 4 / Primary 4","TIMO-P4-HEAT-2017":"TIMO Heat 2017 · Lớp 4 / Primary 4","TIMO-P4-SF-MOCK":"TIMO Semi-Final Mock · Lớp 4 / Primary 4","2021":"SMC 2021","2023":"SMC 2023","2024":"SMC 2024"};
 const papers=Object.fromEntries(Object.entries(totals).map(([year,total])=>{
   const ready=new Map(digitized[year].map(q=>[q.n,{...q,ready:true}]));
   return [year,Array.from({length:total},(_,i)=>ready.get(i+1)||{n:i+1,ready:false,skill:"In progress",title:`Question ${i+1}`,en:"This question is being digitised from the original paper. Its diagram, answer and child-friendly working will be added here.",vi:"Câu hỏi này đang được số hóa từ đề gốc."})];
