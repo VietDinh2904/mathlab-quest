@@ -64,7 +64,7 @@
     testLink.href = fileFor(selectedLevel, selectedYear);
     answersLink.href = answersFor(selectedYear);
     const meta = levels[selectedLevel];
-    selection.textContent = `Đang chọn: ${meta.label} · ${meta.grade} · năm ${selectedYear}`;
+    selection.textContent = `Đã upload: ${meta.label} · ${meta.grade} · năm ${selectedYear}`;
   }
 
   function renderLibrary() {
