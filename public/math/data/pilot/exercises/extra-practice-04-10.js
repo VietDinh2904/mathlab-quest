@@ -122,7 +122,11 @@
     make("extra-17-3","core","Two trains are 630 km apart and approach at 70 and 56 km/h. When do they meet?","Hai tàu cách nhau 630 km và đi về phía nhau với vận tốc 70 và 56 km/giờ. Khi nào gặp nhau?",[5],"Divide by combined speed.","Chia cho tổng vận tốc.",["630÷(70+56)=5 hours."],["630÷(70+56)=5 giờ."]),
     make("extra-17-4","core","Two runners move in opposite directions for 8 minutes and become 1200 m apart. One runs 70 m/min. Find the other's speed.","Hai bạn chạy ngược hướng trong 8 phút và cách nhau 1200 m. Một bạn chạy 70 m/phút. Tìm vận tốc bạn kia.",[80],"Find combined speed first.","Tìm tổng vận tốc trước.",["Combined speed=1200÷8=150.","Other speed=150−70=80 m/min."],["Tổng vận tốc=1200÷8=150.","Vận tốc còn lại=150−70=80 m/phút."]),
     make("extra-17-5","challenge","Two cars 960 km apart approach at 90 and 70 km/h. At what two times are they 160 km apart?","Hai xe cách nhau 960 km đi về phía nhau với vận tốc 90 và 70 km/giờ. Ở hai thời điểm nào chúng cách nhau 160 km?",[5,7],"Consider before and after meeting.","Xét trước và sau khi gặp.",["Before:(960−160)÷160=5 h.","After:(960+160)÷160=7 h."],["Trước:(960−160)÷160=5 giờ.","Sau:(960+160)÷160=7 giờ."],{en:["before meeting (h)","after meeting (h)"],vi:["trước khi gặp (giờ)","sau khi gặp (giờ)"]})
-  ];
+  ].map((item, index) => ({
+    ...item,
+    visual: `encounter-extra-17-${index + 1}`,
+    visualPlacement: "question",
+  }));
 
   window.PILOT_EXTRA_EXERCISES[18] = [
     make("extra-18-1","warmup","How many multiples of 6 are there from 1 to 600?","Có bao nhiêu bội của 6 từ 1 đến 600?",[100],"Divide 600 by 6.","Chia 600 cho 6.",["600÷6=100."],["600÷6=100."]),
