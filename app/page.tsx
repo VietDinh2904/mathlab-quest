@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { BookOpen, BrainCircuit, Calculator, ChartNoAxesColumnIncreasing, CheckCircle2, ChevronRight, Compass, Eraser, Gamepad2, GraduationCap, Home, LibraryBig, Medal, PenLine, RotateCcw, Sparkles, Trophy, X } from 'lucide-react';
+import { BookOpen, BrainCircuit, Calculator, ChartNoAxesColumnIncreasing, CheckCircle2, ChevronRight, Compass, Eraser, Gamepad2, GraduationCap, Home, LibraryBig, Medal, PenLine, RotateCcw, Sparkles, Trophy, UserRound, X } from 'lucide-react';
 
 type DashboardStats = { answered: number; completed: number; contests: number };
 const BOOKS = [
@@ -25,7 +25,7 @@ function readStats(): DashboardStats {
 }
 
 function Brand() { return <a className="quest-brand" href="/" aria-label="Math Quest Lab"><span className="quest-brand-mark"><Compass /></span><span><strong>Math Quest Lab</strong><small>Học toán như một chuyến phiêu lưu</small></span></a>; }
-function Header() { return <header className="quest-header"><Brand /><nav aria-label="Điều hướng chính"><a className="active" href="/"><Home />Trang chủ</a><a href="/math/"><BookOpen />Sách học</a><a href="/contests/"><Trophy />Đề thi</a><a href="/manage"><ChartNoAxesColumnIncreasing />Quản lý</a></nav><a className="quest-profile" href="/manage" aria-label="Mở trang quản lý"><span>HD</span><b>Quản lý</b></a></header>; }
+function Header() { return <header className="quest-header"><Brand /><nav aria-label="Điều hướng chính"><a className="active" href="/"><Home />Trang chủ</a><a href="/math/"><BookOpen />Sách học</a><a href="/contests/"><Trophy />Đề thi</a><a href="/manage"><ChartNoAxesColumnIncreasing />Quản lý</a></nav><a className="quest-profile" href="/student" aria-label="Đăng nhập học viên"><span><UserRound/></span><b>Học viên</b></a></header>; }
 
 function LearningLoop() {
   const nodes: Array<[string,number,number]> = [['Khám phá',325,42],['Hiểu bài',532,148],['Luyện tập',450,350],['Thi thử',200,350],['Ôn lại',118,148]];
