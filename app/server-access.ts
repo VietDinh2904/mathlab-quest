@@ -1,14 +1,12 @@
 import { env } from 'cloudflare:workers';
-import { eq } from 'drizzle-orm';
 import { getChatGPTUser } from './chatgpt-auth';
-import { getDb } from '../db';
-import { students } from '../db/schema';
 
 export async function getAccess() {
   const user = await getChatGPTUser();
   if (!user) return { user: null, role: 'anonymous' as const, student: null };
-  const adminEmail = String((env as unknown as { ADMIN_EMAIL?: string }).ADMIN_EMAIL || '').toLowerCase();
-  if (adminEmail && user.email === adminEmail) return { user, role: 'admin' as const, student: null };
-  const [student] = await getDb().select().from(students).where(eq(students.email, user.email)).limit(1);
-  return { user, role: student?.status === 'active' ? 'student' as const : 'unapproved' as const, student: student || null };
+  const database = (env as unknown as { DB?: D1Database }).DB;
+  if (!database) return { user, role: 'unapproved' as const, student: null };
+  const account = await database.prepare('SELECT id,email,display_name AS displayName,grade,status,role FROM accounts WHERE id=?').bind(user.userId).first<{id:string,email:string,displayName:string,grade:string,status:string,role:string}>();
+  if (account?.role === 'admin') return { user, role: 'admin' as const, student: null };
+  return { user, role: account?.role === 'student' && account.status === 'active' ? 'student' as const : 'unapproved' as const, student: account || null };
 }

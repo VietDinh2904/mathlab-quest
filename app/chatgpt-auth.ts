@@ -1,16 +1,18 @@
-import { headers } from 'next/headers';
+import { env } from 'cloudflare:workers';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export type ChatGPTUser = { userId: string; email: string; displayName: string };
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
-  const h = await headers();
-  const userId = h.get('oai-authenticated-user-id');
-  const email = h.get('oai-authenticated-user-email');
-  if (!userId || !email) return null;
-  const encoded = h.get('oai-authenticated-user-full-name');
-  const displayName = encoded ? safeDecode(encoded) : email;
-  return { userId, email: email.toLowerCase(), displayName };
+  const token = (await cookies()).get('math_quest_session')?.value;
+  const database = (env as unknown as { DB?: D1Database }).DB;
+  if (!token || !database) return null;
+  const tokenHash = await sha256(token);
+  const account = await database.prepare(`SELECT a.id, a.email, a.display_name AS displayName
+    FROM sessions s JOIN accounts a ON a.id=s.account_id
+    WHERE s.token_hash=? AND s.expires_at > CURRENT_TIMESTAMP AND a.status='active'`).bind(tokenHash).first<{id:string,email:string,displayName:string}>();
+  return account ? { userId: account.id, email: account.email.toLowerCase(), displayName: account.displayName } : null;
 }
 
 export async function requireChatGPTUser(returnTo: string) {
@@ -21,14 +23,13 @@ export async function requireChatGPTUser(returnTo: string) {
 
 export function chatGPTSignInPath(returnTo: string) {
   const safe = returnTo.startsWith('/') && !returnTo.startsWith('//') ? returnTo : '/';
-  return `/signin-with-chatgpt?return_to=${encodeURIComponent(safe)}`;
+  return `/login?next=${encodeURIComponent(safe)}`;
 }
 
 export function chatGPTSignOutPath(returnTo = '/') {
   const safe = returnTo.startsWith('/') && !returnTo.startsWith('//') ? returnTo : '/';
-  return `/signout-with-chatgpt?return_to=${encodeURIComponent(safe)}`;
+  return `/api/auth/logout?next=${encodeURIComponent(safe)}`;
 }
 
-function safeDecode(value: string) {
-  try { return decodeURIComponent(value); } catch { return value; }
-}
+async function sha256(value: string) { const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value)); return toBase64Url(new Uint8Array(digest)); }
+function toBase64Url(bytes: Uint8Array) { return btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/g,''); }
