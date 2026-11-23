@@ -235,6 +235,33 @@ html[data-visual-theme] .journey-heading svg {
   backdrop-filter: blur(14px);
 }
 
+.unified-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-inline: auto;
+  padding: 5px;
+  border: 2px solid var(--theme-primary-dark);
+  border-radius: 16px;
+  background: rgb(255 255 255 / 82%);
+}
+
+.unified-nav a {
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--theme-primary-dark);
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.unified-nav a.active,
+.unified-nav a:hover { background: var(--theme-soft); }
+
+@media (max-width: 980px) {
+  .unified-nav { display: none; }
+}
+
 .theme-option,
 .theme-surprise {
   display: flex;
